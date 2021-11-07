@@ -1,0 +1,1 @@
+From https://github.com/JetBrains/intellij-plugins/tree/master/protobuf

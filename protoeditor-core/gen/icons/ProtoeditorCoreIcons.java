@@ -13,6 +13,6 @@ public final class ProtoeditorCoreIcons {
   private static @NotNull Icon load(@NotNull String path, long cacheKey, int flags) {
     return IconManager.getInstance().loadRasterizedIcon(path, ProtoeditorCoreIcons.class.getClassLoader(), cacheKey, flags);
   }
-  /** 16x16 */ public static final @NotNull Icon ProtoFile = load("protoFile.png", 0L, 1);
-  /** 16x16 */ public static final @NotNull Icon ProtoMessage = load("protoMessage.png", 0L, 1);
+  /** 16x16 */ public static final @NotNull Icon ProtoFile = load("icon/_light/consulo.google.protobuf.ProtobufIconLibrary/protoFile.png", 0L, 1);
+  /** 16x16 */ public static final @NotNull Icon ProtoMessage = load("icon/_light/consulo.google.protobuf.ProtobufIconLibrary/protoMessage.png", 0L, 1);
 }

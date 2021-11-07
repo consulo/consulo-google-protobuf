@@ -1,0 +1,8 @@
+<consulo-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- golang -> proto goto -->
+    <gotoDeclarationHandler
+        implementation="com.intellij.protobuf.go.PbGolangGotoDeclarationHandler"
+        order="first"/>
+  </extensions>
+</consulo-plugin>

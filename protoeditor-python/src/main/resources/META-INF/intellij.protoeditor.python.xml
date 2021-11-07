@@ -1,0 +1,8 @@
+<consulo-plugin>
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Python -> proto goto -->
+    <gotoDeclarationHandler
+      implementation="com.intellij.protobuf.python.PbPythonGotoDeclarationHandler"
+      order="first"/>
+  </extensions>
+</consulo-plugin>
