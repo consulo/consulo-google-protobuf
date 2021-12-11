@@ -16,9 +16,10 @@
 package com.intellij.protobuf.lang;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.util.PbIcons;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,8 +41,8 @@ public class PbFileType extends LanguageFileType {
 
   @NotNull
   @Override
-  public String getDescription() {
-    return PbIdeBundle.message("plugin.name");
+  public LocalizeValue getDescription() {
+    return ProtobufIdeLocalize.pluginName();
   }
 
   @NotNull
