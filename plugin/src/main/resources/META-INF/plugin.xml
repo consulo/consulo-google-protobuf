@@ -1,4 +1,4 @@
-<consulo-plugin>
+<consulo-plugin url="https://github.com/consulo/consulo-google-protobuf">
   <id>consulo.google.protobuf</id>
   <name>Protocol Buffers</name>
   <vendor>JetBrains</vendor>
