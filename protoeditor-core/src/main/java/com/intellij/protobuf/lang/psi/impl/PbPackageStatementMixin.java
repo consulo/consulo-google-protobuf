@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.stubs.IStubElementType;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbPackageStatement;
 import com.intellij.protobuf.lang.stub.PbPackageStatementStub;
+import consulo.language.psi.stub.IStubElementType;
 
 abstract class PbPackageStatementMixin extends PbStubbedElementBase<PbPackageStatementStub>
     implements PbPackageStatement {

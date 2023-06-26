@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.parser;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.parser.GeneratedParserUtilBase;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.impl.parser.GeneratedParserUtilBase;
 import com.intellij.protobuf.lang.psi.ProtoKeywordTokenType;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 import org.jetbrains.annotations.Nullable;

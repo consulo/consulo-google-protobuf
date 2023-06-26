@@ -15,12 +15,13 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NotNull;
 
 /** An element that wraps a {@link ProtoSymbolPath} specifying scoping and resolution behavior. */
-public interface ProtoSymbolPathContainer extends PsiElement {
+public interface ProtoSymbolPathContainer extends PsiElement
+{
 
   Key<ProtoSymbolPathDelegate> DELEGATE_OVERRIDE = Key.create("SYMBOL_PATH_DELEGATE_OVERRIDE");
 

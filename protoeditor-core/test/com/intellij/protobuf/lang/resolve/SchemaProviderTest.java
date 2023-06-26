@@ -15,12 +15,12 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.util.Disposer;
-import com.intellij.psi.util.QualifiedName;
+import consulo.disposer.Disposable;
+import consulo.ide.impl.idea.openapi.util.Disposer;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.psi.*;
+import consulo.language.psi.util.QualifiedName;
 
 /** Test cases for {@link SchemaProvider}. */
 public class SchemaProviderTest extends PbCodeInsightFixtureTestCase {

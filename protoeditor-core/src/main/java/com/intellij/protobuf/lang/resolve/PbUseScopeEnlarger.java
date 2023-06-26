@@ -15,14 +15,15 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.SearchScope;
-import com.intellij.psi.search.UseScopeEnlarger;
 import com.intellij.protobuf.lang.psi.PbElement;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.scope.SearchScope;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.UseScopeEnlarger;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,6 +34,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>Without this, placing the caret over a target that exists in a file outside of the project
  * (such as descriptor.proto) does not highlight other usages of the target.
  */
+@ExtensionImpl
 public class PbUseScopeEnlarger extends UseScopeEnlarger {
 
   @Nullable

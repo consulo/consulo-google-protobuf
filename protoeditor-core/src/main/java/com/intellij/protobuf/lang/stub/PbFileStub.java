@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.stub;
 
-import com.intellij.psi.stubs.PsiFileStubImpl;
-import com.intellij.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.stub.type.PbStubElementTypes;
+import consulo.language.psi.stub.PsiFileStubImpl;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.Nullable;
 
 /** Protobuf file stub. */

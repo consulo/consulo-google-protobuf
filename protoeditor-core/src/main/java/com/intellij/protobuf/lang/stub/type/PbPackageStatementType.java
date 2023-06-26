@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.io.StringRef;
+import consulo.index.io.StringRef;
+import consulo.language.Language;
+import consulo.language.psi.stub.*;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbPackageName;
 import com.intellij.protobuf.lang.psi.PbPackageStatement;
 import com.intellij.protobuf.lang.psi.impl.PbPackageStatementImpl;
@@ -33,7 +33,8 @@ import java.io.IOException;
  * com.intellij.protobuf.lang.psi.PbPackageStatement}.
  */
 public class PbPackageStatementType
-    extends IStubElementType<PbPackageStatementStub, PbPackageStatement> {
+    extends IStubElementType<PbPackageStatementStub, PbPackageStatement>
+{
 
   PbPackageStatementType(String debugName, Language language) {
     super(debugName, language);
@@ -73,7 +74,7 @@ public class PbPackageStatementType
   @NotNull
   @Override
   public PbPackageStatementStub deserialize(
-      @NotNull StubInputStream dataStream, StubElement parentStub)
+		  @NotNull StubInputStream dataStream, StubElement parentStub)
       throws IOException {
     StringRef packageName = dataStream.readName();
     return new PbPackageStatementStub(

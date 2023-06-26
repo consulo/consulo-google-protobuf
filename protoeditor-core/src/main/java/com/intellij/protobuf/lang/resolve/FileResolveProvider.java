@@ -15,12 +15,14 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileFilter;
-import com.intellij.psi.search.GlobalSearchScope;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileFilter;
+import consulo.language.psi.scope.GlobalSearchScope;
 import com.intellij.protobuf.lang.PbFileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,9 +31,9 @@ import java.util.Collection;
 import java.util.Objects;
 
 /** An extension interface that resolves import protobuf files and descriptors. */
+@ExtensionAPI(ComponentScope.PROJECT)
 public interface FileResolveProvider {
-  ExtensionPointName<FileResolveProvider> EP_NAME =
-      ExtensionPointName.create("consulo.google.protobuf.fileResolveProvider");
+  ExtensionPointName<FileResolveProvider> EP_NAME = ExtensionPointName.create(FileResolveProvider.class);
 
   VirtualFileFilter PROTO_AND_DIRECTORY_FILTER =
       file ->

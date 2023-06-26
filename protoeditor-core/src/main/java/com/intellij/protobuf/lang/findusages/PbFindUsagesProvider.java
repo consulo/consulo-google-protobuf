@@ -15,22 +15,28 @@
  */
 package com.intellij.protobuf.lang.findusages;
 
-import com.intellij.lang.cacheBuilder.DefaultWordsScanner;
-import com.intellij.lang.cacheBuilder.WordsScanner;
-import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.PbParserDefinition;
 import com.intellij.protobuf.lang.psi.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.ObjectUtils;
-import consulo.lang.util.LanguageVersionUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.TokenSet;
+import consulo.language.cacheBuilder.DefaultWordsScanner;
+import consulo.language.cacheBuilder.WordsScanner;
+import consulo.language.findUsage.FindUsagesProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.QualifiedName;
+import consulo.language.version.LanguageVersionUtil;
+import consulo.util.lang.ObjectUtil;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Helps find usages (basic support for usages within .proto files). */
+/**
+ * Helps find usages (basic support for usages within .proto files).
+ */
+@ExtensionImpl
 public class PbFindUsagesProvider implements FindUsagesProvider {
 
   @Override
@@ -38,36 +44,40 @@ public class PbFindUsagesProvider implements FindUsagesProvider {
     return psiElement instanceof PbSymbol;
   }
 
-  @Nullable
-  @Override
-  public String getHelpId(@NotNull PsiElement psiElement) {
-    return com.intellij.lang.HelpID.FIND_OTHER_USAGES;
-  }
-
   @NotNull
   @Override
   public String getType(@NotNull PsiElement element) {
     if (element instanceof PbFile) {
       return PbIdeBundle.message("proto.type.file");
-    } else if (element instanceof PbPackageName) {
+    }
+    else if (element instanceof PbPackageName) {
       return PbIdeBundle.message("proto.type.package");
-    } else if (element instanceof PbGroupDefinition) {
+    }
+    else if (element instanceof PbGroupDefinition) {
       return PbIdeBundle.message("proto.type.group");
-    } else if (element instanceof PbField) {
+    }
+    else if (element instanceof PbField) {
       return PbIdeBundle.message("proto.type.field");
-    } else if (element instanceof PbMessageType) {
+    }
+    else if (element instanceof PbMessageType) {
       return PbIdeBundle.message("proto.type.message");
-    } else if (element instanceof PbEnumDefinition) {
+    }
+    else if (element instanceof PbEnumDefinition) {
       return PbIdeBundle.message("proto.type.enum");
-    } else if (element instanceof PbEnumValue) {
+    }
+    else if (element instanceof PbEnumValue) {
       return PbIdeBundle.message("proto.type.enum.value");
-    } else if (element instanceof PbOneofDefinition) {
+    }
+    else if (element instanceof PbOneofDefinition) {
       return PbIdeBundle.message("proto.type.oneof");
-    } else if (element instanceof PbServiceDefinition) {
+    }
+    else if (element instanceof PbServiceDefinition) {
       return PbIdeBundle.message("proto.type.service");
-    } else if (element instanceof PbServiceMethod) {
+    }
+    else if (element instanceof PbServiceMethod) {
       return PbIdeBundle.message("proto.type.method");
-    } else if (element instanceof PbServiceStream) {
+    }
+    else if (element instanceof PbServiceStream) {
       return PbIdeBundle.message("proto.type.stream");
     }
     return PbIdeBundle.message("proto.type.unknown");
@@ -83,7 +93,7 @@ public class PbFindUsagesProvider implements FindUsagesProvider {
   @NotNull
   @Override
   public String getNodeText(@NotNull PsiElement psiElement, boolean useFullName) {
-    PbSymbol symbol = ObjectUtils.tryCast(psiElement, PbSymbol.class);
+    PbSymbol symbol = ObjectUtil.tryCast(psiElement, PbSymbol.class);
     if (symbol != null) {
       if (useFullName) {
         QualifiedName qualifiedName = symbol.getQualifiedName();
@@ -103,9 +113,15 @@ public class PbFindUsagesProvider implements FindUsagesProvider {
   public WordsScanner getWordsScanner() {
     PbParserDefinition parserDefinition = new PbParserDefinition();
     return new DefaultWordsScanner(
-        parserDefinition.createLexer(LanguageVersionUtil.findDefaultVersion(PbLanguage.INSTANCE)),
-        TokenSet.create(ProtoTokenTypes.IDENTIFIER_LITERAL),
-        parserDefinition.getCommentTokens(LanguageVersionUtil.findDefaultVersion(PbLanguage.INSTANCE)),
-        TokenSet.create(ProtoTokenTypes.STRING_LITERAL));
+      parserDefinition.createLexer(LanguageVersionUtil.findDefaultVersion(PbLanguage.INSTANCE)),
+      TokenSet.create(ProtoTokenTypes.IDENTIFIER_LITERAL),
+      parserDefinition.getCommentTokens(LanguageVersionUtil.findDefaultVersion(PbLanguage.INSTANCE)),
+      TokenSet.create(ProtoTokenTypes.STRING_LITERAL));
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

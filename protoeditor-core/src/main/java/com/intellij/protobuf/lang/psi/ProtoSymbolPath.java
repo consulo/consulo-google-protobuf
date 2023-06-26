@@ -15,12 +15,12 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNameIdentifierOwner;
-import com.intellij.psi.PsiNamedElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.resolve.ProtoSymbolPathReference;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiNameIdentifierOwner;
+import consulo.language.psi.PsiNamedElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +29,8 @@ import org.jetbrains.annotations.Nullable;
  * ProtoSymbolPathReference} for more
  * information on its structure.
  */
-public interface ProtoSymbolPath extends PsiElement, PsiNamedElement, PsiNameIdentifierOwner {
+public interface ProtoSymbolPath extends PsiElement, PsiNamedElement, PsiNameIdentifierOwner
+{
 
   /** Return this path's {@link ProtoSymbolPathContainer}. */
   @Nullable

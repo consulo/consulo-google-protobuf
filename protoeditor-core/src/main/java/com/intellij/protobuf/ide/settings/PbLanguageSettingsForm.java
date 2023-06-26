@@ -15,30 +15,26 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.icons.AllIcons.General;
-import com.intellij.openapi.fileChooser.FileChooser;
-import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.options.ConfigurableUi;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.ui.LabeledComponent;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider;
-import com.intellij.ui.*;
-import com.intellij.ui.components.JBCheckBox;
-import com.intellij.ui.components.JBTextField;
-import com.intellij.ui.table.TableView;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.ui.*;
-import com.intellij.util.ui.components.BorderLayoutPanel;
-import com.intellij.util.ui.table.IconTableCellRenderer;
+import consulo.application.AllIcons.General;
+import consulo.configurable.IdeaConfigurableUi;
+import consulo.fileChooser.FileChooserDescriptor;
+import consulo.fileChooser.IdeaFileChooser;
 import consulo.platform.base.icon.PlatformIconGroup;
+import consulo.project.Project;
+import consulo.ui.ex.JBColor;
+import consulo.ui.ex.awt.*;
+import consulo.ui.ex.awt.event.DocumentAdapter;
+import consulo.ui.ex.awt.table.IconTableCellRenderer;
+import consulo.ui.ex.awt.table.ListTableModel;
+import consulo.ui.ex.awt.table.TableView;
 import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.StringUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,8 +51,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-/** The protobuf language settings panel. */
-public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings> {
+/**
+ * The protobuf language settings panel.
+ */
+public class PbLanguageSettingsForm implements IdeaConfigurableUi<PbProjectSettings> {
   // TODO(volkman): Add a help topic or something describing the various settings, and how path
   // order matters.
 
@@ -86,8 +84,8 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
   @Override
   public boolean isModified(@NotNull PbProjectSettings settings) {
     return !(getImportPathEntries().equals(settings.getImportPathEntries())
-        && getDescriptorPath().equals(settings.getDescriptorPath())
-        && isAutoConfigEnabled() == settings.isAutoConfigEnabled());
+      && getDescriptorPath().equals(settings.getDescriptorPath())
+      && isAutoConfigEnabled() == settings.isAutoConfigEnabled());
   }
 
   @Override
@@ -131,54 +129,54 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
     // Component enable/disable happens in an ItemListener so that setSelected() as well as clicking
     // toggles the state.
     autoConfigCheckbox.addItemListener(
-        event -> {
-          boolean autoConfig = ((JCheckBox) event.getSource()).isSelected();
-          manualConfigComponents.forEach(component -> component.setEnabled(!autoConfig));
-        });
+      event -> {
+        boolean autoConfig = ((JCheckBox)event.getSource()).isSelected();
+        manualConfigComponents.forEach(component -> component.setEnabled(!autoConfig));
+      });
     // Re-configuration happens in an ActionListener which is not triggered by setSelected(). This
     // prevents the recursive sequence:
     //   loadSettings() -> setSelected(true) -> applyAutomaticConfiguration() -> loadSettings() ...
     autoConfigCheckbox.addActionListener(
-        event -> {
-          boolean autoConfig = ((JCheckBox) event.getSource()).isSelected();
-          if (autoConfig) {
-            applyAutomaticConfiguration();
-          }
-        });
+      event -> {
+        boolean autoConfig = ((JCheckBox)event.getSource()).isSelected();
+        if (autoConfig) {
+          applyAutomaticConfiguration();
+        }
+      });
   }
 
   private JPanel buildDescriptorPathPanel() {
     List<String> descriptorOptions =
-        new ArrayList<>(
-            ProjectSettingsConfiguratorManager.getInstance(project).getDescriptorPathSuggestions());
+      new ArrayList<>(
+        ProjectSettingsConfiguratorManager.getInstance(project).getDescriptorPathSuggestions());
     descriptorPathField = new ComboBox<>(new CollectionComboBoxModel<>(descriptorOptions));
     descriptorPathField.setEditable(true);
-    JTextField editorComponent = (JTextField) descriptorPathField.getEditor().getEditorComponent();
+    JTextField editorComponent = (JTextField)descriptorPathField.getEditor().getEditorComponent();
     editorComponent
-        .getDocument()
-        .addDocumentListener(
-            new DocumentAdapter() {
-              @Override
-              protected void textChanged(@NotNull DocumentEvent e) {
-                updateDescriptorPathColor();
-              }
-            });
+      .getDocument()
+      .addDocumentListener(
+        new DocumentAdapter() {
+          @Override
+          protected void textChanged(@NotNull DocumentEvent e) {
+            updateDescriptorPathColor();
+          }
+        });
     importPathModel.addTableModelListener(event -> updateDescriptorPathColor());
     return LabeledComponent.create(
-        descriptorPathField,
-        PbIdeBundle.message("settings.language.descriptor.path"));
+      descriptorPathField,
+      PbIdeBundle.message("settings.language.descriptor.path"));
   }
 
   private JPanel buildImportPathsPanel() {
     JPanel panel = new BorderLayoutPanel();
     UIUtil.addBorder(
-        panel,
-        IdeBorderFactory.createTitledBorder(
-            PbIdeBundle.message("settings.language.import.paths"), false));
+      panel,
+      IdeBorderFactory.createTitledBorder(
+        PbIdeBundle.message("settings.language.import.paths"), false));
 
     importPathModel = new ListTableModel<>(
-        new LocationColumn(PbIdeBundle.message("location")),
-        new PrefixColumn(PbIdeBundle.message("prefix"))
+      new LocationColumn(PbIdeBundle.message("location")),
+      new PrefixColumn(PbIdeBundle.message("prefix"))
     );
     TableView<ImportPath> importPathTable = new TableView<>(importPathModel);
     importPathTable.setStriped(true);
@@ -189,17 +187,17 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
 
     ToolbarDecorator decorator = ToolbarDecorator.createDecorator(importPathTable, null);
     decorator.setAddAction(
-        (button) -> {
-          VirtualFile selectedFile =
-              FileChooser.chooseFile(getFileChooserDescriptor(null), project, null);
-          if (selectedFile != null) {
-            importPathModel.addRow(new ImportPath(selectedFile.getUrl()));
-          }
-        });
+      (button) -> {
+        VirtualFile selectedFile =
+          IdeaFileChooser.chooseFile(getFileChooserDescriptor(null), project, null);
+        if (selectedFile != null) {
+          importPathModel.addRow(new ImportPath(selectedFile.getUrl()));
+        }
+      });
     decorator.setEditAction(
-        (button) ->
-            importPathTable.editCellAt(
-                importPathTable.getSelectedRow(), importPathTable.getSelectedColumn()));
+      (button) ->
+        importPathTable.editCellAt(
+          importPathTable.getSelectedRow(), importPathTable.getSelectedColumn()));
 
     panel.add(decorator.createPanel(), BorderLayout.CENTER);
     return panel;
@@ -207,14 +205,14 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
 
   private List<ImportPathEntry> getImportPathEntries() {
     return importPathModel
-        .getItems()
-        .stream()
-        .map(ImportPath::toEntry)
-        .collect(Collectors.toList());
+      .getItems()
+      .stream()
+      .map(ImportPath::toEntry)
+      .collect(Collectors.toList());
   }
 
   private String getDescriptorPath() {
-    return (String) descriptorPathField.getEditor().getItem();
+    return (String)descriptorPathField.getEditor().getItem();
   }
 
   private boolean isAutoConfigEnabled() {
@@ -231,10 +229,11 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
   private void updateDescriptorPathColor() {
     if (isDescriptorPathValid()) {
       descriptorPathField
-          .getEditor()
-          .getEditorComponent()
-          .setForeground(UIUtil.getTextFieldForeground());
-    } else {
+        .getEditor()
+        .getEditorComponent()
+        .setForeground(UIUtil.getTextFieldForeground());
+    }
+    else {
       descriptorPathField.getEditor().getEditorComponent().setForeground(JBColor.RED);
     }
   }
@@ -259,8 +258,8 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
         false, // chooseJarsAsFiles
         true, // chooseJarContents
         false) // chooseMultiple
-        .withShowFileSystemRoots(true)
-        .withShowHiddenFiles(true);
+               .withShowFileSystemRoots(true)
+               .withShowHiddenFiles(true);
     if (title != null) {
       descriptor.setTitle(title);
     }
@@ -304,7 +303,7 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
 
         @Override
         protected void setValue(Object value) {
-          String url = (String) value;
+          String url = (String)value;
           VirtualFile file = VirtualFileManager.getInstance().findFileByUrl(url);
           if (file == null || !file.isDirectory()) {
             setForeground(JBColor.RED);
@@ -390,33 +389,33 @@ public class PbLanguageSettingsForm implements ConfigurableUi<PbProjectSettings>
 
     @Override
     public Component getTableCellEditorComponent(
-        final JTable table, Object value, boolean isSelected, final int row, int column) {
+      final JTable table, Object value, boolean isSelected, final int row, int column) {
       component =
-          new CellEditorComponentWithBrowseButton<>(
-              new TextFieldWithBrowseButton(createActionListener(table)), this);
-      component.getChildComponent().setText((String) value);
+        new CellEditorComponentWithBrowseButton<>(
+          new TextFieldWithBrowseButton(createActionListener(table)), this);
+      component.getChildComponent().setText((String)value);
       component.setFocusable(false);
       return component;
     }
 
     @Override
     public boolean isCellEditable(EventObject e) {
-      return !(e instanceof MouseEvent) || ((MouseEvent) e).getClickCount() >= 2;
+      return !(e instanceof MouseEvent) || ((MouseEvent)e).getClickCount() >= 2;
     }
 
     private ActionListener createActionListener(final JTable table) {
       return e -> {
-        String initialValue = (String) getCellEditorValue();
+        String initialValue = (String)getCellEditorValue();
         VirtualFile initialFile =
-            !StringUtil.isEmpty(initialValue)
-                ? VirtualFileManager.getInstance().findFileByUrl(initialValue)
-                : null;
-        FileChooser.chooseFile(
-            getFileChooserDescriptor(title),
-            project,
-            table,
-            initialFile,
-            file -> component.getChildComponent().setText(file.getUrl()));
+          !StringUtil.isEmpty(initialValue)
+            ? VirtualFileManager.getInstance().findFileByUrl(initialValue)
+            : null;
+        IdeaFileChooser.chooseFile(
+          getFileChooserDescriptor(title),
+          project,
+          table,
+          initialFile,
+          file -> component.getChildComponent().setText(file.getUrl()));
       };
     }
   }

@@ -15,8 +15,10 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
-import com.intellij.openapi.project.Project;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,9 +26,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 /** An extension point interface for automatically configuring {@link PbProjectSettings}. */
+@ExtensionAPI(ComponentScope.PROJECT)
 public interface ProjectSettingsConfigurator {
-  ExtensionPointName<ProjectSettingsConfigurator> EP_NAME =
-      ExtensionPointName.create("consulo.google.protobuf.projectSettingsConfigurator");
+  ExtensionPointName<ProjectSettingsConfigurator> EP_NAME = ExtensionPointName.create(ProjectSettingsConfigurator.class);
 
   /**
    * Possibly configure the provided {@link PbProjectSettings} object for the given project.

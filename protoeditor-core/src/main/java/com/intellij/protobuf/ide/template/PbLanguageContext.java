@@ -15,30 +15,36 @@
  */
 package com.intellij.protobuf.ide.template;
 
-import com.intellij.codeInsight.template.TemplateActionContext;
-import com.intellij.codeInsight.template.TemplateContextType;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.PsiUtilCore;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.context.TemplateActionContext;
+import consulo.language.editor.template.context.TemplateContextType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiUtilCore;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 
-/** Defines a Live Template context for protobuf files types. */
-class PbLanguageContext extends TemplateContextType {
+/**
+ * Defines a Live Template context for protobuf files types.
+ */
+@ExtensionImpl
+public class PbLanguageContext extends TemplateContextType {
 
-  PbLanguageContext() {
+  public PbLanguageContext() {
     super("PROTO", PbIdeBundle.message("settings.project.display"));
   }
 
   @Override
   public boolean isInContext(@NotNull TemplateActionContext templateActionContext) {
     return PbLanguage.INSTANCE.is(PsiUtilCore.getLanguageAtOffset(
-        templateActionContext.getFile(), templateActionContext.getStartOffset()));
+      templateActionContext.getFile(), templateActionContext.getStartOffset()));
   }
 
-  /** Base context that returns true when the closest parent block is of the given type. */
+  /**
+   * Base context that returns true when the closest parent block is of the given type.
+   */
   abstract static class BlockBodyContext extends TemplateContextType {
 
     private final Class<? extends PbBlockBody> bodyClass;
@@ -51,44 +57,10 @@ class PbLanguageContext extends TemplateContextType {
     @Override
     public boolean isInContext(@NotNull TemplateActionContext templateActionContext) {
       PsiElement element = PsiUtilCore.getElementAtOffset(
-          templateActionContext.getFile(), templateActionContext.getStartOffset());
+        templateActionContext.getFile(), templateActionContext.getStartOffset());
       return bodyClass.isInstance(
-          PsiTreeUtil.getParentOfType(element, PbBlockBody.class, /* strict */ false));
+        PsiTreeUtil.getParentOfType(element, PbBlockBody.class, /* strict */ false));
     }
   }
 
-  /** {@link TemplateContextType} implementation that matches within an extend body. */
-  static class ExtendBody extends BlockBodyContext {
-    ExtendBody() {
-      super("PROTO_EXTEND", PbIdeBundle.message("template.type.extend"), PbExtendBody.class);
-    }
-  }
-
-  /** {@link TemplateContextType} implementation that matches within an enum. */
-  static class EnumBody extends BlockBodyContext {
-    EnumBody() {
-      super("PROTO_ENUM", PbIdeBundle.message("template.type.enum"), PbEnumBody.class);
-    }
-  }
-
-  /** {@link TemplateContextType} implementation that matches within a message. */
-  static class MessageBody extends BlockBodyContext {
-    MessageBody() {
-      super("PROTO_MESSAGE", PbIdeBundle.message("template.type.message"), PbMessageBody.class);
-    }
-  }
-
-  /** {@link TemplateContextType} implementation that matches within a oneof. */
-  static class OneofBody extends BlockBodyContext {
-    OneofBody() {
-      super("PROTO_ONEOF", PbIdeBundle.message("template.type.extend"), PbOneofBody.class);
-    }
-  }
-
-  /** {@link TemplateContextType} implementation that matches within a service. */
-  static class ServiceBody extends BlockBodyContext {
-    ServiceBody() {
-      super("PROTO_SERVICE", PbIdeBundle.message("template.type.service"), PbServiceBody.class);
-    }
-  }
 }

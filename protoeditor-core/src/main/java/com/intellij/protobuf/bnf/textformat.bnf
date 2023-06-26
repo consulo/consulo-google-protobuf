@@ -15,10 +15,11 @@
 {
   generate=[names="long" psi="yes" tokens="no"]
 
+  version = "3"
   parserClass="com.intellij.protobuf.lang.parser.PbTextParser"
   parserUtilClass="com.intellij.protobuf.lang.parser.PbParserUtil"
   parserImports=[
-    "com.intellij.lang.parser.GeneratedParserUtilBase.Parser"
+    "consulo.language.impl.parser.GeneratedParserUtilBase.Parser"
     "static com.intellij.protobuf.lang.psi.ProtoTokenTypes.*"
   ]
 

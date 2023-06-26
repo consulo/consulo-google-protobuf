@@ -15,8 +15,10 @@
  */
 package com.intellij.protobuf.lang.refactor;
 
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiNamedElement;
+import consulo.language.psi.PsiReferenceBase;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.PsiFile;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 
@@ -26,8 +28,8 @@ import static com.intellij.testFramework.EditorTestUtil.CARET_TAG;
 
 /**
  * Tests for the refactor rename action (handled by {@link
- * com.intellij.psi.PsiReferenceBase#handleElementRename(String)} and {@link
- * com.intellij.psi.PsiNamedElement#setName(String)}).
+ * PsiReferenceBase#handleElementRename(String)} and {@link
+ * PsiNamedElement#setName(String)}).
  */
 public class PbRefactorRenameTest extends PbCodeInsightFixtureTestCase {
 

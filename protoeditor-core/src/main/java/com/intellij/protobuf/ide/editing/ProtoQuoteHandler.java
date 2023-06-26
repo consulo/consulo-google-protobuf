@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
+import consulo.language.editor.action.SimpleTokenSetQuoteHandler;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 
 /** Quote handler for protobuf and prototext files. */

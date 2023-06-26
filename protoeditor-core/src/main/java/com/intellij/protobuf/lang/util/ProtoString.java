@@ -16,7 +16,7 @@
 package com.intellij.protobuf.lang.util;
 
 import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.util.TextRange;
+import consulo.document.util.TextRange;
 import com.intellij.protobuf.lang.lexer.StringLexer;
 
 import java.util.Arrays;

@@ -15,18 +15,18 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.impl.source.resolve.ResolveCache;
-import com.intellij.psi.impl.source.tree.LeafElement;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiReferenceBase;
+import consulo.language.psi.resolve.ResolveCache;
+import consulo.language.impl.ast.LeafElement;
+import consulo.language.psi.util.PsiTreeUtil;
 import com.intellij.protobuf.lang.annotation.OptionOccurrenceTracker;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

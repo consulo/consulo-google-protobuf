@@ -15,12 +15,12 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.protobuf.ide.util.PbIcons;
 import com.intellij.protobuf.lang.psi.PbExtendDefinition;
 import com.intellij.protobuf.lang.psi.PbTypeName;
 import com.intellij.protobuf.lang.stub.PbExtendDefinitionStub;
-import com.intellij.psi.stubs.IStubElementType;
+import consulo.language.psi.stub.IStubElementType;
+import consulo.language.ast.ASTNode;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

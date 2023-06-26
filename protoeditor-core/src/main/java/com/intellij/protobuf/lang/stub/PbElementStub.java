@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.stub;
 
-import com.intellij.psi.stubs.StubElement;
+import consulo.language.psi.stub.StubElement;
 import com.intellij.protobuf.lang.psi.PbElement;
 
 /** A base {@link StubElement} for {@link PbElement} elements. */

@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.protobuf.lang.psi.PbNumberValue;
 import com.intellij.protobuf.lang.psi.PbReservedRange;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.ast.ASTNode;
 import org.jetbrains.annotations.Nullable;
 
 abstract class PbEnumReservedRangeMixin extends PbElementBase implements PbReservedRange {

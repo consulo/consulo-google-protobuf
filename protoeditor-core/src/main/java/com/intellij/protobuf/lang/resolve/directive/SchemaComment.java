@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiReference;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiReference;
+import consulo.document.util.TextRange;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

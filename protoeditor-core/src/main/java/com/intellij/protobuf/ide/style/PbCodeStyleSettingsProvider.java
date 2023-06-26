@@ -15,22 +15,24 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.application.options.CodeStyleAbstractConfigurable;
-import com.intellij.application.options.CodeStyleAbstractPanel;
-import com.intellij.application.options.TabbedLanguageCodeStylePanel;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
-import com.intellij.openapi.editor.highlighter.EditorHighlighter;
-import com.intellij.openapi.editor.highlighter.EditorHighlighterFactory;
-import com.intellij.openapi.options.Configurable;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.highlighter.PbSyntaxHighlighter;
 import com.intellij.protobuf.lang.PbLanguage;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.EditorHighlighter;
+import consulo.colorScheme.EditorColorsScheme;
+import consulo.configurable.Configurable;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.setting.CodeStyleSettingsProvider;
+import consulo.language.codeStyle.ui.setting.CodeStyleAbstractConfigurable;
+import consulo.language.codeStyle.ui.setting.CodeStyleAbstractPanel;
+import consulo.language.codeStyle.ui.setting.TabbedLanguageCodeStylePanel;
+import consulo.language.editor.highlight.EditorHighlighterFactory;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@ExtensionImpl
 public class PbCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 
   @Override
@@ -46,7 +48,7 @@ public class PbCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
   @NotNull
   @Override
   public Configurable createSettingsPage(
-      @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
+    @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
     return new CodeStyleAbstractConfigurable(settings, originalSettings, PbIdeBundle.message("plugin.name")) {
       @Override
       protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
@@ -69,7 +71,7 @@ public class PbCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     @Override
     protected EditorHighlighter createHighlighter(EditorColorsScheme scheme) {
       return EditorHighlighterFactory.getInstance()
-          .createEditorHighlighter(new PbSyntaxHighlighter(true), scheme);
+                                     .createEditorHighlighter(new PbSyntaxHighlighter(true), scheme);
     }
   }
 }

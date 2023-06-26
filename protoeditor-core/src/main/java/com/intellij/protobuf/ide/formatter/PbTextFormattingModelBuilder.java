@@ -15,57 +15,56 @@
  */
 package com.intellij.protobuf.ide.formatter;
 
-import com.intellij.formatting.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.protobuf.lang.PbTextLanguage;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.codeStyle.*;
+import consulo.language.psi.PsiFile;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-/** A {@link FormattingModelBuilder} for prototext files. */
+/**
+ * A {@link FormattingModelBuilder} for prototext files.
+ */
+@ExtensionImpl
 public class PbTextFormattingModelBuilder implements FormattingModelBuilder {
-
   @NotNull
   @Override
   public FormattingModel createModel(@NotNull FormattingContext formattingContext) {
     PsiFile file = formattingContext.getContainingFile();
     return FormattingModelProvider.createFormattingModelForPsiFile(
-        file,
-        new PbTextBlock(
-            formattingContext.getNode(),
-            Wrap.createWrap(WrapType.NONE, false),
-            /* alignment= */ null,
-            createSpaceBuilder(formattingContext.getCodeStyleSettings())),
-        formattingContext.getCodeStyleSettings());
+      file,
+      new PbTextBlock(
+        formattingContext.getNode(),
+        Wrap.createWrap(WrapType.NONE, false),
+        /* alignment= */ null,
+        createSpaceBuilder(formattingContext.getCodeStyleSettings())),
+      formattingContext.getCodeStyleSettings());
   }
 
   private static SpacingBuilder createSpaceBuilder(CodeStyleSettings settings) {
     CommonCodeStyleSettings commonSettings = settings.getCommonSettings(PbTextLanguage.INSTANCE);
     return new SpacingBuilder(commonSettings)
-        .withinPair(ProtoTokenTypes.LBRACE, ProtoTokenTypes.RBRACE)
-        .spaceIf(commonSettings.SPACE_WITHIN_BRACES, false)
-        .withinPair(ProtoTokenTypes.LT, ProtoTokenTypes.GT)
-        .spaceIf(commonSettings.SPACE_WITHIN_BRACES, false)
-        .withinPair(ProtoTokenTypes.LBRACK, ProtoTokenTypes.RBRACK)
-        .spaceIf(commonSettings.SPACE_WITHIN_BRACKETS, false)
-        .before(ProtoTokenTypes.COMMA)
-        .spaceIf(commonSettings.SPACE_BEFORE_COMMA)
-        .after(ProtoTokenTypes.COMMA)
-        .spaceIf(commonSettings.SPACE_AFTER_COMMA)
-        .before(ProtoTokenTypes.COLON)
-        .spaceIf(commonSettings.SPACE_BEFORE_COLON)
-        .after(ProtoTokenTypes.COLON)
-        .spaceIf(commonSettings.SPACE_AFTER_COLON);
+      .withinPair(ProtoTokenTypes.LBRACE, ProtoTokenTypes.RBRACE)
+      .spaceIf(commonSettings.SPACE_WITHIN_BRACES, false)
+      .withinPair(ProtoTokenTypes.LT, ProtoTokenTypes.GT)
+      .spaceIf(commonSettings.SPACE_WITHIN_BRACES, false)
+      .withinPair(ProtoTokenTypes.LBRACK, ProtoTokenTypes.RBRACK)
+      .spaceIf(commonSettings.SPACE_WITHIN_BRACKETS, false)
+      .before(ProtoTokenTypes.COMMA)
+      .spaceIf(commonSettings.SPACE_BEFORE_COMMA)
+      .after(ProtoTokenTypes.COMMA)
+      .spaceIf(commonSettings.SPACE_AFTER_COMMA)
+      .before(ProtoTokenTypes.COLON)
+      .spaceIf(commonSettings.SPACE_BEFORE_COLON)
+      .after(ProtoTokenTypes.COLON)
+      .spaceIf(commonSettings.SPACE_AFTER_COLON);
   }
 
-  @Nullable
+  @Nonnull
   @Override
-  public TextRange getRangeAffectingIndent(PsiFile file, int offset, ASTNode elementAtOffset) {
-    return null;
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

@@ -15,19 +15,23 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.application.options.CodeStyleAbstractConfigurable;
-import com.intellij.application.options.CodeStyleAbstractPanel;
-import com.intellij.application.options.TabbedLanguageCodeStylePanel;
-import com.intellij.openapi.options.Configurable;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbTextLanguage;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.Configurable;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.setting.CodeStyleSettingsProvider;
+import consulo.language.codeStyle.ui.setting.CodeStyleAbstractConfigurable;
+import consulo.language.codeStyle.ui.setting.CodeStyleAbstractPanel;
+import consulo.language.codeStyle.ui.setting.TabbedLanguageCodeStylePanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** {@link CodeStyleSettingsProvider} for use with prototext files. */
+/**
+ * {@link CodeStyleSettingsProvider} for use with prototext files.
+ */
+@ExtensionImpl
 public class PbTextCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
 
   @Override
@@ -43,7 +47,7 @@ public class PbTextCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
   @NotNull
   @Override
   public Configurable createSettingsPage(
-      @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
+    @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
     return new CodeStyleAbstractConfigurable(settings, originalSettings, PbIdeBundle.message("prototext.name")) {
       @Override
       protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {

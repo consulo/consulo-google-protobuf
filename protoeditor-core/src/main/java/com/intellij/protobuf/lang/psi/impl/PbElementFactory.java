@@ -15,25 +15,25 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.PsiBuilderFactory;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.impl.ast.TreeElement;
+import consulo.language.parser.PsiBuilderFactory;
+import consulo.language.psi.PsiManager;
+import consulo.language.version.LanguageVersionUtil;
+import consulo.project.Project;
+import consulo.document.util.TextRange;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.PbParserDefinition;
 import com.intellij.protobuf.lang.parser.PbParser;
 import com.intellij.protobuf.lang.psi.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.impl.source.DummyHolder;
-import com.intellij.psi.impl.source.DummyHolderFactory;
-import com.intellij.psi.impl.source.tree.TreeElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.QualifiedName;
-import consulo.lang.LanguageVersion;
-import consulo.lang.util.LanguageVersionUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.impl.psi.DummyHolder;
+import consulo.language.impl.psi.DummyHolderFactory;
+import consulo.language.psi.util.QualifiedName;
+import consulo.language.version.LanguageVersion;
+import consulo.language.parser.PsiBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;

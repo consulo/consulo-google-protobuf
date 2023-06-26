@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.lexer.LayeredLexer;
 import com.intellij.protobuf.lang.lexer.ProtoLexer;
 import com.intellij.protobuf.lang.lexer.StringLexer;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.lexer.LayeredLexer;
 
 /**
  * This lexer can be used to highlight keywords in addition to other token types (strings, numbers,
@@ -26,7 +26,8 @@ import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
  * elsewhere. It can be used for highlighting files in color and formatting settings, where the
  * {@link PbHighlightingAnnotator} is not used.
  */
-public class PbFullHighlightingLexer extends LayeredLexer {
+public class PbFullHighlightingLexer extends LayeredLexer
+{
   PbFullHighlightingLexer() {
     super(ProtoLexer.forProtobufWithKeywords());
     registerLayer(

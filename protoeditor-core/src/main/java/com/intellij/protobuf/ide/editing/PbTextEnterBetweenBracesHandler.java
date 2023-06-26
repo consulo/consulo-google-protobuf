@@ -15,39 +15,33 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.codeInsight.editorActions.enter.EnterBetweenBracesHandler;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
-import com.intellij.openapi.util.Ref;
-import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.Language;
+import consulo.language.editor.action.EnterBetweenBracesDelegate;
+import consulo.language.psi.PsiFile;
+import jakarta.annotation.Nonnull;
 
 /**
  * EnterBetweenBracesHandler implementation for prototext files.
- *
- * TODO: Figure out how to not extend the deprecated handler class. We use ProtoTypedHandler#inTextFormat rather than
- * just checking language equality.
  */
-public class PbTextEnterBetweenBracesHandler extends EnterBetweenBracesHandler {
+@ExtensionImpl
+public class PbTextEnterBetweenBracesHandler extends EnterBetweenBracesDelegate {
 
   @Override
-  public Result preprocessEnter(
-      @NotNull PsiFile file,
-      @NotNull Editor editor,
-      @NotNull Ref<Integer> caretOffsetRef,
-      @NotNull Ref<Integer> caretAdvance,
-      @NotNull DataContext dataContext,
-      EditorActionHandler originalHandler) {
-    if (!ProtoTypedHandler.inTextFormat(file, editor)) {
-      return Result.Continue;
-    }
-    return super.preprocessEnter(
-        file, editor, caretOffsetRef, caretAdvance, dataContext, originalHandler);
+  public boolean isApplicable(@Nonnull PsiFile file, @Nonnull Editor editor, CharSequence documentText, int caretOffset) {
+    return ProtoTypedHandler.inTextFormat(file, editor);
   }
 
   @Override
-  protected boolean isBracePair(char c1, char c2) {
+  public boolean isBracePair(char c1, char c2) {
     return (c1 == '{' && c2 == '}') || (c1 == '[' && c2 == ']') || (c1 == '<' && c2 == '>');
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

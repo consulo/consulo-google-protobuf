@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.codeInsight.completion.CompletionType;
+import consulo.language.editor.completion.CompletionType;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbTextFileType;

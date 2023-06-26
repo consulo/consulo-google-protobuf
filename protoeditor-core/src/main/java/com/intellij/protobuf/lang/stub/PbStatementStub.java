@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.stub;
 
-import com.intellij.psi.stubs.StubElement;
+import consulo.language.psi.stub.StubElement;
 import com.intellij.protobuf.lang.psi.PbElement;
 import com.intellij.protobuf.lang.psi.PbStatement;
 import org.jetbrains.annotations.Nullable;

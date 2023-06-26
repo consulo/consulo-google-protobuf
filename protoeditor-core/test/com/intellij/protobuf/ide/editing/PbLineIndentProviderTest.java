@@ -15,15 +15,15 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.actions.EnterAction;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.codeStyle.lineIndent.LineIndentProvider;
-import com.intellij.psi.impl.source.codeStyle.lineIndent.FormatterBasedLineIndentProvider;
-import com.intellij.util.text.CharArrayUtil;
+import consulo.language.editor.WriteCommandAction;
+import consulo.document.Document;
+import consulo.codeEditor.Editor;
+import consulo.ide.impl.idea.openapi.editor.actions.EnterAction;
+import consulo.project.Project;
+import consulo.document.util.TextRange;
+import consulo.ide.impl.psi.codeStyle.lineIndent.LineIndentProvider;
+import consulo.ide.impl.psi.impl.source.codeStyle.lineIndent.FormatterBasedLineIndentProvider;
+import consulo.util.lang.CharArrayUtil;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbLanguage;
@@ -49,8 +49,8 @@ public class PbLineIndentProviderTest extends PbCodeInsightFixtureTestCase {
   public void testAgreementWithFormatter() {
     myFixture.configureByFile("LineIndentProvider.proto.testdata");
 
-    LineIndentProvider customProvider = new PbLineIndentProvider();
-    LineIndentProvider formatterProvider = new FormatterBasedLineIndentProvider();
+    consulo.ide.impl.psi.codeStyle.lineIndent.LineIndentProvider customProvider = new PbLineIndentProvider();
+    consulo.ide.impl.psi.codeStyle.lineIndent.LineIndentProvider formatterProvider = new consulo.ide.impl.psi.impl.source.codeStyle.lineIndent.FormatterBasedLineIndentProvider();
     String customText = buildIndentedOutput(customProvider, formatterProvider);
     String formatterText = buildIndentedOutput(formatterProvider, formatterProvider);
 
@@ -64,7 +64,7 @@ public class PbLineIndentProviderTest extends PbCodeInsightFixtureTestCase {
   // - finally, return the document text
   // This mimics pressing return at each new line. The output should be a properly-indented file.
   private String buildIndentedOutput(
-      LineIndentProvider provider, LineIndentProvider formatterProvider) {
+		  consulo.ide.impl.psi.codeStyle.lineIndent.LineIndentProvider provider, LineIndentProvider formatterProvider) {
     Project project = getProject();
     Editor editor = getEditor();
     Document document = getEditor().getDocument();
@@ -104,7 +104,7 @@ public class PbLineIndentProviderTest extends PbCodeInsightFixtureTestCase {
   }
 
   private static void convertNewlineToEnterAction(
-      Project project, Editor editor, Document document, int offset) {
+		  Project project, Editor editor, Document document, int offset) {
     // Delete the preceding newline, then run the enter action which will add back the newline
     // plus some amount of indent copied from the previous line.
     if (offset != 0) {
@@ -114,7 +114,7 @@ public class PbLineIndentProviderTest extends PbCodeInsightFixtureTestCase {
             editor.getCaretModel().moveToOffset(offset);
             assertEquals('\n', document.getCharsSequence().charAt(offset - 1));
             document.deleteString(offset - 1, offset);
-            EnterAction.insertNewLineAtCaret(editor);
+            consulo.ide.impl.idea.openapi.editor.actions.EnterAction.insertNewLineAtCaret(editor);
           });
     }
   }

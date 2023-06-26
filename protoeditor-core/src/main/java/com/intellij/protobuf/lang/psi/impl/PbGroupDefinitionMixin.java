@@ -15,16 +15,16 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.protobuf.ide.util.PbIcons;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.impl.PbElementFactory.FieldBuilder;
 import com.intellij.protobuf.lang.stub.PbGroupDefinitionStub;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.stubs.IStubElementType;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.stub.IStubElementType;
+import consulo.language.psi.util.LanguageCachedValueUtil;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -58,7 +58,7 @@ abstract class PbGroupDefinitionMixin extends PbStubbedSymbolOwnerBase<PbGroupDe
   @Nullable
   @Override
   public PbSimpleField getGeneratedField() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this, () -> Result.create(generateField(), PsiModificationTracker.MODIFICATION_COUNT));
   }
 

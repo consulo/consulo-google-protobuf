@@ -15,21 +15,24 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.codeInsight.CodeInsightSettings;
-import com.intellij.codeInsight.editorActions.BackspaceHandlerDelegate;
-import com.intellij.codeInsight.highlighting.BraceMatcher;
-import com.intellij.codeInsight.highlighting.BraceMatchingUtil;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.highlighter.HighlighterIterator;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbTextFile;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.EditorEx;
+import consulo.codeEditor.HighlighterIterator;
+import consulo.language.editor.CodeInsightSettings;
+import consulo.language.editor.action.BackspaceHandlerDelegate;
+import consulo.language.editor.action.BraceMatchingUtil;
+import consulo.language.editor.highlight.BraceMatcher;
+import consulo.language.psi.PsiFile;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * A {@link BackspaceHandlerDelegate} that handles deletion of autoinserted '>' characters when the
  * leading '<' is deleted. Equivalent to how deleting a '{' after then '}' is autoinserted works.
  */
+@ExtensionImpl
 public class ProtoBackspaceHandler extends BackspaceHandlerDelegate {
 
   @Override
@@ -51,7 +54,7 @@ public class ProtoBackspaceHandler extends BackspaceHandlerDelegate {
         return false;
       }
 
-      HighlighterIterator iterator = editor.getHighlighter().createIterator(offset);
+      HighlighterIterator iterator = ((EditorEx)editor).getHighlighter().createIterator(offset);
       BraceMatcher braceMatcher = BraceMatchingUtil.getBraceMatcher(file.getFileType(), iterator);
       if (!braceMatcher.isLBraceToken(iterator, chars, file.getFileType())
           && !braceMatcher.isRBraceToken(iterator, chars, file.getFileType())) {
@@ -60,9 +63,9 @@ public class ProtoBackspaceHandler extends BackspaceHandlerDelegate {
 
       int rparenOffset =
           BraceMatchingUtil.findRightmostRParen(
-              iterator, iterator.getTokenType(), chars, file.getFileType());
+            iterator, (consulo.language.ast.IElementType)iterator.getTokenType(), chars, file.getFileType());
       if (rparenOffset >= 0) {
-        iterator = editor.getHighlighter().createIterator(rparenOffset);
+        iterator = ((EditorEx)editor).getHighlighter().createIterator(rparenOffset);
         boolean matched = BraceMatchingUtil.matchBrace(chars, file.getFileType(), iterator, false);
         if (matched) {
           return false;

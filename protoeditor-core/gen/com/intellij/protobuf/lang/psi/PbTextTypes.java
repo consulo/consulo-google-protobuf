@@ -1,10 +1,10 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiElement;
 import com.intellij.protobuf.lang.psi.impl.*;
+import consulo.language.ast.ASTNode;
 
 public interface PbTextTypes {
 

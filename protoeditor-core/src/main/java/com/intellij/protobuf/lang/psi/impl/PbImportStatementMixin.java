@@ -15,11 +15,11 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.psi.PsiElement;
+import consulo.language.ast.TokenSet;
 import com.intellij.protobuf.lang.psi.PbImportStatement;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.ast.ASTNode;
 import org.jetbrains.annotations.Nullable;
 
 abstract class PbImportStatementMixin extends PbStatementBase implements PbImportStatement {

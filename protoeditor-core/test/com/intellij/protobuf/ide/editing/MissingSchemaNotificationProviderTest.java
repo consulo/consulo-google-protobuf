@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.openapi.fileEditor.TextEditor;
+import consulo.fileEditor.TextEditor;
 import com.intellij.openapi.fileEditor.impl.text.TextEditorProvider;
-import com.intellij.psi.PsiFile;
-import com.intellij.ui.EditorNotificationPanel;
+import consulo.language.psi.PsiFile;
+import consulo.ide.impl.idea.ui.EditorNotificationPanel;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;

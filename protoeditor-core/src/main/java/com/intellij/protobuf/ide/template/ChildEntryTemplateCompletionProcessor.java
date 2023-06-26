@@ -15,15 +15,17 @@
  */
 package com.intellij.protobuf.ide.template;
 
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.template.ExpressionContext;
-import com.intellij.codeInsight.template.macro.TemplateCompletionProcessor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.template.TemplateCompletionProcessor;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider.ChildEntry;
+import consulo.language.editor.template.ExpressionContext;
 
 /**
  * A TemplateCompletionProcessor that prevents moving to the next template tab if the accepted
  * LookupItem was a directory {@link ChildEntry}.
  */
+@ExtensionImpl
 public class ChildEntryTemplateCompletionProcessor implements TemplateCompletionProcessor {
   @Override
   public boolean nextTabOnItemSelected(ExpressionContext context, LookupElement item) {

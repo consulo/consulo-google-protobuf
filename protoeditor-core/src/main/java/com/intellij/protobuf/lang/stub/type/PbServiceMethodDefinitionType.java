@@ -1,21 +1,22 @@
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 import com.intellij.protobuf.lang.psi.PbServiceMethod;
 import com.intellij.protobuf.lang.psi.impl.PbServiceMethodImpl;
 import com.intellij.protobuf.lang.stub.PbServiceMethodStub;
 import com.intellij.protobuf.lang.stub.index.QualifiedNameIndex;
 import com.intellij.protobuf.lang.stub.index.ShortNameIndex;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.io.StringRef;
+import consulo.language.psi.stub.*;
+import consulo.language.psi.util.QualifiedName;
+import consulo.index.io.StringRef;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
 public class PbServiceMethodDefinitionType
-  extends IStubElementType<PbServiceMethodStub, PbServiceMethod> {
+  extends IStubElementType<PbServiceMethodStub, PbServiceMethod>
+{
 
   public PbServiceMethodDefinitionType(@NotNull String debugName, @Nullable Language language) {
     super(debugName, language);

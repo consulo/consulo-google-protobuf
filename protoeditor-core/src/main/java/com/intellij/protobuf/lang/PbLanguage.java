@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 public class PbLanguage extends Language {
 

@@ -15,23 +15,38 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurableBase;
-import com.intellij.openapi.project.Project;
 import com.intellij.protobuf.ide.PbIdeBundle;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.Configurable;
+import consulo.configurable.IdeaConfigurableBase;
+import consulo.configurable.ProjectConfigurable;
+import consulo.configurable.StandardConfigurableIds;
+import consulo.project.Project;
+import jakarta.annotation.Nullable;
+import jakarta.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
-/** A {@link Configurable} that provides a protobuf language settings panel. */
+/**
+ * A {@link Configurable} that provides a protobuf language settings panel.
+ */
+@ExtensionImpl
 public class PbLanguageSettingsConfigurable
-    extends ConfigurableBase<PbLanguageSettingsForm, PbProjectSettings> {
+  extends IdeaConfigurableBase<PbLanguageSettingsForm, PbProjectSettings> implements ProjectConfigurable {
 
-  private static final String ID = "google.protobuf.language";
+  public static final String ID = "proto";
 
   private final Project project;
 
+  @Inject
   public PbLanguageSettingsConfigurable(Project project) {
     super(ID, PbIdeBundle.message("settings.project.display"), null);
     this.project = project;
+  }
+
+  @Nullable
+  @Override
+  public String getParentId() {
+    return StandardConfigurableIds.EDITOR_GROUP;
   }
 
   @NotNull

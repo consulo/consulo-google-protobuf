@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.gencodeutils;
 
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
 
 import java.util.ArrayList;
 import java.util.List;

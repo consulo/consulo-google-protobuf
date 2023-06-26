@@ -15,41 +15,38 @@
  */
 package com.intellij.protobuf.ide.documentation;
 
-import com.intellij.lang.documentation.AbstractDocumentationProvider;
-import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.PbCommentOwner;
 import com.intellij.protobuf.lang.psi.util.PbCommentUtil;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.documentation.AbstractDocumentationProvider;
+import consulo.language.editor.documentation.DocumentationProvider;
+import consulo.language.editor.documentation.LanguageDocumentationProvider;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.util.lang.StringUtil;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-/** A {@link com.intellij.lang.documentation.DocumentationProvider} for proto elements. */
-public class PbDocumentationProvider extends AbstractDocumentationProvider {
-
+/**
+ * A {@link DocumentationProvider} for proto elements.
+ */
+@ExtensionImpl
+public class PbDocumentationProvider extends AbstractDocumentationProvider implements LanguageDocumentationProvider {
   @Nullable
   @Override
-  public @Nls String getQuickNavigateInfo(PsiElement element, PsiElement originalElement) {
-    return null;
-  }
-
-  @Nullable
-  @Override
-  public List<String> getUrlFor(PsiElement element, PsiElement originalElement) {
-    return null;
-  }
-
-  @Nullable
-  @Override
-  public @Nls String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
+  public
+  @Nls
+  String generateDoc(PsiElement element, @Nullable PsiElement originalElement) {
     if (!(element instanceof PbCommentOwner)) {
       return null;
     }
 
-    PbCommentOwner owner = (PbCommentOwner) element;
+    PbCommentOwner owner = (PbCommentOwner)element;
     List<PsiComment> comments = owner.getComments();
     if (comments.isEmpty()) {
       return null;
@@ -65,10 +62,9 @@ public class PbDocumentationProvider extends AbstractDocumentationProvider {
     return commentBuilder.toString();
   }
 
-  @Nullable
+  @Nonnull
   @Override
-  public PsiElement getDocumentationElementForLink(
-      PsiManager psiManager, String link, PsiElement context) {
-    return null;
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

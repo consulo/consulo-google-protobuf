@@ -17,16 +17,18 @@ package com.intellij.protobuf.lang.findusages;
 
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.usages.impl.rules.UsageType;
-import com.intellij.usages.impl.rules.UsageTypeProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.usage.UsageType;
+import consulo.usage.UsageTypeProvider;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Classify some usages within .proto files. Otherwise, they are treated as "unclassified" and could
  * get lost in a sea of unclassified generated code usages.
  */
+@ExtensionImpl
 public class PbUsageTypeProvider implements UsageTypeProvider {
 
   public static UsageType fieldDeclaration() {

@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
 import com.intellij.protobuf.lang.util.BuiltInType;
 import com.intellij.protobuf.lang.util.ValueTester;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
 interface PbOptionNameBase extends PbElement {

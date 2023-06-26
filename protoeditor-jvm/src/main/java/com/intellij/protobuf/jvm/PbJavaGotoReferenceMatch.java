@@ -15,11 +15,15 @@
  */
 package com.intellij.protobuf.jvm;
 
+import com.intellij.java.language.psi.PsiClass;
+import com.intellij.java.language.psi.PsiClassType;
+import com.intellij.java.language.psi.PsiMember;
 import com.intellij.protobuf.lang.psi.PbDefinition;
 import com.intellij.protobuf.lang.psi.PbFile;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ObjectUtils;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiNamedElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.util.lang.ObjectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +52,7 @@ public class PbJavaGotoReferenceMatch {
    */
   @Nullable
   public static PbJavaGotoDeclarationContext isFromProto(PsiElement resolvedReference) {
-    PsiNamedElement resolved = ObjectUtils.tryCast(resolvedReference, PsiNamedElement.class);
+    PsiNamedElement resolved = ObjectUtil.tryCast(resolvedReference, PsiNamedElement.class);
     if (resolved == null) {
       return null;
     }

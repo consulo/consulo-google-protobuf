@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenSet;
+import consulo.language.psi.PsiElement;
+import consulo.language.ast.IElementType;
 import com.intellij.protobuf.lang.psi.PbNumberValue;
 import com.intellij.protobuf.lang.psi.ProtoNumberValue;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;

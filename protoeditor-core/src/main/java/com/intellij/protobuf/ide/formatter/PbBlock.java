@@ -15,11 +15,10 @@
  */
 package com.intellij.protobuf.ide.formatter;
 
-import com.intellij.formatting.*;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.formatter.common.AbstractBlock;
+import consulo.language.ast.ASTNode;
+import consulo.language.codeStyle.*;
+import consulo.language.psi.PsiElement;
+import consulo.language.ast.TokenType;
 import com.intellij.protobuf.lang.psi.PbStatement;
 import com.intellij.protobuf.lang.psi.PbTextElementType;
 import com.intellij.protobuf.lang.psi.ProtoBlockBody;

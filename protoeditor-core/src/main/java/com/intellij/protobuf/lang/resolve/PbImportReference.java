@@ -15,22 +15,22 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.codeInsight.AutoPopupController;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementResolveResult;
-import com.intellij.psi.PsiPolyVariantReferenceBase;
-import com.intellij.psi.ResolveResult;
-import com.intellij.psi.impl.source.resolve.ResolveCache;
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
+import consulo.application.AllIcons;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.document.util.TextRange;
+import consulo.language.impl.psi.LeafPsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiPolyVariantReferenceBase;
+import consulo.language.psi.ResolveResult;
 import com.intellij.protobuf.ide.util.PbIcons;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbImportName;
 import com.intellij.protobuf.lang.psi.PbStringPart;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider.ChildEntry;
+import consulo.language.editor.AutoPopupController;
+import consulo.language.psi.PsiElementResolveResult;
+import consulo.language.psi.resolve.ResolveCache;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.descriptor.Descriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

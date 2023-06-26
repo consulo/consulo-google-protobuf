@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.jvm.names;
 
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.protobuf.jvm.PbJavaGotoDeclarationContext;
 import com.intellij.protobuf.lang.psi.*;
-import com.intellij.psi.PsiClass;
 
 import java.util.Objects;
 

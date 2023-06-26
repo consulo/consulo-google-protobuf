@@ -15,12 +15,17 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.lang.Commenter;
+import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Commenter;
+import consulo.language.Language;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A {@link Commenter} for standalone prototext files. Only sh-style line comments are supported.
  */
+@ExtensionImpl
 public class PbTextCommenter implements Commenter {
   public static final PbTextCommenter INSTANCE = new PbTextCommenter();
 
@@ -52,5 +57,11 @@ public class PbTextCommenter implements Commenter {
   @Override
   public String getCommentedBlockCommentSuffix() {
     return null;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

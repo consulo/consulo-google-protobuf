@@ -15,18 +15,18 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.navigation.ItemPresentation;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbNamedElement;
 import com.intellij.protobuf.lang.psi.PbSymbolOwner;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
 import com.intellij.protobuf.lang.stub.PbNamedElementStub;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.LeafElement;
-import com.intellij.psi.stubs.IStubElementType;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.IncorrectOperationException;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.language.impl.ast.LeafElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.stub.IStubElementType;
+import consulo.language.psi.util.QualifiedName;
+import consulo.language.util.IncorrectOperationException;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.navigation.ItemPresentation;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -70,7 +70,8 @@ abstract class PbStubbedNamedDefinitionBase<T extends PbNamedElementStub<?>>
   }
 
   @Override
-  public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
+  public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException
+  {
     PsiElement identifier = getNameIdentifier();
     if (identifier == null) {
       throw new IncorrectOperationException();

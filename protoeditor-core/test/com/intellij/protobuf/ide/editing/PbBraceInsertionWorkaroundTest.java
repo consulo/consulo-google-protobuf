@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.injected.editor.EditorWindow;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiDocumentManager;
+import consulo.codeEditor.Editor;
+import consulo.language.editor.inject.EditorWindow;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
+import consulo.language.psi.PsiDocumentManager;
 
 import static com.google.common.truth.Truth.assertThat;
 

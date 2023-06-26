@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 
 /** The base interface implemented by all protobuf element types. */
 public interface PbElement extends PsiElement {

@@ -15,14 +15,18 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.util.xmlb.XmlSerializer;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.project.Project;
+import consulo.util.lang.StringUtil;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
+import consulo.util.xml.serializer.XmlSerializer;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,8 +35,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-/** A persistent service that stores protobuf settings. */
+/**
+ * A persistent service that stores protobuf settings.
+ */
 @State(name = "ProtobufLanguageSettings", storages = @Storage("protoeditor.xml"))
+@ServiceAPI(ComponentScope.PROJECT)
+@ServiceImpl
+@Singleton
 public class PbProjectSettings implements PersistentStateComponent<PbProjectSettings.State> {
 
   private State state;
@@ -112,7 +121,7 @@ public class PbProjectSettings implements PersistentStateComponent<PbProjectSett
 
   public PbProjectSettings copy() {
     return new PbProjectSettings(
-        XmlSerializer.deserialize(XmlSerializer.serialize(state), State.class));
+      XmlSerializer.deserialize(XmlSerializer.serialize(state), State.class));
   }
 
   @Override
@@ -123,10 +132,10 @@ public class PbProjectSettings implements PersistentStateComponent<PbProjectSett
     if (!getClass().equals(obj.getClass())) {
       return false;
     }
-    PbProjectSettings other = (PbProjectSettings) obj;
+    PbProjectSettings other = (PbProjectSettings)obj;
     return Objects.equals(isAutoConfigEnabled(), other.isAutoConfigEnabled())
-        && Objects.equals(getDescriptorPath(), other.getDescriptorPath())
-        && Objects.equals(getImportPathEntries(), other.getImportPathEntries());
+      && Objects.equals(getDescriptorPath(), other.getDescriptorPath())
+      && Objects.equals(getImportPathEntries(), other.getImportPathEntries());
   }
 
   @Override
@@ -179,10 +188,10 @@ public class PbProjectSettings implements PersistentStateComponent<PbProjectSett
         return false;
       }
 
-      ImportPathEntry other = (ImportPathEntry) obj;
+      ImportPathEntry other = (ImportPathEntry)obj;
 
       return Objects.equals(this.location, other.location)
-          && Objects.equals(this.prefix, other.prefix);
+        && Objects.equals(this.prefix, other.prefix);
     }
 
     @Override

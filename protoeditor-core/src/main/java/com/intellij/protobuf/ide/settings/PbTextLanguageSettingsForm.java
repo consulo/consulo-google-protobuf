@@ -15,18 +15,18 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.options.ConfigurableUi;
-import com.intellij.openapi.project.Project;
-import com.intellij.ui.components.JBCheckBox;
-import com.intellij.util.ui.components.BorderLayoutPanel;
 import com.intellij.protobuf.ide.PbIdeBundle;
+import consulo.configurable.IdeaConfigurableUi;
+import consulo.project.Project;
+import consulo.ui.ex.awt.BorderLayoutPanel;
+import consulo.ui.ex.awt.JBCheckBox;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
 
 /** The protobuf text format language settings panel. */
-public class PbTextLanguageSettingsForm implements ConfigurableUi<PbTextLanguageSettings> {
+public class PbTextLanguageSettingsForm implements IdeaConfigurableUi<PbTextLanguageSettings> {
 
   private JPanel panel;
   private JCheckBox missingSchemaWarningCheckbox;

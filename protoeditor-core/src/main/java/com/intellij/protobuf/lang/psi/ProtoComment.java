@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.PsiCommentImpl;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.Language;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiElement;
+import consulo.language.impl.psi.PsiCommentImpl;
 import org.jetbrains.annotations.NotNull;
 
 /**

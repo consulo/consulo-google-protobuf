@@ -15,11 +15,11 @@
  */
 package com.intellij.protobuf.lang.gotobyname;
 
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.navigation.NavigationItem;
+import consulo.navigation.NavigationItem;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;
+import consulo.navigation.ItemPresentation;
 
 import java.util.Arrays;
 import java.util.List;

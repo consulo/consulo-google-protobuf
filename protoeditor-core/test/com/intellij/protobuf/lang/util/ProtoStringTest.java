@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.util;
 
-import com.intellij.openapi.util.TextRange;
+import consulo.document.util.TextRange;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

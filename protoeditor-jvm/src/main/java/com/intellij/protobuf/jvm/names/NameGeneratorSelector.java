@@ -15,12 +15,13 @@
  */
 package com.intellij.protobuf.jvm.names;
 
-import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.protobuf.lang.names.NameGeneratorContributor;
 import com.intellij.protobuf.lang.names.NameGeneratorUtils;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbOptionExpression;
+import consulo.logging.Logger;
+
+import java.util.List;
 
 /**
  * Given a proto file, determines which {@link JavaNameGenerator}s are most appropriate. This is based
@@ -68,18 +69,18 @@ public class NameGeneratorSelector {
     return options;
   }
 
-  private static ImmutableList<JavaNameGenerator> contributeDefaultGenerators(PbFile file) {
+  private static List<JavaNameGenerator> contributeDefaultGenerators(PbFile file) {
     Options options = parseOptions(file);
-    return ImmutableList.of(
+    return List.of(
       new Proto2NameGenerator(
         file, options.javaPackage, options.javaOuterClassname, options.javaMultipleFiles));
   }
 
   /** Return the list of generators that are most appropriate to the given file. */
-  public static ImmutableList<JavaNameGenerator> selectForFile(PbFile file) {
-    for (NameGeneratorContributor contributor : NameGeneratorContributor.EP_NAME.getExtensions()) {
+  public static List<JavaNameGenerator> selectForFile(PbFile file) {
+    for (NameGeneratorContributor contributor : NameGeneratorContributor.EP_NAME.getExtensionList()) {
       if (contributor.isApplicable(file)) {
-        log.info(
+        log.debug(
           "NameSelector using "
           + contributor.getClass().getName()
           + " for protobuf name generators");

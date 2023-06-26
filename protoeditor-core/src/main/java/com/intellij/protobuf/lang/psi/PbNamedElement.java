@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.NavigatablePsiElement;
+import consulo.language.psi.NavigatablePsiElement;
 
 /** Protobuf elements with developer-specified names. */
 public interface PbNamedElement extends PbSymbol, PbStatement, NavigatablePsiElement {}

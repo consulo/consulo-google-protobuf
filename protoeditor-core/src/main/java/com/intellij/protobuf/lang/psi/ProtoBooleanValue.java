@@ -15,14 +15,15 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * A boolean literal value. Actual implementation is provided by identifier values or, in the case
  * of text format, number values.
  */
-public interface ProtoBooleanValue extends PsiElement {
+public interface ProtoBooleanValue extends PsiElement
+{
   /**
    * Returns the {@link Boolean} value, or <code>null</code> if this element does not represent a
    * valid boolean.

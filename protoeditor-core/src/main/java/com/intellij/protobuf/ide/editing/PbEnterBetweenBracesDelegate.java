@@ -15,11 +15,22 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.codeInsight.editorActions.enter.EnterBetweenBracesDelegate;
+import com.intellij.protobuf.lang.PbLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.action.EnterBetweenBracesDelegate;
+import jakarta.annotation.Nonnull;
 
+@ExtensionImpl
 public class PbEnterBetweenBracesDelegate extends EnterBetweenBracesDelegate {
   @Override
-  protected boolean isBracePair(char c1, char c2) {
+  public boolean isBracePair(char c1, char c2) {
     return (c1 == '{' && c2 == '}') || (c1 == '[' && c2 == ']');
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

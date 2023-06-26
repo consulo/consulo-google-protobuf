@@ -2,12 +2,14 @@
 package com.intellij.protobuf.lang.psi;
 
 import java.util.List;
+
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.StubBasedPsiElement;
 import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.StubBasedPsiElement;
 import com.intellij.protobuf.lang.stub.PbServiceMethodStub;
 
-public interface PbServiceMethod extends PbNamedElement, PbOptionStatementOwner, StubBasedPsiElement<PbServiceMethodStub> {
+public interface PbServiceMethod extends PbNamedElement, PbOptionStatementOwner, StubBasedPsiElement<PbServiceMethodStub>
+{
 
   @Nullable
   PbMethodOptions getMethodOptions();

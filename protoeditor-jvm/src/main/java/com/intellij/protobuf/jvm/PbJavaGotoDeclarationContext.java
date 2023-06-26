@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.jvm;
 
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiNamedElement;
+import com.intellij.java.language.psi.PsiClass;
 import com.intellij.protobuf.lang.psi.PbDefinition;
+import consulo.language.psi.PsiNamedElement;
 
 /** Contextual information relevant to navigating from generated java code to .proto files. */
 public class PbJavaGotoDeclarationContext {
@@ -35,7 +35,7 @@ public class PbJavaGotoDeclarationContext {
   public final PsiClass outerClass;
 
   public PbJavaGotoDeclarationContext(
-      PsiNamedElement resolvedElement, PsiClass javaClass, PsiClass outerClass) {
+		  PsiNamedElement resolvedElement, PsiClass javaClass, PsiClass outerClass) {
     this.resolvedElement = resolvedElement;
     this.javaClass = javaClass;
     this.outerClass = outerClass;

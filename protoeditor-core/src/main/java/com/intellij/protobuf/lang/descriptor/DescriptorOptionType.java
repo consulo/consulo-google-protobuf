@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.descriptor;
 
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
 
 /** Proto descriptor option type name constants. */
 public enum DescriptorOptionType {

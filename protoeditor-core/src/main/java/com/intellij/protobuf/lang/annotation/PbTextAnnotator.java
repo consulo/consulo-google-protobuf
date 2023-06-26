@@ -15,13 +15,11 @@
  */
 package com.intellij.protobuf.lang.annotation;
 
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.AnnotationSession;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.util.TextRange;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.document.util.TextRange;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.editor.annotation.HighlightSeverity;
 import com.intellij.protobuf.ide.highlighter.PbSyntaxHighlighter;
 import com.intellij.protobuf.ide.highlighter.PbTextSyntaxHighlighter;
 import com.intellij.protobuf.lang.PbLangBundle;
@@ -30,10 +28,12 @@ import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.util.BuiltInType;
 import com.intellij.protobuf.lang.util.ValueTester;
 import com.intellij.protobuf.lang.util.ValueTester.ValueTesterType;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.editor.annotation.AnnotationSession;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.psi.PsiFile;
 import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NotNull;
 

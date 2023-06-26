@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.Nullable;
 
 interface PbExtensionRangeBase extends PbElement {

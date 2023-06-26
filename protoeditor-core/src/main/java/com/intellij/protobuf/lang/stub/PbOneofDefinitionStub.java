@@ -15,11 +15,11 @@
  */
 package com.intellij.protobuf.lang.stub;
 
-import com.intellij.psi.stubs.StubBase;
-import com.intellij.psi.stubs.StubElement;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.stub.StubElement;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbOneofDefinition;
 import com.intellij.protobuf.lang.stub.type.PbOneofDefinitionType;
+import consulo.language.psi.stub.StubBase;
 import org.jetbrains.annotations.Nullable;
 
 public class PbOneofDefinitionStub extends StubBase<PbOneofDefinition>

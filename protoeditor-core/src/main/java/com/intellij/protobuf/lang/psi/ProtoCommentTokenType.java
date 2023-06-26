@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.ILeafElementType;
+import consulo.language.ast.ILeafElementType;
 import com.intellij.protobuf.lang.ProtoBaseLanguage;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
 import org.jetbrains.annotations.NotNull;
 
 /** An {@link ILeafElementType} that returns {@link ProtoComment} instances. */

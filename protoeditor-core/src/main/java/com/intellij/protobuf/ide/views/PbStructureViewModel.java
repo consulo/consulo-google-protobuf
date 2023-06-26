@@ -15,14 +15,14 @@
  */
 package com.intellij.protobuf.ide.views;
 
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.StructureViewModelBase;
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.util.treeView.smartTree.Sorter;
-import com.intellij.openapi.editor.Editor;
+import consulo.fileEditor.structureView.StructureViewModel;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.fileEditor.structureView.tree.Sorter;
+import consulo.codeEditor.Editor;
 import com.intellij.protobuf.lang.psi.PbDefinition;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbStatement;
+import consulo.language.editor.structureView.StructureViewModelBase;
 import org.jetbrains.annotations.NotNull;
 
 /** StructureViewModel for protobufs */

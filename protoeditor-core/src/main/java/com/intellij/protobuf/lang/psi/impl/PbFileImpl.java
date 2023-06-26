@@ -19,19 +19,6 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.descriptor.Descriptor;
@@ -39,6 +26,19 @@ import com.intellij.protobuf.lang.descriptor.DescriptorOptionType;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.language.psi.util.LanguageCachedValueUtil;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.QualifiedName;
+import consulo.logging.Logger;
+import consulo.virtualFileSystem.fileType.FileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,7 +72,7 @@ public class PbFileImpl extends PsiFileBase implements PbFile {
   @Override
   @Nullable
   public PbPackageStatement getPackageStatement() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(
@@ -83,7 +83,7 @@ public class PbFileImpl extends PsiFileBase implements PbFile {
   @Override
   @NotNull
   public List<PbImportStatement> getImportStatements() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(
@@ -215,7 +215,7 @@ public class PbFileImpl extends PsiFileBase implements PbFile {
   @NotNull
   @Override
   public ImmutableMultimap<QualifiedName, PbSymbol> getLocalQualifiedSymbolMap() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(
@@ -225,7 +225,7 @@ public class PbFileImpl extends PsiFileBase implements PbFile {
   @NotNull
   @Override
   public ImmutableMultimap<QualifiedName, PbSymbol> getExportedQualifiedSymbolMap() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(
@@ -235,7 +235,7 @@ public class PbFileImpl extends PsiFileBase implements PbFile {
   @NotNull
   @Override
   public ImmutableMultimap<QualifiedName, PbSymbol> getFullQualifiedSymbolMap() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(

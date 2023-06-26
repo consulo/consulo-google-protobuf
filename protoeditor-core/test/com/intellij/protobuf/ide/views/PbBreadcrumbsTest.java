@@ -15,17 +15,17 @@
  */
 package com.intellij.protobuf.ide.views;
 
-import com.intellij.lang.Language;
-import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.editor.CaretModel;
+import consulo.codeEditor.Caret;
+import consulo.codeEditor.CaretModel;
+import consulo.language.Language;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
-import com.intellij.psi.PsiElement;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
 import com.intellij.testFramework.fixtures.CodeInsightTestFixture;
-import com.intellij.ui.breadcrumbs.BreadcrumbsProvider;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.ide.impl.idea.ui.breadcrumbs.BreadcrumbsProvider;
 import com.intellij.xml.breadcrumbs.BreadcrumbsItem;
 import com.intellij.protobuf.TestUtils;
+import consulo.language.psi.PsiElement;
+import consulo.util.collection.ContainerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +35,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** Tests for {@link PbBreadcrumbsInfoProvider}. */
 public class PbBreadcrumbsTest extends PbCodeInsightFixtureTestCase {
 
   private static final String EXPECTED =
@@ -99,9 +98,9 @@ public class PbBreadcrumbsTest extends PbCodeInsightFixtureTestCase {
     }
     final Language language = element.getContainingFile().getLanguage();
 
-    final BreadcrumbsProvider provider =
+    final consulo.ide.impl.idea.ui.breadcrumbs.BreadcrumbsProvider provider =
         ContainerUtil.find(
-            BreadcrumbsProvider.EP_NAME.getExtensions(),
+            consulo.ide.impl.idea.ui.breadcrumbs.BreadcrumbsProvider.EP_NAME.getExtensions(),
             p -> Arrays.asList(p.getLanguages()).contains(language));
     if (provider == null) {
       return Collections.emptyList();

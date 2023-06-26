@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.io.StringRef;
+import consulo.index.io.StringRef;
+import consulo.language.Language;
+import consulo.language.psi.stub.*;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbOneofDefinition;
 import com.intellij.protobuf.lang.psi.impl.PbOneofDefinitionImpl;
 import com.intellij.protobuf.lang.stub.PbOneofDefinitionStub;
@@ -29,7 +29,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 public class PbOneofDefinitionType
-    extends IStubElementType<PbOneofDefinitionStub, PbOneofDefinition> {
+    extends IStubElementType<PbOneofDefinitionStub, PbOneofDefinition>
+{
 
   PbOneofDefinitionType(String debugName, Language language) {
     super(debugName, language);
@@ -62,7 +63,7 @@ public class PbOneofDefinitionType
   @NotNull
   @Override
   public PbOneofDefinitionStub deserialize(
-      @NotNull StubInputStream dataStream, StubElement parentStub)
+		  @NotNull StubInputStream dataStream, StubElement parentStub)
       throws IOException {
     String name = null;
     StringRef nameRef = dataStream.readName();

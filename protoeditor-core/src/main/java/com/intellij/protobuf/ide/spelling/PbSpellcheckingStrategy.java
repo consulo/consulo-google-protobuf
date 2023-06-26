@@ -15,15 +15,20 @@
  */
 package com.intellij.protobuf.ide.spelling;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
-import com.intellij.spellchecker.tokenizer.Tokenizer;
+import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.PbOptionExpression;
 import com.intellij.protobuf.lang.psi.PbTextStringPart;
 import com.intellij.protobuf.lang.psi.ProtoStringPart;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.psi.PsiElement;
+import consulo.language.spellcheker.SpellcheckingStrategy;
+import consulo.language.spellcheker.tokenizer.Tokenizer;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 /** A {@link SpellcheckingStrategy} for protobuf files */
+@ExtensionImpl
 public class PbSpellcheckingStrategy extends SpellcheckingStrategy {
   @NotNull
   @Override
@@ -45,5 +50,11 @@ public class PbSpellcheckingStrategy extends SpellcheckingStrategy {
     // PbStringPart -> PbStringValue -> PbOptionExpression
     PsiElement parent = part.getParent();
     return parent != null && parent.getParent() instanceof PbOptionExpression;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

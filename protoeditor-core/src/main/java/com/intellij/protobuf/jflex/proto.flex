@@ -16,9 +16,9 @@ package com.intellij.protobuf.lang.lexer;
 
 import com.intellij.protobuf.lang.lexer.ProtoLexer.CommentStyle;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
-
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.lexer.FlexLexer;
 
 @SuppressWarnings("fallthrough")
 %%
@@ -113,7 +113,7 @@ String = {SingleQuotedString} | {DoubleQuotedString}
 %%
 
 <YYINITIAL> {
-  {Whitespace}              { return com.intellij.psi.TokenType.WHITE_SPACE; }
+  {Whitespace}              { return TokenType.WHITE_SPACE; }
 
   "="                       { return ProtoTokenTypes.ASSIGN; }
   ":"                       { return ProtoTokenTypes.COLON; }
@@ -210,7 +210,7 @@ String = {SingleQuotedString} | {DoubleQuotedString}
   {Symbol} { return ProtoTokenTypes.SYMBOL; }
 
   // All other unmatched characters.
-  [^] { return com.intellij.psi.TokenType.BAD_CHARACTER; }
+  [^] { return TokenType.BAD_CHARACTER; }
 }
 
 <COMMENT> {

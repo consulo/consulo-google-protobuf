@@ -16,11 +16,9 @@
 package com.intellij.protobuf.lang.resolve.directive;
 
 import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbTypeName;
 import com.intellij.protobuf.lang.psi.ProtoSymbolPath;
@@ -30,6 +28,8 @@ import com.intellij.protobuf.lang.resolve.PbSymbolLookupElement;
 import com.intellij.protobuf.lang.resolve.PbSymbolResolver;
 import com.intellij.protobuf.lang.resolve.ProtoSymbolPathReference;
 import com.intellij.protobuf.lang.resolve.ResolveFilters;
+import consulo.language.psi.PsiComment;
+import consulo.util.lang.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

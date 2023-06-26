@@ -15,19 +15,19 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.util.TextRange;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.document.util.TextRange;
 import com.intellij.protobuf.ide.highlighter.PbTextSyntaxHighlighter;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.PbMessageType;
 import com.intellij.protobuf.lang.psi.PbTextFile;
 import com.intellij.protobuf.lang.resolve.PbImportReference;
 import com.intellij.protobuf.lang.resolve.directive.SchemaComment.Type;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiReference;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 /** An annotator that highlights directive comments and marks unresolved symbols with warnings. */

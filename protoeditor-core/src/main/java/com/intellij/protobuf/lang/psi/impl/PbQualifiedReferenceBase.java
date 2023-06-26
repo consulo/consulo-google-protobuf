@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbQualifiedReference;
 import com.intellij.protobuf.lang.psi.ProtoSymbolPath;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;

@@ -17,17 +17,17 @@ package com.intellij.protobuf.lang.annotation;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -61,7 +61,7 @@ public class OptionOccurrenceTracker {
    * @return the tracker
    */
   public static OptionOccurrenceTracker forOptionOwner(PbOptionOwner owner) {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         owner,
         () -> {
           OptionOccurrenceTracker tracker = new OptionOccurrenceTracker();
@@ -89,7 +89,7 @@ public class OptionOccurrenceTracker {
    */
   @Nullable
   public static OptionOccurrenceTracker forMessage(PbTextMessage message) {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         message,
         () -> Result.create(computeForMessage(message), PsiModificationTracker.MODIFICATION_COUNT));
   }
@@ -476,7 +476,7 @@ public class OptionOccurrenceTracker {
     }
 
     private void annotateMissingRequiredFields(
-        AnnotationHolder holder, PsiElement annotationElement) {
+			AnnotationHolder holder, PsiElement annotationElement) {
 
       PbMessageType message = getFieldType(field);
       if (message == null) {

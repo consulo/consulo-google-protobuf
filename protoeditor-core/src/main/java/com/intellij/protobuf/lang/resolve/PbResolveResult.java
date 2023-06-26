@@ -15,8 +15,8 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.psi.ResolveResult;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.ResolveResult;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbSymbol;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

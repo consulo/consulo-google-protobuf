@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.codeInsight.generation.actions.CommentByLineCommentAction;
+import consulo.ide.impl.idea.codeInsight.generation.actions.CommentByLineCommentAction;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 

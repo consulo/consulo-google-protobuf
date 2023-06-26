@@ -15,8 +15,8 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.TokenSet;
 
 interface PbTextDomainBase extends PbTextElement {
   TokenSet DOMAIN_COMPONENTS =

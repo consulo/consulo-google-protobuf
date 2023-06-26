@@ -15,26 +15,32 @@
  */
 package com.intellij.protobuf.ide.actions;
 
-import com.intellij.codeInsight.template.Template;
-import com.intellij.codeInsight.template.TemplateManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ActionImpl;
+import consulo.annotation.component.ActionParentRef;
+import consulo.annotation.component.ActionRef;
+import consulo.fileEditor.EditorNotifications;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.editor.template.Template;
+import consulo.ui.ex.action.AnAction;
+import consulo.language.editor.CommonDataKeys;
+import consulo.codeEditor.Editor;
+import consulo.project.Project;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
 import com.intellij.protobuf.lang.psi.PbTextFile;
 import com.intellij.protobuf.lang.resolve.directive.SchemaComment;
 import com.intellij.protobuf.lang.resolve.directive.SchemaDirective;
+import consulo.language.editor.template.TemplateManager;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.util.lang.StringUtil;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+
+import static com.intellij.protobuf.ide.actions.InsertSchemaDirectiveAction.ACTION_ID;
 
 /**
  * An {@link AnAction action} that inserts <code>proto-file</code> and <code>proto-message</code>
@@ -44,6 +50,7 @@ import java.util.TreeSet;
  * existing values will be used and the comments will be moved to the end of the first comment
  * block.
  */
+@ActionImpl(id = ACTION_ID, parents = @ActionParentRef(@ActionRef(id = "EditorPopupMenu")))
 public class InsertSchemaDirectiveAction extends AnAction {
 
   public static final String ACTION_ID = "prototext.InsertSchemaDirective";
@@ -120,6 +127,8 @@ public class InsertSchemaDirectiveAction extends AnAction {
 
     editor.getCaretModel().moveToOffset(0);
     TemplateManager.getInstance(file.getProject()).startTemplate(editor, template);
+
+    project.getApplication().invokeLater(() -> EditorNotifications.getInstance(project).updateNotifications(file.getVirtualFile()));
   }
 
   private static void removeComment(SchemaComment comment) {

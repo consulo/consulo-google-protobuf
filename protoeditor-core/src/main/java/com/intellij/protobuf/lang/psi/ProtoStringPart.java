@@ -16,13 +16,13 @@
 package com.intellij.protobuf.lang.psi;
 
 import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
 import com.intellij.protobuf.lang.util.ProtoString;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
 import org.jetbrains.annotations.NotNull;
 
 /** A shared interface implemented by elements that represent a proto-formatted string part. */
@@ -30,7 +30,7 @@ public interface ProtoStringPart extends PsiElement {
 
   @NotNull
   default ProtoString getParsedString() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () ->
             Result.create(ProtoString.parse(getText()), PsiModificationTracker.MODIFICATION_COUNT));

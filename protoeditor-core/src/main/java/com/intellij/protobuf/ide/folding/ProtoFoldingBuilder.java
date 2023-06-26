@@ -15,18 +15,18 @@
  */
 package com.intellij.protobuf.ide.folding;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilderEx;
-import com.intellij.lang.folding.FoldingDescriptor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.protobuf.ide.folding.ProtoFoldingUtils.ConsecutiveElementGrouper;
 import com.intellij.protobuf.lang.psi.ProtoBlockBody;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.application.dumb.DumbAware;
+import consulo.document.Document;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.folding.FoldingBuilderEx;
+import consulo.language.editor.folding.FoldingDescriptor;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,25 +34,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/** A {@link FoldingBuilderEx} implementation for protobuf and prototext files. */
-public class ProtoFoldingBuilder extends FoldingBuilderEx implements DumbAware {
+/**
+ * A {@link FoldingBuilderEx} implementation for protobuf and prototext files.
+ */
+public abstract class ProtoFoldingBuilder extends FoldingBuilderEx implements DumbAware {
   @Override
   @NotNull
-  public FoldingDescriptor[] buildFoldRegions(
-      @NotNull PsiElement root, @NotNull Document document, boolean quick) {
+  public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
 
     Collection<PsiElement> elements =
-        PsiTreeUtil.findChildrenOfAnyType(root, ProtoBlockBody.class, PsiComment.class);
+      PsiTreeUtil.findChildrenOfAnyType(root, ProtoBlockBody.class, PsiComment.class);
     final List<FoldingDescriptor> descriptors = new ArrayList<>(elements.size());
 
     ConsecutiveElementGrouper grouper = new ConsecutiveElementGrouper();
     for (PsiElement element : elements) {
       if (element instanceof ProtoBlockBody) {
-        ProtoFoldingUtils.addIfNotNull(descriptors, buildBlockDescriptor((ProtoBlockBody) element));
-      } else if (ProtoTokenTypes.BLOCK_COMMENT.equals(element.getNode().getElementType())) {
+        ProtoFoldingUtils.addIfNotNull(descriptors, buildBlockDescriptor((ProtoBlockBody)element));
+      }
+      else if (ProtoTokenTypes.BLOCK_COMMENT.equals(element.getNode().getElementType())) {
         descriptors.add(new FoldingDescriptor(element.getNode(), element.getTextRange()));
-      } else if (ProtoTokenTypes.LINE_COMMENT.equals(element.getNode().getElementType())
-          && ProtoFoldingUtils.isOnOwnLine(element, document)) {
+      }
+      else if (ProtoTokenTypes.LINE_COMMENT.equals(element.getNode().getElementType())
+        && ProtoFoldingUtils.isOnOwnLine(element, document)) {
         ProtoFoldingUtils.addIfNotNull(descriptors, grouper.pushElement(element));
       }
     }
@@ -66,7 +69,8 @@ public class ProtoFoldingBuilder extends FoldingBuilderEx implements DumbAware {
   public String getPlaceholderText(@NotNull ASTNode node) {
     if (ProtoTokenTypes.BLOCK_COMMENT.equals(node.getElementType())) {
       return "/*...*/";
-    } else if (ProtoTokenTypes.LINE_COMMENT.equals(node.getElementType())) {
+    }
+    else if (ProtoTokenTypes.LINE_COMMENT.equals(node.getElementType())) {
       if (node.getChars().charAt(0) == '#') {
         return "#...";
       }
@@ -88,12 +92,12 @@ public class ProtoFoldingBuilder extends FoldingBuilderEx implements DumbAware {
     if (close != null) {
       String text = open.getText() + "..." + close.getText();
       return new FoldingDescriptor(
-          block.getNode(),
-          new TextRange(
-              open.getNode().getStartOffset(),
-              close.getNode().getStartOffset() + close.getTextLength()),
-          /* group= */ null,
-          text);
+        block.getNode(),
+        new TextRange(
+          open.getNode().getStartOffset(),
+          close.getNode().getStartOffset() + close.getTextLength()),
+        /* group= */ null,
+        text);
     }
     return null;
   }

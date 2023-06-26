@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.gencodeutils;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 
 /**
  * Pair of source reference and test expectation for goto target. Checks the expectation given the

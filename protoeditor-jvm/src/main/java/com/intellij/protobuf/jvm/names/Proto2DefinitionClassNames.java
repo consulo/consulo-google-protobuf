@@ -17,10 +17,10 @@ package com.intellij.protobuf.jvm.names;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
-import com.intellij.openapi.util.io.FileUtil;
+import consulo.util.io.FileUtil;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;

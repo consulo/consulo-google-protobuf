@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.impl.PsiFileEx;
+import consulo.language.psi.PsiFileEx;
 
 /** A prototext file. */
 public interface PbTextFile extends PsiFileEx, PbTextElement, PbTextRootMessage {

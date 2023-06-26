@@ -15,16 +15,15 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.lang.BracePair;
-import com.intellij.lang.PairedBraceMatcher;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.BracePair;
+import consulo.language.PairedBraceMatcher;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-/** A {@link PairedBraceMatcher} for protobuf and prototext files. */
-public class ProtoBraceMatcher implements PairedBraceMatcher {
+/**
+ * A {@link PairedBraceMatcher} for protobuf and prototext files.
+ */
+public abstract class ProtoBraceMatcher implements PairedBraceMatcher {
   private static final BracePair[] PAIRS = {
     new BracePair(ProtoTokenTypes.LBRACE, ProtoTokenTypes.RBRACE, true),
     new BracePair(ProtoTokenTypes.LBRACK, ProtoTokenTypes.RBRACK, false),
@@ -36,16 +35,5 @@ public class ProtoBraceMatcher implements PairedBraceMatcher {
   @Override
   public BracePair[] getPairs() {
     return PAIRS;
-  }
-
-  @Override
-  public boolean isPairedBracesAllowedBeforeType(
-      @NotNull IElementType lbraceType, @Nullable IElementType contextType) {
-    return true;
-  }
-
-  @Override
-  public int getCodeConstructStart(PsiFile file, int openingBraceOffset) {
-    return openingBraceOffset;
   }
 }

@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi.type;
 
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 import com.intellij.protobuf.lang.PbLanguage;
 
 /** Custom element types used in proto.bnf. */

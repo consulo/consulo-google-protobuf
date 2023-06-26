@@ -15,15 +15,20 @@
  */
 package com.intellij.protobuf.lang.names;
 
-import com.google.common.collect.ImmutableList;
-import com.intellij.openapi.extensions.ExtensionPointName;
 import com.intellij.protobuf.lang.psi.PbFile;
 import consulo.annotation.access.RequiredReadAction;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
 
-/** Extension point for things that provide names for a protobuf generated class. */
+import java.util.List;
+
+/**
+ * Extension point for things that provide names for a protobuf generated class.
+ */
+@ExtensionAPI(ComponentScope.APPLICATION)
 public interface NameGeneratorContributor {
-  ExtensionPointName<NameGeneratorContributor> EP_NAME =
-    ExtensionPointName.create("consulo.google.protobuf.nameGeneratorContributor");
+  ExtensionPointName<NameGeneratorContributor> EP_NAME = ExtensionPointName.create(NameGeneratorContributor.class);
 
   /**
    * Allows a generator provider to opt into being used for a given protobuf file.
@@ -36,10 +41,10 @@ public interface NameGeneratorContributor {
   /**
    * Provides name generators for fields contained in the given protobuf file.
    *
-   * @param file the protobuf file to provide name generators for
+   * @param file           the protobuf file to provide name generators for
    * @param generatorClass the type of generator the caller is interested in
    * @return a list of name generators for the provided file
    */
   @RequiredReadAction
-  <T> ImmutableList<T> contributeGenerators(PbFile file, Class<T> generatorClass);
+  <T> List<T> contributeGenerators(PbFile file, Class<T> generatorClass);
 }

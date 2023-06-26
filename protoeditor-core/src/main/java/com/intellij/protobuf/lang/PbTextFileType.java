@@ -15,15 +15,17 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.protobuf.ide.util.PbIcons;
+import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** {@link LanguageFileType} for prototext files. */
+/**
+ * {@link LanguageFileType} for prototext files.
+ */
 public class PbTextFileType extends LanguageFileType {
 
   public static final PbTextFileType INSTANCE = new PbTextFileType();

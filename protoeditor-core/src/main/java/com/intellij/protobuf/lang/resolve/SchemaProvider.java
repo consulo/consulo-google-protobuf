@@ -15,16 +15,18 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.extensions.ExtensionPointName;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ExtensionAPI;
+import consulo.component.extension.ExtensionPointName;
 import com.intellij.protobuf.lang.psi.PbTextFile;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * SchemaProvider is an extension point for providing {@link SchemaInfo} instances for a PbTextFile.
  */
+@ExtensionAPI(ComponentScope.PROJECT)
 public interface SchemaProvider {
-  ExtensionPointName<SchemaProvider> EP_NAME =
-      ExtensionPointName.create("consulo.google.protobuf.schemaProvider");
+  ExtensionPointName<SchemaProvider> EP_NAME = ExtensionPointName.create(SchemaProvider.class);
 
   /** Returns the first SchemaInfo determined for the given file. */
   @Nullable

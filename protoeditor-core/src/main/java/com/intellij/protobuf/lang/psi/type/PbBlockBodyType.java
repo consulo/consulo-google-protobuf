@@ -15,20 +15,21 @@
  */
 package com.intellij.protobuf.lang.psi.type;
 
-import com.intellij.lang.*;
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
+import consulo.language.ast.*;
+import consulo.language.parser.ParserDefinition;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.util.FlyweightCapableTreeStructure;
+import consulo.language.version.LanguageVersion;
+import consulo.project.Project;
 import com.intellij.protobuf.lang.PbParserDefinition;
 import com.intellij.protobuf.lang.parser.PbParser;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.LazyParseableElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.IErrorCounterReparseableElementType;
-import com.intellij.psi.tree.ILightLazyParseableElementType;
-import com.intellij.util.diff.FlyweightCapableTreeStructure;
-import consulo.lang.LanguageVersion;
-import consulo.lang.util.LanguageVersionUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.impl.ast.LazyParseableElement;
+import consulo.language.version.LanguageVersionUtil;
+import consulo.language.Language;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.PsiBuilderFactory;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,10 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.protobuf.lang.psi;
 
+import consulo.language.psi.PsiElementVisitor;
 import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElementVisitor;
 
-public class PbVisitor extends PsiElementVisitor {
+public class PbVisitor extends PsiElementVisitor
+{
 
   public void visitAggregateValue(@NotNull PbAggregateValue o) {
     visitLiteral(o);

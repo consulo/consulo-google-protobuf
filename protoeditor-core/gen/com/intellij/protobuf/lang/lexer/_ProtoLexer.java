@@ -19,8 +19,9 @@ package com.intellij.protobuf.lang.lexer;
 import com.intellij.protobuf.lang.lexer.ProtoLexer.CommentStyle;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.lexer.FlexLexer;
 
 @SuppressWarnings("fallthrough")
 
@@ -713,7 +714,7 @@ public class _ProtoLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return com.intellij.psi.TokenType.BAD_CHARACTER;
+            { return TokenType.BAD_CHARACTER;
             } 
             // fall through
           case 57: break;
@@ -733,7 +734,7 @@ public class _ProtoLexer implements FlexLexer {
             // fall through
           case 60: break;
           case 5: 
-            { return com.intellij.psi.TokenType.WHITE_SPACE;
+            { return TokenType.WHITE_SPACE;
             } 
             // fall through
           case 61: break;

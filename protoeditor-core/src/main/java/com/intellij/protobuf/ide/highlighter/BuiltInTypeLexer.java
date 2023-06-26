@@ -15,15 +15,16 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.lexer.DelegateLexer;
-import com.intellij.lexer.Lexer;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.lexer.Lexer;
+import consulo.language.ast.IElementType;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 import com.intellij.protobuf.lang.util.BuiltInType;
+import consulo.language.lexer.DelegateLexer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BuiltInTypeLexer extends DelegateLexer {
+public class BuiltInTypeLexer extends DelegateLexer
+{
 
   BuiltInTypeLexer(@NotNull Lexer delegate) {
     super(delegate);

@@ -15,19 +15,25 @@
  */
 package com.intellij.protobuf.jvm;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.protobuf.jvm.names.JavaNameGenerator;
 import com.intellij.protobuf.jvm.names.NameGeneratorSelector;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.psi.PbFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.ObjectUtils;
-import com.intellij.util.indexing.*;
-import com.intellij.util.indexing.FileBasedIndex.InputFilter;
-import com.intellij.util.io.EnumeratorStringDescriptor;
-import com.intellij.util.io.KeyDescriptor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.index.io.DataIndexer;
+import consulo.index.io.EnumeratorStringDescriptor;
+import consulo.index.io.ID;
+import consulo.index.io.KeyDescriptor;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.stub.DefaultFileTypeSpecificInputFilter;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.FileBasedIndex.InputFilter;
+import consulo.language.psi.stub.FileContent;
+import consulo.language.psi.stub.ScalarIndexExtension;
+import consulo.project.Project;
+import consulo.util.lang.ObjectUtil;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -40,21 +46,22 @@ import java.util.stream.Collectors;
  * <p>TODO(jvoung): use a StubIndex? That might be cheaper than parsing for more than stubs. Problem
  * is that we don't have the file option expressions available as stubs.
  */
+@ExtensionImpl
 public class PbJavaOuterClassIndex extends ScalarIndexExtension<String> {
 
   public static final ID<String, Void> INDEX_ID = ID.create("protoeditor.java.outer.class.index");
   private static final DataIndexer<String, Void, FileContent> INDEXER_INSTANCE =
-      new OuterClassNameIndexer();
+    new OuterClassNameIndexer();
 
   public static Collection<PbFile> getFilesWithOuterClass(
-      Project project, String outerClassName, GlobalSearchScope scope) {
+    Project project, String outerClassName, GlobalSearchScope scope) {
     Collection<VirtualFile> files =
-        FileBasedIndex.getInstance().getContainingFiles(INDEX_ID, outerClassName, scope);
+      FileBasedIndex.getInstance().getContainingFiles(INDEX_ID, outerClassName, scope);
     return files
-        .stream()
-        .map(f -> ObjectUtils.tryCast(PsiManager.getInstance(project).findFile(f), PbFile.class))
-        .filter(Objects::nonNull)
-        .collect(Collectors.toList());
+      .stream()
+      .map(f -> ObjectUtil.tryCast(PsiManager.getInstance(project).findFile(f), PbFile.class))
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
   }
 
   @NotNull
@@ -101,7 +108,7 @@ public class PbJavaOuterClassIndex extends ScalarIndexExtension<String> {
     @Override
     @NotNull
     public Map<String, Void> map(@NotNull FileContent inputData) {
-      PbFile pbFile = ObjectUtils.tryCast(inputData.getPsiFile(), PbFile.class);
+      PbFile pbFile = ObjectUtil.tryCast(inputData.getPsiFile(), PbFile.class);
       if (pbFile == null) {
         return Collections.emptyMap();
       }
@@ -113,7 +120,9 @@ public class PbJavaOuterClassIndex extends ScalarIndexExtension<String> {
       return result;
     }
 
-    /** Return all of the java outer class names that can be generated from this proto file. */
+    /**
+     * Return all of the java outer class names that can be generated from this proto file.
+     */
     @NotNull
     private Collection<String> computeOuterClassNames(PbFile file) {
       List<JavaNameGenerator> nameGenerators = NameGeneratorSelector.selectForFile(file);

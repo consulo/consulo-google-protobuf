@@ -17,16 +17,16 @@ package com.intellij.protobuf.lang.annotation;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.*;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.application.util.CachedValueProvider;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
+import consulo.language.psi.util.PsiTreeUtil;
 
 import java.util.*;
 
@@ -72,7 +72,7 @@ final class EnumTracker {
   }
 
   private static EnumTracker getTracker(PbEnumDefinition enumDefinition) {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         enumDefinition,
         () -> {
           EnumTracker tracker = new EnumTracker();

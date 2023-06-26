@@ -19,8 +19,8 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
-import com.intellij.openapi.util.Condition;
-import com.intellij.psi.util.QualifiedName;
+import consulo.util.lang.function.Condition;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbSymbol;
 import com.intellij.protobuf.lang.psi.PbSymbolOwner;
@@ -65,7 +65,7 @@ public class PbSymbolResolver {
   }
 
   public List<PbResolveResult> resolveRelativeName(
-      QualifiedName name, QualifiedName scope, Condition<PbSymbol> condition) {
+		  QualifiedName name, QualifiedName scope, Condition<PbSymbol> condition) {
 
     if (name.getComponentCount() == 0) {
       // Empty name given. No results.
@@ -114,7 +114,7 @@ public class PbSymbolResolver {
     return resolveName(name, condition);
   }
 
-  public List<PbResolveResult> resolveName(QualifiedName name, Condition<PbSymbol> condition) {
+  public List<PbResolveResult> resolveName(QualifiedName name, consulo.util.lang.function.Condition<PbSymbol> condition) {
     return symbols
         .get(name)
         .stream()
@@ -124,7 +124,7 @@ public class PbSymbolResolver {
   }
 
   public ImmutableMultimap<String, PbSymbol> findChildren(
-      QualifiedName parentName, Condition<PbSymbol> condition) {
+      QualifiedName parentName, consulo.util.lang.function.Condition<PbSymbol> condition) {
     if (parentName.getComponentCount() == 0) {
       // Special case - return all top-level symbols.
       return findTopLevelSymbols(condition);

@@ -15,20 +15,21 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.io.StringRef;
+import consulo.language.psi.stub.*;
+import consulo.language.psi.util.QualifiedName;
+import consulo.index.io.StringRef;
 import com.intellij.protobuf.lang.psi.PbEnumDefinition;
 import com.intellij.protobuf.lang.psi.impl.PbEnumDefinitionImpl;
 import com.intellij.protobuf.lang.stub.PbEnumDefinitionStub;
 import com.intellij.protobuf.lang.stub.index.QualifiedNameIndex;
 import com.intellij.protobuf.lang.stub.index.ShortNameIndex;
+import consulo.language.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-public class PbEnumDefinitionType extends IStubElementType<PbEnumDefinitionStub, PbEnumDefinition> {
+public class PbEnumDefinitionType extends IStubElementType<PbEnumDefinitionStub, PbEnumDefinition>
+{
 
   PbEnumDefinitionType(String debugName, Language language) {
     super(debugName, language);
@@ -61,7 +62,7 @@ public class PbEnumDefinitionType extends IStubElementType<PbEnumDefinitionStub,
   @NotNull
   @Override
   public PbEnumDefinitionStub deserialize(
-      @NotNull StubInputStream dataStream, StubElement parentStub)
+		  @NotNull StubInputStream dataStream, StubElement parentStub)
       throws IOException {
     String name = null;
     StringRef nameRef = dataStream.readName();

@@ -18,13 +18,14 @@ package com.intellij.protobuf.lang.annotation;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.annotation.*;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNameIdentifierOwner;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiNameIdentifierOwner;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.ide.highlighter.PbSyntaxHighlighter;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.annotation.OptionOccurrenceTracker.Occurrence;
@@ -35,13 +36,15 @@ import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
 import com.intellij.protobuf.lang.resolve.PbFileResolver;
 import com.intellij.protobuf.lang.util.BuiltInType;
 import com.intellij.protobuf.lang.util.ValueTester;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /** General proto element error annotations. */
-public class PbAnnotator implements Annotator {
+public class PbAnnotator implements Annotator
+{
 
   // Allowable map key types, as defined in descriptor.cc.
   private static final ImmutableSet<BuiltInType> ALLOWED_KEY_TYPES =

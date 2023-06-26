@@ -15,19 +15,19 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.application.ApplicationManager;
+import consulo.application.ApplicationManager;
 import com.intellij.openapi.module.EmptyModuleType;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ex.ProjectManagerEx;
-import com.intellij.openapi.roots.ContentEntry;
-import com.intellij.openapi.roots.ModifiableRootModel;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
+import consulo.module.Module;
+import consulo.module.content.ModuleRootManager;
+import consulo.module.content.layer.ContentEntry;
+import consulo.project.Project;
+import consulo.project.internal.ProjectManagerEx;
+import consulo.module.content.layer.ModifiableRootModel;
+import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
 import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
 import com.intellij.testFramework.HeavyPlatformTestCase;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,11 +77,11 @@ public class DefaultConfiguratorTest extends HeavyPlatformTestCase {
                   ModuleRootManager.getInstance(module1).getModifiableModel();
               ModifiableRootModel model2 =
                   ModuleRootManager.getInstance(module2).getModifiableModel();
-              ContentEntry entry = model1.addContentEntry(notNull(VfsUtil.findFileByIoFile(module1Root1, true)));
+              ContentEntry entry = model1.addContentEntry(notNull(consulo.ide.impl.idea.openapi.vfs.VfsUtil.findFileByIoFile(module1Root1, true)));
               entry.addSourceFolder(entry.getUrl() + "/src1", false);
               entry.addSourceFolder(entry.getUrl() + "/src2", false);
               model1.commit();
-              entry = model2.addContentEntry(notNull(VfsUtil.findFileByIoFile(module2Root1, true)));
+              entry = model2.addContentEntry(notNull(consulo.ide.impl.idea.openapi.vfs.VfsUtil.findFileByIoFile(module2Root1, true)));
               entry.addSourceFolder(entry.getUrl() + "/src1", false);
               model2.commit();
             });
@@ -95,9 +95,9 @@ public class DefaultConfiguratorTest extends HeavyPlatformTestCase {
     assertEquals("google/protobuf/descriptor.proto", settings.getDescriptorPath());
     assertSameElements(
         settings.getImportPathEntries(),
-        new ImportPathEntry(VfsUtil.pathToUrl(module1Root1Src1.getPath()), ""),
-        new ImportPathEntry(VfsUtil.pathToUrl(module1Root1Src2.getPath()), ""),
-        new ImportPathEntry(VfsUtil.pathToUrl(module2Root1Src1.getPath()), ""),
+        new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(module1Root1Src1.getPath()), ""),
+        new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(module1Root1Src2.getPath()), ""),
+        new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(module2Root1Src1.getPath()), ""),
         DefaultConfigurator.getBuiltInIncludeEntry());
 
     ProjectManagerEx.getInstanceEx().forceCloseProject(project);
@@ -118,7 +118,7 @@ public class DefaultConfiguratorTest extends HeavyPlatformTestCase {
     assertNotNull(descriptorDir);
     VirtualFile descriptorFile = descriptorDir.findFileByRelativePath("google/protobuf/descriptor.proto");
     assertNotNull(descriptorFile);
-    String text = VfsUtil.loadText(descriptorFile);
+    String text = consulo.ide.impl.idea.openapi.vfs.VfsUtil.loadText(descriptorFile);
     // Simple check to make sure it's a descriptor.
     assertTrue(text.contains("FileOptions"));
   }

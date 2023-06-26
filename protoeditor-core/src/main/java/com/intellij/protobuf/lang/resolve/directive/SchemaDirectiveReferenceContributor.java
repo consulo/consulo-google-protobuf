@@ -15,27 +15,31 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.patterns.PlatformPatterns;
-import com.intellij.psi.*;
-import com.intellij.util.ProcessingContext;
 import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.language.Language;
+import consulo.language.pattern.PlatformPatterns;
+import consulo.language.psi.*;
+import consulo.language.util.ProcessingContext;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
-/** A reference contributor that provides references for directive comments. */
+/**
+ * A reference contributor that provides references for directive comments.
+ */
 public class SchemaDirectiveReferenceContributor extends PsiReferenceContributor {
 
   @Override
   public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
     registrar.registerReferenceProvider(
-        PlatformPatterns.psiComment().withLanguage(PbTextLanguage.INSTANCE),
-        new PsiReferenceProvider() {
-          @NotNull
-          @Override
-          public PsiReference[] getReferencesByElement(
-              @NotNull PsiElement element, @NotNull ProcessingContext context) {
-            return getReferencesFromComment((PsiComment) element);
-          }
-        });
+      PlatformPatterns.psiComment().withLanguage(PbTextLanguage.INSTANCE),
+      new PsiReferenceProvider() {
+        @NotNull
+        @Override
+        public PsiReference[] getReferencesByElement(
+          @NotNull PsiElement element, @NotNull ProcessingContext context) {
+          return getReferencesFromComment((PsiComment)element);
+        }
+      });
   }
 
   private static PsiReference[] getReferencesFromComment(PsiComment comment) {
@@ -48,5 +52,11 @@ public class SchemaDirectiveReferenceContributor extends PsiReferenceContributor
       return PsiReference.EMPTY_ARRAY;
     }
     return schemaComment.getAllReferences().toArray(PsiReference.EMPTY_ARRAY);
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

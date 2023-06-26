@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.ide.views;
 
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.common.PsiTreeElementBase;
+import consulo.language.editor.structureView.PsiTreeElementBase;
 import com.intellij.protobuf.lang.psi.*;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

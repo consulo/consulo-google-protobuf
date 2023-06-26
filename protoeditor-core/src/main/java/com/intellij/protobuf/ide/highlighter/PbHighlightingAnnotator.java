@@ -15,16 +15,16 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.codeInsight.daemon.impl.HighlightInfoType;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNameIdentifierOwner;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.ProtoNumberValue.SourceType;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.editor.rawHighlight.HighlightInfoType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiNameIdentifierOwner;
+import consulo.language.psi.PsiReference;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -48,88 +48,91 @@ public class PbHighlightingAnnotator implements Annotator {
   public void annotate(@NotNull PsiElement element, @NotNull final AnnotationHolder holder) {
 
     element.accept(
-        new PbVisitor() {
+      new PbVisitor() {
 
-          @Override
-          public void visitIdentifierValue(@NotNull PbIdentifierValue value) {
-            PsiReference ref = value.getReference();
-            // First, check to see if this is an enum value.
-            if (ref != null) {
-              // A non-null reference means this could be an enum value, if it resolves.
-              if (ref.resolve() != null) {
-                setHighlighting(value, holder, PbSyntaxHighlighter.ENUM_VALUE);
-              }
-            } else {
-              // No reference - check to see if it should be highlighted as a special built-in value
-              ProtoNumberValue numberValue = value.getAsNumber();
-              if (numberValue != null) {
-                visitNumberValue(numberValue);
-              } else if (value.getBooleanValue() != null) {
-                setHighlighting(value, holder, PbSyntaxHighlighter.KEYWORD);
-              }
+        @Override
+        public void visitIdentifierValue(@NotNull PbIdentifierValue value) {
+          PsiReference ref = value.getReference();
+          // First, check to see if this is an enum value.
+          if (ref != null) {
+            // A non-null reference means this could be an enum value, if it resolves.
+            if (ref.resolve() != null) {
+              setHighlighting(value, holder, PbSyntaxHighlighter.ENUM_VALUE);
             }
           }
-
-          @Override
-          public void visitNumberValue(@NotNull PbNumberValue number) {
-            visitNumberValue((ProtoNumberValue) number);
-          }
-
-          void visitNumberValue(@NotNull ProtoNumberValue number) {
-            SourceType sourceType = number.getSourceType();
-            if (sourceType == SourceType.INF || sourceType == SourceType.NAN) {
-              PsiElement numberElement = number.getNumberElement();
-              if (numberElement != null) {
-                setHighlighting(numberElement, holder, PbSyntaxHighlighter.KEYWORD);
-              }
+          else {
+            // No reference - check to see if it should be highlighted as a special built-in value
+            ProtoNumberValue numberValue = value.getAsNumber();
+            if (numberValue != null) {
+              visitNumberValue(numberValue);
+            }
+            else if (value.getBooleanValue() != null) {
+              setHighlighting(value, holder, PbSyntaxHighlighter.KEYWORD);
             }
           }
+        }
 
-          @Override
-          public void visitOptionName(@NotNull PbOptionName name) {
-            if (name.isSpecial()) {
-              setHighlighting(name, holder, PbSyntaxHighlighter.KEYWORD);
+        @Override
+        public void visitNumberValue(@NotNull PbNumberValue number) {
+          visitNumberValue((ProtoNumberValue)number);
+        }
+
+        void visitNumberValue(@NotNull ProtoNumberValue number) {
+          SourceType sourceType = number.getSourceType();
+          if (sourceType == SourceType.INF || sourceType == SourceType.NAN) {
+            PsiElement numberElement = number.getNumberElement();
+            if (numberElement != null) {
+              setHighlighting(numberElement, holder, PbSyntaxHighlighter.KEYWORD);
             }
           }
+        }
 
-          @Override
-          public void visitTypeName(@NotNull PbTypeName type) {
-            if (type.isBuiltInType()) {
-              setHighlighting(type, holder, PbSyntaxHighlighter.KEYWORD);
+        @Override
+        public void visitOptionName(@NotNull PbOptionName name) {
+          if (name.isSpecial()) {
+            setHighlighting(name, holder, PbSyntaxHighlighter.KEYWORD);
+          }
+        }
+
+        @Override
+        public void visitTypeName(@NotNull PbTypeName type) {
+          if (type.isBuiltInType()) {
+            setHighlighting(type, holder, PbSyntaxHighlighter.KEYWORD);
+          }
+        }
+
+        @Override
+        public void visitElement(@NotNull PsiElement element) {
+          IElementType type = element.getNode().getElementType();
+          if (Objects.equals(
+            PbSyntaxHighlighter.getTokenKey(type), PbSyntaxHighlighter.KEYWORD)) {
+            setHighlighting(element, holder, PbSyntaxHighlighter.KEYWORD);
+          }
+          else if (ProtoTokenTypes.IDENTIFIER_LITERAL.equals(type)) {
+            PsiElement parent = element.getParent();
+            if (parent instanceof PsiNameIdentifierOwner
+              && element.equals(((PsiNameIdentifierOwner)parent).getNameIdentifier())) {
+              highlightNameIdentifier((PsiNameIdentifierOwner)parent, element, holder);
             }
           }
-
-          @Override
-          public void visitElement(@NotNull PsiElement element) {
-            IElementType type = element.getNode().getElementType();
-            if (Objects.equals(
-                PbSyntaxHighlighter.getTokenKey(type), PbSyntaxHighlighter.KEYWORD)) {
-              setHighlighting(element, holder, PbSyntaxHighlighter.KEYWORD);
-            } else if (ProtoTokenTypes.IDENTIFIER_LITERAL.equals(type)) {
-              PsiElement parent = element.getParent();
-              if (parent instanceof PsiNameIdentifierOwner
-                  && element.equals(((PsiNameIdentifierOwner) parent).getNameIdentifier())) {
-                highlightNameIdentifier((PsiNameIdentifierOwner) parent, element, holder);
-              }
-            }
-          }
-        });
+        }
+      });
   }
 
   private void highlightNameIdentifier(
-      PsiNameIdentifierOwner parent, PsiElement name, AnnotationHolder holder) {
+    PsiNameIdentifierOwner parent, PsiElement name, AnnotationHolder holder) {
     if (parent instanceof PbEnumValue) {
       setHighlighting(name, holder, PbSyntaxHighlighter.ENUM_VALUE);
     }
   }
 
   private void setHighlighting(
-      @NotNull PsiElement element,
-      @NotNull AnnotationHolder holder,
-      @NotNull TextAttributesKey key) {
+    @NotNull PsiElement element,
+    @NotNull AnnotationHolder holder,
+    @NotNull TextAttributesKey key) {
     holder.newSilentAnnotation(HighlightInfoType.SYMBOL_TYPE_SEVERITY)
-        .range(element.getTextRange())
-        .textAttributes(key)
-        .create();
+          .range(element.getTextRange())
+          .textAttributes(key)
+          .create();
   }
 }

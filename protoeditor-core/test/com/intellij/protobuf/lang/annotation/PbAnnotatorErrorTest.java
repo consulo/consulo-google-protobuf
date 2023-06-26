@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.annotation;
 
-import com.intellij.psi.PsiFile;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
+import consulo.language.psi.PsiFile;
 
 /** Tests for {@link PbAnnotator} error annotations. */
 public class PbAnnotatorErrorTest extends PbCodeInsightFixtureTestCase {

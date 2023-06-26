@@ -16,23 +16,25 @@
 package com.intellij.protobuf.ide.editing;
 
 import com.google.common.collect.ImmutableMap;
-import com.intellij.lang.Language;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.impl.source.codeStyle.SemanticEditorPosition.SyntaxElement;
-import com.intellij.psi.impl.source.codeStyle.lineIndent.JavaLikeLangLineIndentProvider;
-import com.intellij.psi.tree.IElementType;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.codeStyle.lineIndent.JavaLikeLangLineIndentProvider;
+import consulo.language.codeStyle.lineIndent.SemanticEditorPosition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /** A simple LineIndentProvider for protobuf files. */
+@ExtensionImpl
 public class PbLineIndentProvider extends JavaLikeLangLineIndentProvider {
-  private static final ImmutableMap<IElementType, SyntaxElement> SYNTAX_MAP;
+  private static final ImmutableMap<IElementType, SemanticEditorPosition.SyntaxElement> SYNTAX_MAP;
 
   static {
     SYNTAX_MAP =
-        ImmutableMap.<IElementType, SyntaxElement>builder()
+        ImmutableMap.<IElementType, SemanticEditorPosition.SyntaxElement>builder()
             .put(TokenType.WHITE_SPACE, JavaLikeElement.Whitespace)
             .put(ProtoTokenTypes.LBRACE, JavaLikeElement.BlockOpeningBrace)
             .put(ProtoTokenTypes.RBRACE, JavaLikeElement.BlockClosingBrace)
@@ -47,7 +49,7 @@ public class PbLineIndentProvider extends JavaLikeLangLineIndentProvider {
 
   @Nullable
   @Override
-  protected SyntaxElement mapType(@NotNull IElementType tokenType) {
+  protected SemanticEditorPosition.SyntaxElement mapType(@NotNull IElementType tokenType) {
     return SYNTAX_MAP.get(tokenType);
   }
 

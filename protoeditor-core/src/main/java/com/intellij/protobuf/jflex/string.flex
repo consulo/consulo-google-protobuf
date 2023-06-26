@@ -14,11 +14,9 @@
 
 package com.intellij.protobuf.lang.lexer;
 
-import com.intellij.psi.tree.IElementType;
-
-import com.intellij.lexer.FlexLexer;
-import com.intellij.psi.StringEscapesTokenTypes;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.StringEscapesTokenTypes;
+import consulo.language.lexer.FlexLexer;
 
 @SuppressWarnings("fallthrough")
 %%

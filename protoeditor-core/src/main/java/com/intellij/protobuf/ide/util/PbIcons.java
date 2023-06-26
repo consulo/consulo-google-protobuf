@@ -21,18 +21,18 @@ import consulo.ui.image.Image;
 
 public interface PbIcons {
 
-	Image ENUM = PlatformIconGroup.nodesEnum();
-	Image ENUM_VALUE = PlatformIconGroup.nodesField();
-	Image EXTEND = PlatformIconGroup.actionsExport();
-	Image FIELD = PlatformIconGroup.nodesField();
-	Image FILE = ProtobufIconGroup.protoFile();
-	Image GROUP_FIELD = PlatformIconGroup.nodesAnonymousClass();
-	Image MESSAGE = ProtobufIconGroup.protoMessage();
-	Image ONEOF = PlatformIconGroup.nodesClass();
-	Image PACKAGE = PlatformIconGroup.nodesPackage();
-	Image SERVICE = PlatformIconGroup.nodesInterface();
-	Image SERVICE_METHOD = PlatformIconGroup.nodesMethod();
+  Image ENUM = PlatformIconGroup.nodesEnum();
+  Image ENUM_VALUE = PlatformIconGroup.nodesField();
+  Image EXTEND = PlatformIconGroup.actionsExport();
+  Image FIELD = PlatformIconGroup.nodesField();
+  Image FILE = ProtobufIconGroup.protofile();
+  Image GROUP_FIELD = PlatformIconGroup.nodesAnonymousclass();
+  Image MESSAGE = ProtobufIconGroup.protomessage();
+  Image ONEOF = PlatformIconGroup.nodesClass();
+  Image PACKAGE = PlatformIconGroup.nodesPackage();
+  Image SERVICE = PlatformIconGroup.nodesInterface();
+  Image SERVICE_METHOD = PlatformIconGroup.nodesMethod();
 
-	// TODO(volkman): find a better icon.
-	Image TEXT_FILE = ProtobufIconGroup.protoFile();
+  // TODO(volkman): find a better icon.
+  Image TEXT_FILE = ProtobufIconGroup.protofile();
 }

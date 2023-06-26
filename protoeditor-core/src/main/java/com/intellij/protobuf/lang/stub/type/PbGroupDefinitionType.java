@@ -15,22 +15,23 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.io.StringRef;
+import consulo.language.psi.stub.*;
+import consulo.language.psi.util.QualifiedName;
+import consulo.index.io.StringRef;
 import com.intellij.protobuf.lang.psi.PbGroupDefinition;
 import com.intellij.protobuf.lang.psi.impl.PbGroupDefinitionImpl;
 import com.intellij.protobuf.lang.stub.PbGroupDefinitionStub;
 import com.intellij.protobuf.lang.stub.index.QualifiedNameIndex;
 import com.intellij.protobuf.lang.stub.index.ShortNameIndex;
+import consulo.language.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 /** Stub type for {@link PbGroupDefinition}. */
 public class PbGroupDefinitionType
-    extends IStubElementType<PbGroupDefinitionStub, PbGroupDefinition> {
+    extends IStubElementType<PbGroupDefinitionStub, PbGroupDefinition>
+{
 
   PbGroupDefinitionType(String debugName, Language language) {
     super(debugName, language);
@@ -63,7 +64,7 @@ public class PbGroupDefinitionType
   @NotNull
   @Override
   public PbGroupDefinitionStub deserialize(
-      @NotNull StubInputStream dataStream, StubElement parentStub)
+		  @NotNull StubInputStream dataStream, StubElement parentStub)
       throws IOException {
     String name = null;
     StringRef nameRef = dataStream.readName();

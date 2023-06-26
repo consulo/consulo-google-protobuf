@@ -15,15 +15,22 @@
  */
 package com.intellij.protobuf.ide.spelling;
 
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.spellchecker.tokenizer.SpellcheckingStrategy;
-import com.intellij.spellchecker.tokenizer.Tokenizer;
+import com.intellij.protobuf.lang.PbTextLanguage;
 import com.intellij.protobuf.lang.psi.ProtoStringPart;
 import com.intellij.protobuf.lang.resolve.directive.SchemaDirective;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.language.spellcheker.SpellcheckingStrategy;
+import consulo.language.spellcheker.tokenizer.Tokenizer;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
-/** A {@link SpellcheckingStrategy} for proto text format files */
+/**
+ * A {@link SpellcheckingStrategy} for proto text format files
+ */
+@ExtensionImpl
 public class PbTextSpellcheckingStrategy extends SpellcheckingStrategy {
   @NotNull
   @Override
@@ -33,11 +40,17 @@ public class PbTextSpellcheckingStrategy extends SpellcheckingStrategy {
     }
     if (element instanceof PsiComment) {
       SchemaDirective directive = SchemaDirective.find(element.getContainingFile());
-      if (directive != null && directive.getSchemaComment((PsiComment) element) != null) {
+      if (directive != null && directive.getSchemaComment((PsiComment)element) != null) {
         // No spell checking for the special "# proto-file" and "# proto-message" comments.
         return EMPTY_TOKENIZER;
       }
     }
     return super.getTokenizer(element);
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

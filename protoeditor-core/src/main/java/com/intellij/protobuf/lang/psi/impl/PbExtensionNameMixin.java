@@ -15,12 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.Conditions;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
+import consulo.util.lang.function.Condition;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.util.PsiTreeUtil;
 import com.intellij.protobuf.lang.annotation.OptionOccurrenceTracker;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
@@ -28,6 +26,8 @@ import com.intellij.protobuf.lang.resolve.PbSymbolLookupElement;
 import com.intellij.protobuf.lang.resolve.PbSymbolResolver;
 import com.intellij.protobuf.lang.resolve.ProtoSymbolPathReference;
 import com.intellij.protobuf.lang.resolve.ResolveFilters;
+import consulo.language.ast.ASTNode;
+import consulo.util.lang.function.Conditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -87,8 +87,8 @@ abstract class PbExtensionNameMixin extends PbQualifiedReferenceBase implements 
     // - or, a field that is an extension of qualifierType.
     // - or, a member of qualifierType.
     // - or, qualifierType itself.
-    Condition<PbSymbol> condition =
-        Conditions.or(
+    consulo.util.lang.function.Condition<PbSymbol> condition =
+        consulo.util.lang.function.Conditions.or(
             ResolveFilters.packageOrMessageWithExtension(),
             ResolveFilters.extendedFromTypeOrMember(qualifierType));
     condition =

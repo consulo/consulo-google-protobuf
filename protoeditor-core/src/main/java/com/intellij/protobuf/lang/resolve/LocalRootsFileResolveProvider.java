@@ -15,14 +15,14 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootManager;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.GlobalSearchScopesCore;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.scope.GlobalSearchScopesCore;
+import consulo.module.Module;
+import consulo.module.content.ModuleRootManager;
+import consulo.module.content.ProjectRootManager;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -90,10 +90,10 @@ public class LocalRootsFileResolveProvider implements FileResolveProvider {
 
   private List<ChildEntry> getChildEntriesForFile(VirtualFile file) {
     if (file != null && file.isDirectory()) {
-      return VfsUtil.getChildren(file, PROTO_AND_DIRECTORY_FILTER)
-          .stream()
-          .map(child -> new ChildEntry(child.getName(), child.isDirectory()))
-          .collect(Collectors.toList());
+      return VirtualFileUtil.getChildren(file, PROTO_AND_DIRECTORY_FILTER)
+                            .stream()
+                            .map(child -> new ChildEntry(child.getName(), child.isDirectory()))
+                            .collect(Collectors.toList());
     }
     return Collections.emptyList();
   }

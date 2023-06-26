@@ -15,13 +15,13 @@
  */
 package com.intellij.protobuf.lang.completion;
 
-import com.intellij.codeInsight.lookup.Lookup;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementPresentation;
-import com.intellij.psi.PsiFile;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementPresentation;
+import consulo.language.psi.PsiFile;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;
+import consulo.language.editor.completion.lookup.Lookup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -149,7 +149,7 @@ public abstract class PbCompletionContributorTestCase extends PbCodeInsightFixtu
   }
 
   public static void assertContainsItems(
-      @NotNull Collection<? extends LookupElement> collection, @NotNull String... expected) {
+		  @NotNull Collection<? extends LookupElement> collection, @NotNull String... expected) {
     List<String> items =
         collection.stream().map(LookupElement::getLookupString).collect(Collectors.toList());
     assertContainsElements(items, Arrays.asList(expected));
@@ -170,7 +170,7 @@ public abstract class PbCompletionContributorTestCase extends PbCodeInsightFixtu
   }
 
   public static void assertContainsNonhighlightedItems(
-      @NotNull Collection<? extends LookupElement> collection, @NotNull String... expected) {
+		  @NotNull Collection<? extends LookupElement> collection, @NotNull String... expected) {
     List<LookupElement> items = new ArrayList<>();
     for (LookupElement lookupElement : collection) {
       LookupElementPresentation presentation = new LookupElementPresentation();

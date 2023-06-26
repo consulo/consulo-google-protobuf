@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.impl.PbElementFactory.FieldBuilder;
 import com.intellij.protobuf.lang.psi.impl.PbElementFactory.MessageBuilder;
+import consulo.language.ast.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

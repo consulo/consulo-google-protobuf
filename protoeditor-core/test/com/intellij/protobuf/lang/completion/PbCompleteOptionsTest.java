@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.completion;
 
-import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.lang.resolve.PbOptionNameReference;
+import consulo.language.editor.completion.lookup.LookupElement;
 
 import java.util.List;
 

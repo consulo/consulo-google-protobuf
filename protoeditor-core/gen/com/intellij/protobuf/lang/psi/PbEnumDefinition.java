@@ -2,8 +2,8 @@
 package com.intellij.protobuf.lang.psi;
 
 import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.StubBasedPsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.StubBasedPsiElement;
 import com.intellij.protobuf.lang.stub.PbEnumDefinitionStub;
 
 public interface PbEnumDefinition extends PbDefinition, PbNamedTypeElement, PbEnumDefinitionBase, StubBasedPsiElement<PbEnumDefinitionStub> {

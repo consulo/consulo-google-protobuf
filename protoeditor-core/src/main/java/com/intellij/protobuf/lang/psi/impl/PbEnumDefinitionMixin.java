@@ -16,13 +16,13 @@
 package com.intellij.protobuf.lang.psi.impl;
 
 import com.google.common.collect.Multimap;
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.ide.util.PbIcons;
 import com.intellij.protobuf.lang.psi.PbEnumDefinition;
 import com.intellij.protobuf.lang.psi.PbEnumValue;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
 import com.intellij.protobuf.lang.stub.PbEnumDefinitionStub;
-import com.intellij.psi.stubs.IStubElementType;
+import consulo.language.psi.stub.IStubElementType;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

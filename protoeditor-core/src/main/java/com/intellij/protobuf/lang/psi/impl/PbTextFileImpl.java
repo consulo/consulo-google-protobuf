@@ -15,22 +15,24 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.lang.Language;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.util.CachedValueProvider;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
 import com.intellij.protobuf.lang.PbTextFileType;
 import com.intellij.protobuf.lang.psi.PbTextFile;
 import com.intellij.protobuf.lang.psi.PbTextRootMessage;
 import com.intellij.protobuf.lang.resolve.SchemaInfo;
 import com.intellij.protobuf.lang.resolve.SchemaProvider;
+import consulo.application.util.CachedValueProvider;
+import consulo.language.Language;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
+import consulo.virtualFileSystem.fileType.FileType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Implementation class for prototext file elements. */
+/**
+ * Implementation class for prototext file elements.
+ */
 public class PbTextFileImpl extends PsiFileBase implements PbTextFile {
 
   public PbTextFileImpl(@NotNull FileViewProvider viewProvider, @NotNull Language language) {
@@ -51,11 +53,9 @@ public class PbTextFileImpl extends PsiFileBase implements PbTextFile {
   @Override
   @Nullable
   public SchemaInfo getSchemaInfo() {
-    return CachedValuesManager.getCachedValue(
-        this,
-        () ->
-            CachedValueProvider.Result.create(
-                SchemaProvider.forFile(this), PsiModificationTracker.MODIFICATION_COUNT));
+    return LanguageCachedValueUtil.getCachedValue(
+      this,
+      () -> CachedValueProvider.Result.create(SchemaProvider.forFile(this), PsiModificationTracker.MODIFICATION_COUNT));
   }
 
   @Override

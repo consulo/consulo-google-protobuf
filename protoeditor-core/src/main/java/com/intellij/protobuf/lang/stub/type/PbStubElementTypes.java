@@ -16,7 +16,7 @@
 package com.intellij.protobuf.lang.stub.type;
 
 import com.intellij.protobuf.lang.PbLanguage;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 
 /**
  * Stub element type constants and factory.

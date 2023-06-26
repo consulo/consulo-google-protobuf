@@ -16,7 +16,7 @@
 package com.intellij.protobuf.lang.psi;
 
 import com.google.common.primitives.UnsignedLong;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.Nullable;
 
 /** A number value: either an integer or floating point number, "inf" or "nan". Can be negative. */

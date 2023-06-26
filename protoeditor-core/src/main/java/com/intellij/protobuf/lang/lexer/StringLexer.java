@@ -15,13 +15,13 @@
  */
 package com.intellij.protobuf.lang.lexer;
 
-import com.intellij.lexer.FlexAdapter;
-import com.intellij.lexer.Lexer;
-import com.intellij.lexer.MergingLexerAdapter;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.ast.TokenSet;
+import consulo.language.lexer.FlexAdapter;
+import consulo.language.ast.IElementType;
 import com.intellij.protobuf.lang.lexer._StringLexer.TokenType;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.lexer.Lexer;
+import consulo.language.lexer.MergingLexerAdapter;
 
 public class StringLexer extends FlexAdapter {
 

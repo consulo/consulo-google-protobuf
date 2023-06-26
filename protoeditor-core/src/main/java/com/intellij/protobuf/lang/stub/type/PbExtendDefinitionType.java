@@ -15,18 +15,19 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.stubs.*;
+import consulo.language.Language;
 import com.intellij.protobuf.lang.psi.PbExtendDefinition;
 import com.intellij.protobuf.lang.psi.PbTypeName;
 import com.intellij.protobuf.lang.psi.impl.PbExtendDefinitionImpl;
 import com.intellij.protobuf.lang.stub.PbExtendDefinitionStub;
+import consulo.language.psi.stub.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
 public class PbExtendDefinitionType
-    extends IStubElementType<PbExtendDefinitionStub, PbExtendDefinition> {
+    extends IStubElementType<PbExtendDefinitionStub, PbExtendDefinition>
+{
 
   PbExtendDefinitionType(String debugName, Language language) {
     super(debugName, language);
@@ -66,7 +67,7 @@ public class PbExtendDefinitionType
   @NotNull
   @Override
   public PbExtendDefinitionStub deserialize(
-      @NotNull StubInputStream dataStream, StubElement parentStub)
+		  @NotNull StubInputStream dataStream, StubElement parentStub)
       throws IOException {
     String extendedType = dataStream.readUTF();
     return new PbExtendDefinitionStub(parentStub, this, extendedType);

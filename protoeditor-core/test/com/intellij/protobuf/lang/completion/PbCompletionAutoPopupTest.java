@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.completion;
 
-import com.intellij.codeInsight.lookup.Lookup;
+import consulo.language.editor.completion.lookup.Lookup;
 import com.intellij.testFramework.fixtures.CompletionAutoPopupTester;
-import com.intellij.util.ThrowableRunnable;
+import consulo.util.lang.function.ThrowableRunnable;
 import com.intellij.protobuf.TestUtils;
 import org.jetbrains.annotations.NotNull;
 

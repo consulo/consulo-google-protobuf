@@ -17,18 +17,18 @@ package com.intellij.protobuf;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.extensions.LoadingOrder;
-import com.intellij.openapi.fileTypes.FileTypeManager;
-import com.intellij.openapi.project.Project;
+import consulo.application.ApplicationManager;
+import consulo.disposer.Disposable;
+import consulo.component.impl.internal.extension.LoadingOrder;
 import com.intellij.openapi.util.Key;
-import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess;
+import consulo.ide.impl.idea.openapi.vfs.newvfs.impl.VfsRootAccess;
 import com.intellij.protobuf.ide.util.ResourceUtil;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider;
 import com.intellij.protobuf.lang.resolve.LocalRootsFileResolveProvider;
 import com.intellij.testFramework.UsefulTestCase;
+import consulo.language.file.FileTypeManager;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -108,12 +108,12 @@ public final class TestUtils {
   }
 
   public static void addTestFileResolveProvider(
-      Project project, String descriptorPath, @NotNull Disposable disposable) {
+		  Project project, String descriptorPath, @NotNull Disposable disposable) {
     FileResolveProvider provider = new LocalRootsFileResolveProvider(descriptorPath);
     // Make sure the test provider comes first, before the "settings" provider.
     project.getExtensionArea()
         .getExtensionPoint(FileResolveProvider.EP_NAME)
-        .registerExtension(provider, LoadingOrder.readOrder("FIRST, BEFORE settings"), disposable);
+        .registerExtension(provider, consulo.component.impl.internal.extension.LoadingOrder.readOrder("FIRST, BEFORE settings"), disposable);
     project.putUserData(TEST_FILE_RESOLVE_PROVIDER, provider);
   }
 

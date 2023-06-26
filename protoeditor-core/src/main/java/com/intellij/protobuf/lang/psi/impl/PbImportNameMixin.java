@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiReference;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbImportName;
 import com.intellij.protobuf.lang.resolve.PbImportReference;
+import consulo.language.psi.PsiReference;
 import org.jetbrains.annotations.Nullable;
 
 abstract class PbImportNameMixin extends PbElementBase implements PbImportName {

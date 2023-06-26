@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 
 import java.util.Arrays;

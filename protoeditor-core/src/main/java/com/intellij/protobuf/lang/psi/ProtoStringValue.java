@@ -15,11 +15,11 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public interface ProtoStringValue extends ProtoLiteral {
   @NotNull
   @Override
   default String getValue() {
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         this,
         () -> {
           StringBuilder builder = new StringBuilder();

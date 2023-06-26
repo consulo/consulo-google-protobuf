@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.lexer;
 
-import com.intellij.lexer.FlexAdapter;
+import consulo.language.lexer.FlexAdapter;
 
 /** A lexer shared between protobuf and prototext languages. */
 public class ProtoLexer extends FlexAdapter {

@@ -17,8 +17,8 @@ package com.intellij.protobuf.gencodeutils;
 
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbNamedElement;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
+import consulo.language.psi.PsiElement;
 
 import java.util.Arrays;
 

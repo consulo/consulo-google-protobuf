@@ -15,14 +15,14 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiReference;
+import consulo.language.util.IncorrectOperationException;
 import com.intellij.protobuf.lang.psi.ProtoSymbolPath;
 import com.intellij.protobuf.lang.psi.ProtoSymbolPathContainer;
 import com.intellij.protobuf.lang.psi.ProtoSymbolPathDelegate;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

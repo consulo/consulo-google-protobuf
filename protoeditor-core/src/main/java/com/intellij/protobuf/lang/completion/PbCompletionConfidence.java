@@ -15,14 +15,19 @@
  */
 package com.intellij.protobuf.lang.completion;
 
-import com.intellij.codeInsight.completion.CompletionConfidence;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.ThreeState;
+import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.PbNumberValue;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.completion.CompletionConfidence;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.util.lang.ThreeState;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 /** Allow skipping auto popup. */
+@ExtensionImpl
 public class PbCompletionConfidence extends CompletionConfidence {
 
   @Override
@@ -37,5 +42,11 @@ public class PbCompletionConfidence extends CompletionConfidence {
       return ThreeState.YES;
     }
     return ThreeState.UNSURE;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

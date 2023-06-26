@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 /** A {@link Language} for standalone prototext files. */
 public class PbTextLanguage extends Language {

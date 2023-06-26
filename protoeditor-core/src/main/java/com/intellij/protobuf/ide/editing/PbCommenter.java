@@ -15,10 +15,13 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.lang.CodeDocumentationAwareCommenter;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.tree.IElementType;
+import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
+import consulo.language.CodeDocumentationAwareCommenter;
+import consulo.language.Language;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiComment;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -97,5 +100,11 @@ public class PbCommenter implements CodeDocumentationAwareCommenter {
   @Override
   public String getCommentedBlockCommentSuffix() {
     return null;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 }

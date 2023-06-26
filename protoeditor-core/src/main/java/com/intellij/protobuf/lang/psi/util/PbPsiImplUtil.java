@@ -17,14 +17,14 @@ package com.intellij.protobuf.lang.psi.util;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSetMultimap;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.*;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,11 +63,11 @@ public final class PbPsiImplUtil {
 
   @Nullable
   public static QualifiedName getQualifiedName(final PbSymbol element) {
-    return CachedValuesManager.getCachedValue(
-        element,
-        () ->
-            Result.create(
-                calculateQualifiedName(element), PsiModificationTracker.MODIFICATION_COUNT));
+    return LanguageCachedValueUtil.getCachedValue(
+      element,
+      () ->
+        Result.create(
+          calculateQualifiedName(element), PsiModificationTracker.MODIFICATION_COUNT));
   }
 
   @Nullable
@@ -98,7 +98,8 @@ public final class PbPsiImplUtil {
     char endQuote;
     if (text.startsWith("\"") || text.startsWith("'")) {
       endQuote = text.charAt(0);
-    } else {
+    }
+    else {
       return range;
     }
     int endOffset = text.charAt(text.length() - 1) == endQuote ? 1 : 0;
@@ -111,26 +112,26 @@ public final class PbPsiImplUtil {
   }
 
   public static ImmutableMultimap<String, PbSymbol> getCachedSymbolMap(PbStatementOwner owner) {
-    return CachedValuesManager.getCachedValue(
-        owner,
-        () ->
-            Result.create(
-                computeSymbolMap(owner, PbSymbol.class),
-                PsiModificationTracker.MODIFICATION_COUNT));
+    return LanguageCachedValueUtil.getCachedValue(
+      owner,
+      () ->
+        Result.create(
+          computeSymbolMap(owner, PbSymbol.class),
+          PsiModificationTracker.MODIFICATION_COUNT));
   }
 
   public static ImmutableMultimap<String, PbEnumValue> getCachedEnumValueMap(
-      PbStatementOwner owner) {
-    return CachedValuesManager.getCachedValue(
-        owner,
-        () ->
-            Result.create(
-                computeSymbolMap(owner, PbEnumValue.class),
-                PsiModificationTracker.MODIFICATION_COUNT));
+    PbStatementOwner owner) {
+    return LanguageCachedValueUtil.getCachedValue(
+      owner,
+      () ->
+        Result.create(
+          computeSymbolMap(owner, PbEnumValue.class),
+          PsiModificationTracker.MODIFICATION_COUNT));
   }
 
   private static <T extends PbSymbol> ImmutableMultimap<String, T> computeSymbolMap(
-      PbStatementOwner owner, Class<T> typeClass) {
+    PbStatementOwner owner, Class<T> typeClass) {
     List<PbStatement> statements = owner.getStatements();
     ImmutableSetMultimap.Builder<String, T> builder = ImmutableSetMultimap.builder();
     for (PbStatement statement : statements) {
@@ -142,7 +143,7 @@ public final class PbPsiImplUtil {
         }
       }
       if (statement instanceof PbSymbolContributor) {
-        PbSymbolContributor contributor = (PbSymbolContributor) statement;
+        PbSymbolContributor contributor = (PbSymbolContributor)statement;
         for (PbSymbol sibling : contributor.getAdditionalSiblings()) {
           if (typeClass.isInstance(sibling)) {
             String name = sibling.getName();
@@ -155,11 +156,12 @@ public final class PbPsiImplUtil {
       if (statement instanceof PbStatementOwner && !(statement instanceof PbSymbolOwner)) {
         // This is statement owner that does not define a symbol scope, such as an extend or oneof
         // definition. We grab all of the symbols under it and add them to the current scope.
-        builder.putAll(computeSymbolMap((PbStatementOwner) statement, typeClass));
+        builder.putAll(computeSymbolMap((PbStatementOwner)statement, typeClass));
       }
     }
     return builder.build();
   }
 
-  private PbPsiImplUtil() {}
+  private PbPsiImplUtil() {
+  }
 }

@@ -15,8 +15,8 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.CodeStyleSettings;
 
 public class PbCodeStyleSettings extends CustomCodeStyleSettings {
 

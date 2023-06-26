@@ -15,18 +15,18 @@
  */
 package com.intellij.protobuf.lang.annotation;
 
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPolyVariantReference;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.ResolveResult;
+import consulo.document.util.TextRange;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.ResolveResult;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiPolyVariantReference;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -91,7 +91,7 @@ public class SharedAnnotations {
 
   /** Annotate issues with {@link ProtoStringPart} elements. */
   static void annotateStringPart(
-      ProtoStringPart part, AnnotationHolder holder, TextAttributesKey invalidEscapeAttributes) {
+		  ProtoStringPart part, AnnotationHolder holder, TextAttributesKey invalidEscapeAttributes) {
     if (part.isUnterminated()) {
       holder.newAnnotation(HighlightSeverity.ERROR, PbLangBundle.message("unterminated.string"))
           .range(part.getTextRange())

@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
+import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbStatementOwner;
 import com.intellij.protobuf.lang.psi.PbStringValue;
 import com.intellij.protobuf.lang.psi.PbSyntaxStatement;

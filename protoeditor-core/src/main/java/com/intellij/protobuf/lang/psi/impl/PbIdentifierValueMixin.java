@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.resolve.PbEnumValueReference;
 import org.jetbrains.annotations.Nullable;

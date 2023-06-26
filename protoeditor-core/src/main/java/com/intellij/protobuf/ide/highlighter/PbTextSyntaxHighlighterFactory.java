@@ -15,18 +15,29 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.highlight.SyntaxHighlighterFactory;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.editor.highlight.SyntaxHighlighter;
+import consulo.project.Project;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 /** Creates a {@link SyntaxHighlighter} for use with standalone prototext files. */
+@ExtensionImpl
 public class PbTextSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
 
   @NotNull
   @Override
   public SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
     return new PbTextSyntaxHighlighter();
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 }

@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.annotation;
 
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.util.BuiltInType;
 

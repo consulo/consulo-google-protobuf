@@ -20,9 +20,11 @@ import com.intellij.protobuf.lang.psi.PbMessageType;
 import com.intellij.protobuf.lang.psi.PbTextFile;
 import com.intellij.protobuf.lang.resolve.SchemaInfo;
 import com.intellij.protobuf.lang.resolve.SchemaProvider;
+import consulo.annotation.component.ExtensionImpl;
 import org.jetbrains.annotations.Nullable;
 
 /** Provides the root {@link PbMessageType} defined in directive comments, if any. */
+@ExtensionImpl
 public class SchemaDirectiveSchemaProvider implements SchemaProvider {
   @Nullable
   @Override

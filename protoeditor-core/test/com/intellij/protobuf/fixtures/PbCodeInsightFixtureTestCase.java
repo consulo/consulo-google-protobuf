@@ -15,12 +15,12 @@
  */
 package com.intellij.protobuf.fixtures;
 
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.util.Disposer;
+import consulo.disposer.Disposable;
+import consulo.codeEditor.Editor;
+import consulo.ide.impl.idea.openapi.util.Disposer;
 import com.intellij.protobuf.TestUtils;
-import com.intellij.psi.PsiFile;
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
+import consulo.language.psi.PsiFile;
 
 /** Code insight test fixture for protoeditor tests. */
 public abstract class PbCodeInsightFixtureTestCase extends BasePlatformTestCase {
@@ -34,7 +34,7 @@ public abstract class PbCodeInsightFixtureTestCase extends BasePlatformTestCase 
 
   @Override
   protected void tearDown() throws Exception {
-    Disposer.dispose(testDisposable);
+    consulo.ide.impl.idea.openapi.util.Disposer.dispose(testDisposable);
     super.tearDown();
   }
 

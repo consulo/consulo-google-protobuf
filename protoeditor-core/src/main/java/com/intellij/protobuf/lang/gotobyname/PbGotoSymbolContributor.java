@@ -15,37 +15,38 @@
  */
 package com.intellij.protobuf.lang.gotobyname;
 
-import com.intellij.navigation.ChooseByNameContributor;
-import com.intellij.navigation.NavigationItem;
-import com.intellij.openapi.project.Project;
 import com.intellij.protobuf.lang.psi.PbNamedElement;
 import com.intellij.protobuf.lang.stub.index.QualifiedNameIndex;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.stubs.StubIndex;
-import com.intellij.util.ArrayUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.util.function.Processor;
+import consulo.content.scope.SearchScope;
+import consulo.ide.navigation.GotoSymbolContributor;
+import consulo.language.psi.search.FindSymbolParameters;
+import consulo.language.psi.stub.IdFilter;
+import consulo.language.psi.stub.StubIndex;
+import consulo.navigation.NavigationItem;
+import consulo.project.content.scope.ProjectAwareSearchScope;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
-import java.util.Collection;
-
-/** {@link ChooseByNameContributor#SYMBOL_EP_NAME} extension for protobuf elements. */
-public class PbGotoSymbolContributor implements ChooseByNameContributor {
+@ExtensionImpl
+public class PbGotoSymbolContributor implements GotoSymbolContributor {
 
   @Override
-  public String[] getNames(Project project, boolean includeNonProjectItems) {
-    // NOTE: this doesn't cover fields, because it is based on a stub index and we do not
-    // make stubs for fields.
-    Collection<String> names = StubIndex.getInstance().getAllKeys(QualifiedNameIndex.KEY, project);
-    return ArrayUtil.toStringArray(names);
+  public void processNames(@Nonnull Processor<String> processor, @Nonnull SearchScope searchScope, @Nullable IdFilter idFilter) {
+    StubIndex.getInstance().processAllKeys(QualifiedNameIndex.KEY, processor, (ProjectAwareSearchScope)searchScope, idFilter);
   }
 
   @Override
-  public NavigationItem[] getItemsByName(
-      String name, String pattern, Project project, boolean includeNonProjectItems) {
-    GlobalSearchScope scope =
-        includeNonProjectItems
-            ? GlobalSearchScope.allScope(project)
-            : GlobalSearchScope.projectScope(project);
-    Collection<PbNamedElement> results =
-        StubIndex.getElements(QualifiedNameIndex.KEY, name, project, scope, PbNamedElement.class);
-    return results.toArray(NavigationItem.EMPTY_NAVIGATION_ITEM_ARRAY);
+  public void processElementsWithName(@Nonnull String key,
+                                      @Nonnull Processor<NavigationItem> processor,
+                                      @Nonnull FindSymbolParameters findSymbolParameters) {
+    StubIndex.getInstance()
+             .processElements(QualifiedNameIndex.KEY,
+                              key,
+                              findSymbolParameters.getProject(),
+                              findSymbolParameters.getSearchScope(),
+                              PbNamedElement.class,
+                              processor);
   }
 }

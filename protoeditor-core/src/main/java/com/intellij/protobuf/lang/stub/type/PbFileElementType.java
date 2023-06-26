@@ -15,17 +15,16 @@
  */
 package com.intellij.protobuf.lang.stub.type;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.StubBuilder;
-import com.intellij.psi.stubs.*;
-import com.intellij.psi.tree.IStubFileElementType;
+import consulo.language.Language;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.stub.*;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.stub.PbFileStub;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
-public class PbFileElementType extends IStubFileElementType<PbFileStub> {
+public class PbFileElementType extends IStubFileElementType<PbFileStub>
+{
   public PbFileElementType(final Language language) {
     super(language);
   }
@@ -65,10 +64,12 @@ public class PbFileElementType extends IStubFileElementType<PbFileStub> {
   @Override
   public void indexStub(@NotNull final PsiFileStub stub, @NotNull final IndexSink sink) {}
 
-  private static class PbStubBuilder extends DefaultStubBuilder {
+  private static class PbStubBuilder extends DefaultStubBuilder
+  {
     @NotNull
     @Override
-    protected @SuppressWarnings("rawtypes") StubElement createStubForFile(@NotNull PsiFile file) {
+    protected @SuppressWarnings("rawtypes")
+	StubElement createStubForFile(@NotNull PsiFile file) {
       return new PbFileStub((PbFile) file);
     }
   }

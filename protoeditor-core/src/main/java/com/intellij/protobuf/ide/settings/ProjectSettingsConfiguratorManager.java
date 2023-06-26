@@ -15,14 +15,16 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.Disposable;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ModuleRootEvent;
-import com.intellij.openapi.roots.ModuleRootListener;
-import com.intellij.openapi.startup.StartupActivity;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.application.ApplicationManager;
+import consulo.disposer.Disposable;
+import consulo.ide.ServiceManager;
+import consulo.module.content.layer.event.ModuleRootEvent;
+import consulo.module.content.layer.event.ModuleRootListener;
+import consulo.project.Project;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,10 +42,13 @@ import java.util.TreeSet;
  * whenever the project is opened or the project's roots change.
  */
 @Singleton
+@ServiceAPI(ComponentScope.PROJECT)
+@ServiceImpl
 public final class ProjectSettingsConfiguratorManager implements Disposable {
 
   private final Project project;
 
+  @Inject
   public ProjectSettingsConfiguratorManager(Project project) {
     this.project = project;
   }
@@ -91,25 +96,25 @@ public final class ProjectSettingsConfiguratorManager implements Disposable {
     return ProjectSettingsConfigurator.EP_NAME.getExtensions(project);
   }
 
-  private void configureSettingsIfNecessary() {
+  public void configureSettingsIfNecessary() {
     PbProjectSettings settings = PbProjectSettings.getInstance(project);
     if (!settings.isAutoConfigEnabled()) {
       return;
     }
-    ApplicationManager.getApplication()
-        .executeOnPooledThread(
-            () -> {
-              if (project.isDisposed()) return;
-              PbProjectSettings newSettings = configure(settings);
-              if (newSettings != null && !settings.equals(newSettings)) {
-                settings.copyState(newSettings);
-                // Using ModalityState.NON_MODAL here ensures the caches are invalidated in a
-                // write-safe context, regardless of what context we were invoked from.
-                ApplicationManager.getApplication()
-                    .invokeLater(
-                        () -> PbProjectSettings.notifyUpdated(project), ModalityState.NON_MODAL);
-              }
-            });
+    ApplicationManager.getApplication().executeOnPooledThread(
+      () -> {
+        if (project.isDisposed()) return;
+        PbProjectSettings newSettings = configure(settings);
+        if (newSettings != null && !settings.equals(newSettings)) {
+          settings.copyState(newSettings);
+          // Using ModalityState.NON_MODAL here ensures the caches are invalidated in a
+          // write-safe context, regardless of what context we were invoked from.
+          ApplicationManager.getApplication()
+                            .invokeLater(
+                              () -> PbProjectSettings.notifyUpdated(project),
+                              ApplicationManager.getApplication().getNoneModalityState());
+        }
+      });
   }
 
   @Override
@@ -119,17 +124,8 @@ public final class ProjectSettingsConfiguratorManager implements Disposable {
   static final class ProjectRootsListener implements ModuleRootListener {
     @Override
     public void rootsChanged(@NotNull ModuleRootEvent event) {
-      ProjectSettingsConfiguratorManager.getInstance((Project) event.getSource()).configureSettingsIfNecessary();
+      ProjectSettingsConfiguratorManager.getInstance((Project)event.getSource()).configureSettingsIfNecessary();
     }
   }
 
-  static final class ProjectOpenedActivity implements StartupActivity {
-    @Override
-    public void runActivity(@NotNull Project project) {
-      ProjectSettingsConfiguratorManager instance = ProjectSettingsConfiguratorManager.getInstance(project);
-      //project.getExtensionArea().getExtensionPoint(ProjectSettingsConfigurator.EP_NAME)
-      //    .addChangeListener(instance::configureSettingsIfNecessary, instance);
-      instance.configureSettingsIfNecessary();
-    }
-  }
 }

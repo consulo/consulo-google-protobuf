@@ -15,9 +15,8 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.descriptor.Descriptor;
 import com.intellij.protobuf.lang.descriptor.DescriptorOptionType;
 import com.intellij.protobuf.lang.psi.PbBlockBody;
@@ -25,6 +24,7 @@ import com.intellij.protobuf.lang.psi.PbMethodOptions;
 import com.intellij.protobuf.lang.psi.PbOptionStatement;
 import com.intellij.protobuf.lang.psi.PbServiceStream;
 import com.intellij.protobuf.lang.psi.util.PbCommentUtil;
+import consulo.language.ast.ASTNode;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

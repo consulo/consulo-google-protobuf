@@ -15,19 +15,21 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.options.colors.AttributesDescriptor;
-import com.intellij.openapi.options.colors.ColorDescriptor;
-import com.intellij.openapi.options.colors.ColorSettingsPage;
 import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.util.ResourceUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.colorScheme.setting.AttributesDescriptor;
+import consulo.colorScheme.setting.ColorDescriptor;
+import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
+import consulo.language.editor.highlight.SyntaxHighlighter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Map;
 
+@ExtensionImpl
 public class PbColorSettingsPage implements ColorSettingsPage {
 
   private static final AttributesDescriptor[] DESCRIPTORS =
@@ -51,6 +53,7 @@ public class PbColorSettingsPage implements ColorSettingsPage {
       new AttributesDescriptor(PbIdeBundle.message("attribute.descriptor.invalid.escape.sequence"),
                                PbSyntaxHighlighter.INVALID_STRING_ESCAPE),
     };
+
   @NotNull
   @Override
   public SyntaxHighlighter getHighlighter() {
@@ -62,7 +65,8 @@ public class PbColorSettingsPage implements ColorSettingsPage {
   public String getDemoText() {
     try {
       return ResourceUtil.readUrlAsString(getClass().getResource("/example.proto"));
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       return "Error loading example.";
     }
   }

@@ -15,9 +15,9 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.util.IncorrectOperationException;
 import org.jetbrains.annotations.Nullable;
 
 /** A class that provides most of the behavior for a {@link ProtoSymbolPath}. */
@@ -43,7 +43,8 @@ public abstract class ProtoSymbolPathDelegate {
 
   /** Implementation of {@link ProtoSymbolPath#setName(String)}. */
   @Nullable
-  public PsiElement setName(ProtoSymbolPath path, String name) throws IncorrectOperationException {
+  public PsiElement setName(ProtoSymbolPath path, String name) throws IncorrectOperationException
+  {
     throw new IncorrectOperationException();
   }
 }

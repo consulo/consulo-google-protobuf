@@ -15,14 +15,14 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.Language;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
+import consulo.language.Language;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
 import com.intellij.protobuf.lang.PbLanguage;
 import com.intellij.protobuf.lang.psi.PbElement;
 import com.intellij.protobuf.lang.psi.PbFile;
+import consulo.language.ast.ASTNode;
+import consulo.language.impl.psi.ASTWrapperPsiElement;
 import org.jetbrains.annotations.NotNull;
 
 abstract class PbElementBase extends ASTWrapperPsiElement

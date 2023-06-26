@@ -15,15 +15,15 @@
  */
 package com.intellij.protobuf.ide.actions;
 
-import com.intellij.codeInsight.template.impl.TemplateManagerImpl;
-import com.intellij.ide.DataManager;
-import com.intellij.openapi.actionSystem.ActionManager;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.fileTypes.FileType;
+import consulo.dataContext.DataManager;
+import consulo.ide.impl.idea.codeInsight.template.impl.TemplateManagerImpl;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.virtualFileSystem.fileType.FileType;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.PbTextFileType;
+import consulo.ui.ex.action.ActionManager;
+import consulo.ui.ex.action.AnAction;
 
 import static com.google.common.truth.Truth.assertThat;
 

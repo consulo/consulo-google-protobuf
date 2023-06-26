@@ -16,9 +16,9 @@
 package com.intellij.protobuf.lang.psi;
 
 import com.google.common.collect.ImmutableMultimap;
-import com.intellij.psi.impl.PsiFileEx;
-import com.intellij.psi.impl.source.PsiFileWithStubSupport;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.PsiFileEx;
+import consulo.language.psi.stub.PsiFileWithStubSupport;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

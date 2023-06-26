@@ -15,16 +15,16 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
+import consulo.language.psi.PsiFile;
+import consulo.module.Module;
+import consulo.language.util.ModuleUtilCore;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider.ChildEntry;
+import consulo.project.Project;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -117,7 +117,7 @@ public class PbFileResolver {
 
   @NotNull
   private static List<PbFile> findFiles(
-      Project project, Function<FileResolveProvider, VirtualFile> fn) {
+		  Project project, Function<FileResolveProvider, VirtualFile> fn) {
     Set<PbFile> results = new LinkedHashSet<>();
 
     for (FileResolveProvider provider : getProviders(project)) {
@@ -135,7 +135,7 @@ public class PbFileResolver {
 
   @NotNull
   private static Collection<ChildEntry> getChildEntries(
-      Project project, Function<FileResolveProvider, Collection<ChildEntry>> fn) {
+		  Project project, Function<FileResolveProvider, Collection<ChildEntry>> fn) {
     Set<ChildEntry> results = new LinkedHashSet<>();
 
     for (FileResolveProvider provider : getProviders(project)) {

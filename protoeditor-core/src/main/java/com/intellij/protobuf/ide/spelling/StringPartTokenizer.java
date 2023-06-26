@@ -15,24 +15,25 @@
  */
 package com.intellij.protobuf.ide.spelling;
 
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.spellchecker.inspections.PlainTextSplitter;
-import com.intellij.spellchecker.tokenizer.TokenConsumer;
-import com.intellij.spellchecker.tokenizer.Tokenizer;
 import com.intellij.protobuf.lang.psi.ProtoStringPart;
 import com.intellij.protobuf.lang.util.ProtoString;
+import consulo.document.util.TextRange;
+import consulo.language.psi.PsiElement;
+import consulo.language.spellcheker.tokenizer.TokenConsumer;
+import consulo.language.spellcheker.tokenizer.Tokenizer;
+import consulo.language.spellcheker.tokenizer.splitter.PlainTextTokenSplitter;
 import org.jetbrains.annotations.NotNull;
 
 /** A spellchecking {@link Tokenizer} for {@link ProtoStringPart} elements. */
-public class StringPartTokenizer extends Tokenizer<ProtoStringPart> {
+public class StringPartTokenizer extends Tokenizer<ProtoStringPart>
+{
   public static final StringPartTokenizer INSTANCE = new StringPartTokenizer();
 
   @Override
   public void tokenize(@NotNull ProtoStringPart element, TokenConsumer consumer) {
     String parsed = element.getParsedString().toString();
     consumer.consumeToken(
-        element, parsed, false, 0, TextRange.allOf(parsed), PlainTextSplitter.getInstance());
+        element, parsed, false, 0, TextRange.allOf(parsed), PlainTextTokenSplitter.getInstance());
   }
 
   @NotNull

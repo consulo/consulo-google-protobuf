@@ -2,7 +2,7 @@
 package com.intellij.protobuf.lang.psi;
 
 import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElementVisitor;
+import consulo.language.psi.PsiElementVisitor;
 
 public class PbTextVisitor extends PsiElementVisitor {
 

@@ -1,10 +1,10 @@
 package com.intellij.protobuf.lang.stub;
 
 import com.intellij.protobuf.lang.psi.PbServiceMethod;
-import com.intellij.psi.stubs.IStubElementType;
-import com.intellij.psi.stubs.StubBase;
-import com.intellij.psi.stubs.StubElement;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.stub.StubBase;
+import consulo.language.psi.stub.IStubElementType;
+import consulo.language.psi.stub.StubElement;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.Nullable;
 
 public class PbServiceMethodStub extends StubBase<PbServiceMethod>
@@ -25,7 +25,8 @@ public class PbServiceMethodStub extends StubBase<PbServiceMethod>
   }
 
   @Override
-  public @Nullable QualifiedName getQualifiedName() {
+  public @Nullable
+  QualifiedName getQualifiedName() {
     return StubMethods.getQualifiedName(this);
   }
 }

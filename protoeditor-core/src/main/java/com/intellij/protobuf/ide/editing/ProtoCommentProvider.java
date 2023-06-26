@@ -15,20 +15,22 @@
  */
 package com.intellij.protobuf.ide.editing;
 
-import com.intellij.lang.Commenter;
-import com.intellij.lang.Language;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.templateLanguages.MultipleLangCommentProvider;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbTextFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.Commenter;
+import consulo.language.Language;
+import consulo.language.editor.MultipleLangCommentProvider;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.PsiFile;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Provides the correct commenter for protobuf and prototext files. Specifically, prototext elements
  * should be commented with {@link PbCommenter} when contained within a {@link PbFile}.
  */
+@ExtensionImpl
 public class ProtoCommentProvider implements MultipleLangCommentProvider {
 
   @Nullable

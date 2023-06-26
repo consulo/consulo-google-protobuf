@@ -15,13 +15,14 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 /**
  * A base language inherited by both protobuf and prototext. In addition, the shared proto lexer
  * tokens use this language.
  */
-public class ProtoBaseLanguage extends Language {
+public class ProtoBaseLanguage extends Language
+{
 
   public static final ProtoBaseLanguage INSTANCE = new ProtoBaseLanguage();
 

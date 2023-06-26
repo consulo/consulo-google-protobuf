@@ -15,25 +15,29 @@
  */
 package com.intellij.protobuf.lang;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.ParserDefinition;
-import com.intellij.lang.PsiParser;
-import com.intellij.lexer.Lexer;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.ast.IFileElementType;
+import consulo.language.ast.TokenType;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.ParserDefinition;
 import com.intellij.protobuf.lang.lexer.ProtoLexer;
 import com.intellij.protobuf.lang.parser.PbTextParser;
 import com.intellij.protobuf.lang.psi.PbTextTypes;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 import com.intellij.protobuf.lang.psi.impl.PbTextFileImpl;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.TokenType;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.psi.tree.TokenSet;
-import consulo.lang.LanguageVersion;
+import consulo.language.file.FileViewProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.ast.TokenSet;
+import consulo.language.version.LanguageVersion;
+import consulo.language.ast.ASTNode;
+import consulo.language.parser.PsiParser;
+import consulo.language.psi.PsiFile;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 /** A {@link ParserDefinition} for prototext files. */
+@ExtensionImpl
 public class PbTextParserDefinition implements ParserDefinition {
   public static final PbTextParserDefinition INSTANCE = new PbTextParserDefinition();
 
@@ -45,6 +49,12 @@ public class PbTextParserDefinition implements ParserDefinition {
   public static final IFileElementType FILE = new IFileElementType(PbTextLanguage.INSTANCE);
 
   public PbTextParserDefinition() {}
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
+  }
 
   @NotNull
   @Override

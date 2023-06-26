@@ -1,16 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.protobuf.lang.parser;
 
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.PsiBuilder.Marker;
+import consulo.language.ast.IElementType;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.parser.PsiBuilder.Marker;
 import static com.intellij.protobuf.lang.psi.PbTextTypes.*;
 import static com.intellij.protobuf.lang.parser.PbParserUtil.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
-import com.intellij.lang.PsiParser;
+
 import com.intellij.lang.LightPsiParser;
-import com.intellij.lang.parser.GeneratedParserUtilBase.Parser;
+import consulo.language.ast.ASTNode;
+import consulo.language.parser.PsiParser;
+
 import static com.intellij.protobuf.lang.psi.ProtoTokenTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})

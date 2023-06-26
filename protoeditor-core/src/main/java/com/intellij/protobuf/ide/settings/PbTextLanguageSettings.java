@@ -15,21 +15,30 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.project.Project;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.project.Project;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.ide.ServiceManager;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-/** A persistent service that stores protobuf text format settings. */
+/**
+ * A persistent service that stores protobuf text format settings.
+ */
 @State(name = "PrototextLanguageSettings", storages = @Storage("protoeditor.xml"))
+@ServiceAPI(ComponentScope.PROJECT)
+@ServiceImpl
+@Singleton
 public class PbTextLanguageSettings
-    implements PersistentStateComponent<PbTextLanguageSettings.State> {
+  implements PersistentStateComponent<PbTextLanguageSettings.State> {
 
   private State state;
 
@@ -70,7 +79,7 @@ public class PbTextLanguageSettings
     if (!(obj instanceof PbTextLanguageSettings)) {
       return false;
     }
-    PbTextLanguageSettings other = (PbTextLanguageSettings) obj;
+    PbTextLanguageSettings other = (PbTextLanguageSettings)obj;
     return Objects.equals(isMissingSchemaWarningEnabled(), other.isMissingSchemaWarningEnabled());
   }
 

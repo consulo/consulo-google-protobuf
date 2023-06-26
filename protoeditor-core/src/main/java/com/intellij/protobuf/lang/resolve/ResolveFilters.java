@@ -15,8 +15,8 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.Conditions;
+import consulo.util.lang.function.Condition;
+import consulo.util.lang.function.Conditions;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
 import org.jetbrains.annotations.NotNull;
@@ -31,15 +31,15 @@ public class ResolveFilters {
 
   private static final Condition<PbSymbol> anySymbol = (element) -> true;
 
-  private static final Condition<PbSymbol> packageOrMessage =
+  private static final consulo.util.lang.function.Condition<PbSymbol> packageOrMessage =
       (element) -> isPackageElement(element) || isMessageElement(element);
 
-  private static final Condition<PbSymbol> packageOrMessageWithExtension =
+  private static final consulo.util.lang.function.Condition<PbSymbol> packageOrMessageWithExtension =
       (element) ->
           isPackageElement(element)
               || (isMessageElement(element) && messageHasExtension((PbMessageType) element));
 
-  private static final Condition<PbSymbol> packageOrType =
+  private static final consulo.util.lang.function.Condition<PbSymbol> packageOrType =
       (element) -> isPackageElement(element) || isTypeElement(element);
 
   private static final Condition<PbSymbol> symbolOwner = PbSymbolOwner.class::isInstance;
@@ -65,7 +65,7 @@ public class ResolveFilters {
 
   /** Matches any PbPackageName or PbMessageType. */
   @NotNull
-  public static Condition<PbSymbol> packageOrMessage() {
+  public static consulo.util.lang.function.Condition<PbSymbol> packageOrMessage() {
     return packageOrMessage;
   }
 
@@ -83,13 +83,13 @@ public class ResolveFilters {
 
   /** Matches any PbSymbolOwner. */
   @NotNull
-  public static Condition<PbSymbol> symbolOwner() {
+  public static consulo.util.lang.function.Condition<PbSymbol> symbolOwner() {
     return symbolOwner;
   }
 
   /** Matches fields that extend the given type. */
   @NotNull
-  public static Condition<PbSymbol> extendedFromType(PbNamedTypeElement typeElement) {
+  public static consulo.util.lang.function.Condition<PbSymbol> extendedFromType(PbNamedTypeElement typeElement) {
     return (element) ->
         element instanceof PbField && PbPsiUtil.fieldIsExtension((PbField) element, typeElement);
   }
@@ -104,7 +104,7 @@ public class ResolveFilters {
 
   /** Returns the base filter with additional filtering of unsuggestable items. */
   @Nullable
-  public static Condition<PbSymbol> withUnsuggestableFilter(@Nullable Condition<PbSymbol> base) {
+  public static consulo.util.lang.function.Condition<PbSymbol> withUnsuggestableFilter(@Nullable consulo.util.lang.function.Condition<PbSymbol> base) {
     if (base == null) {
       return null;
     }

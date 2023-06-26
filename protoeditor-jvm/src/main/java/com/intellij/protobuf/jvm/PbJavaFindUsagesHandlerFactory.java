@@ -15,19 +15,20 @@
  */
 package com.intellij.protobuf.jvm;
 
-import com.google.common.collect.ImmutableSet;
-import com.intellij.find.findUsages.FindUsagesHandler;
-import com.intellij.find.findUsages.FindUsagesHandlerFactory;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.util.NotNullLazyValue;
+import com.intellij.java.language.psi.*;
 import com.intellij.protobuf.jvm.names.JavaNameGenerator;
 import com.intellij.protobuf.jvm.names.NameGeneratorSelector;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
-import com.intellij.psi.*;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.util.NotNullLazyValue;
+import consulo.find.FindUsagesHandler;
+import consulo.find.FindUsagesHandlerFactory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,6 +40,7 @@ import java.util.function.Predicate;
  * {@link FindUsagesHandlerFactory} for proto elements. Returns Java elements corresponding to
  * generated code, which will then become additional search targets.
  */
+@ExtensionImpl
 public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
 
   @Override
@@ -49,7 +51,7 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
   @Nullable
   @Override
   public FindUsagesHandler createFindUsagesHandler(
-      @NotNull PsiElement psiElement, boolean forHighlightUsages) {
+    @NotNull PsiElement psiElement, boolean forHighlightUsages) {
     // This factory only handles proto -> java.
     // When highlighting usages of proto elements, the editor will have a proto file open,
     // so there's no chance that java elements will be useful in that same editor.
@@ -59,7 +61,7 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
     if (!(psiElement instanceof PbSymbol)) {
       return null;
     }
-    PbSymbol symbol = ((PbSymbol) psiElement);
+    PbSymbol symbol = ((PbSymbol)psiElement);
     PbFile file = symbol.getPbFile();
     ProtoToJavaConverter dispatcher = new ProtoToJavaConverter(file);
     symbol.accept(dispatcher);
@@ -69,7 +71,9 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
     return new AdditionalUsagesHandler(symbol, dispatcher.results);
   }
 
-  /** A handler that supplies Java elements on top of the PbSymbol. */
+  /**
+   * A handler that supplies Java elements on top of the PbSymbol.
+   */
   private static class AdditionalUsagesHandler extends FindUsagesHandler {
     private final PsiElement[] additionalElements;
 
@@ -85,7 +89,9 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
     }
   }
 
-  /** A visitor that converts certain proto PsiElements to the java elements it generates. */
+  /**
+   * A visitor that converts certain proto PsiElements to the java elements it generates.
+   */
   private static class ProtoToJavaConverter extends PbVisitor {
     PsiElement[] results;
     private final PbFile file;
@@ -118,7 +124,7 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
       Collection<PsiMember> javaElements = fieldMembers(field);
       PbStatementOwner owner = field.getStatementOwner();
       if (PbPsiUtil.isOneofElement(owner)) {
-        Collection<PsiClass> enumParents = oneofEnumClasses((PbOneofDefinition) owner);
+        Collection<PsiClass> enumParents = oneofEnumClasses((PbOneofDefinition)owner);
         javaElements.addAll(oneofFieldEnumConstants(field, enumParents));
       }
       setResults(javaElements);
@@ -157,7 +163,7 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
       javaElements.addAll(oneofEnums);
       // Get the not-set enum value.
       javaElements.addAll(
-          protoToEnumConstants(oneof, JavaNameGenerator::oneofNotSetEnumValueName, oneofEnums));
+        protoToEnumConstants(oneof, JavaNameGenerator::oneofNotSetEnumValueName, oneofEnums));
       setResults(javaElements);
     }
 
@@ -167,28 +173,28 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
 
     private Collection<PsiClass> enumDefinitionClasses(PbEnumDefinition enumDefinition) {
       return protoToClasses(
-          enumDefinition,
-          (nameGen, enumDef) -> {
-            String name = nameGen.enumClassName(enumDef);
-            return name != null ? ImmutableSet.of(name) : ImmutableSet.of();
-          },
-          PsiClass::isEnum);
+        enumDefinition,
+        (nameGen, enumDef) -> {
+          String name = nameGen.enumClassName(enumDef);
+          return name != null ? Set.of(name) : Set.of();
+        },
+        PsiClass::isEnum);
     }
 
     private Collection<PsiClass> oneofEnumClasses(PbOneofDefinition oneof) {
       return protoToClasses(
-          oneof,
-          (nameGen, oneofDef) -> {
-            String name = nameGen.oneofEnumClassName(oneofDef);
-            return name != null ? ImmutableSet.of(name) : ImmutableSet.of();
-          },
-          PsiClass::isEnum);
+        oneof,
+        (nameGen, oneofDef) -> {
+          String name = nameGen.oneofEnumClassName(oneofDef);
+          return name != null ? Set.of(name) : Set.of();
+        },
+        PsiClass::isEnum);
     }
 
     private <ProtoT extends PbNamedElement> Collection<PsiClass> protoToClasses(
-        ProtoT protoNamedType,
-        BiFunction<JavaNameGenerator, ProtoT, Set<String>> toClassNames,
-        Predicate<PsiClass> classPredicate) {
+      ProtoT protoNamedType,
+      BiFunction<JavaNameGenerator, ProtoT, Set<String>> toClassNames,
+      Predicate<PsiClass> classPredicate) {
       List<PsiClass> javaElements = new ArrayList<>();
       JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(file.getProject());
       GlobalSearchScope scope = getScope(file);
@@ -211,12 +217,12 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
     }
 
     private <ProtoT extends PbNamedElement> Collection<PsiMember> protoToMembers(
-        ProtoT protoElement, BiFunction<JavaNameGenerator, ProtoT, Set<String>> toMemberNames) {
+      ProtoT protoElement, BiFunction<JavaNameGenerator, ProtoT, Set<String>> toMemberNames) {
       PbSymbolOwner owner = protoElement.getSymbolOwner();
       if (!PbPsiUtil.isMessageElement(owner)) {
         return Collections.emptyList();
       }
-      PbMessageType message = (PbMessageType) owner;
+      PbMessageType message = (PbMessageType)owner;
       Collection<PsiClass> parentClasses = messageTypeClasses(message);
       if (parentClasses.isEmpty()) {
         return Collections.emptyList();
@@ -243,7 +249,8 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
             PsiField javaField = parentClass.findFieldByName(fieldOrMethod, CHECK_BASES);
             if (javaField != null) {
               javaElements.add(javaField);
-            } else {
+            }
+            else {
               PsiMethod[] methods = parentClass.findMethodsByName(fieldOrMethod, CHECK_BASES);
               Collections.addAll(javaElements, methods);
             }
@@ -255,7 +262,7 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
 
     private Collection<PsiField> enumValueEnumConstants(PbEnumValue enumValue) {
       PbEnumDefinition enumDefinition =
-          PsiTreeUtil.getParentOfType(enumValue, PbEnumDefinition.class);
+        PsiTreeUtil.getParentOfType(enumValue, PbEnumDefinition.class);
       if (enumDefinition == null) {
         return Collections.emptyList();
       }
@@ -267,14 +274,14 @@ public class PbJavaFindUsagesHandlerFactory extends FindUsagesHandlerFactory {
     }
 
     private Collection<PsiField> oneofFieldEnumConstants(
-        PbField oneofField, Collection<PsiClass> enumParents) {
+      PbField oneofField, Collection<PsiClass> enumParents) {
       return new ArrayList<>(protoToEnumConstants(oneofField, JavaNameGenerator::oneofEnumValueName, enumParents));
     }
 
     private <ProtoT extends PbNamedElement> Collection<PsiField> protoToEnumConstants(
-        ProtoT protoElement,
-        BiFunction<JavaNameGenerator, ProtoT, String> toEnumName,
-        Collection<PsiClass> enumParents) {
+      ProtoT protoElement,
+      BiFunction<JavaNameGenerator, ProtoT, String> toEnumName,
+      Collection<PsiClass> enumParents) {
       List<PsiField> javaElements = new ArrayList<>();
       for (JavaNameGenerator generator : nameGenerators.getValue()) {
         String enumValueName = toEnumName.apply(generator, protoElement);

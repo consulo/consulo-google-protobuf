@@ -15,15 +15,15 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.Conditions;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.ast.ASTNode;
+import consulo.util.lang.function.Condition;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.QualifiedName;
 import com.intellij.protobuf.lang.annotation.OptionOccurrenceTracker;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.resolve.*;
+import consulo.util.lang.function.Conditions;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,11 +104,11 @@ abstract class PbTextExtensionNameMixin extends PbTextElementBase implements PbT
     };
   }
 
-  private static Condition<PbSymbol> getExtensionFilter(PbMessageType declaredMessage) {
+  private static consulo.util.lang.function.Condition<PbSymbol> getExtensionFilter(PbMessageType declaredMessage) {
     // The symbol path of a PbTextExtensionName can refer to:
     // - a package or message that contains an extend definition (serves as a scope).
     // - or, a field that is part of an extend definition.
-    Condition<PbSymbol> base = ResolveFilters.packageOrMessageWithExtension();
+    consulo.util.lang.function.Condition<PbSymbol> base = ResolveFilters.packageOrMessageWithExtension();
     return Conditions.or(base, ResolveFilters.extendedFromType(declaredMessage));
   }
 

@@ -15,13 +15,15 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.GlobalSearchScopesCore;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.scope.GlobalSearchScopesCore;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileManager;
 import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider;
+import jakarta.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,6 +33,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /** {@link FileResolveProvider} implementation that uses settings from {@link PbProjectSettings}. */
+@ExtensionImpl
 public class SettingsFileResolveProvider implements FileResolveProvider {
 
   private final PbProjectSettings staticSettings;
@@ -48,6 +51,7 @@ public class SettingsFileResolveProvider implements FileResolveProvider {
    *
    * @param staticSettings A {@link PbProjectSettings} object to use.
    */
+  @Inject
   public SettingsFileResolveProvider(PbProjectSettings staticSettings) {
     this.staticSettings = staticSettings;
   }
@@ -138,6 +142,9 @@ public class SettingsFileResolveProvider implements FileResolveProvider {
             .map(VirtualFileManager.getInstance()::findFileByUrl)
             .filter(Objects::nonNull)
             .toArray(VirtualFile[]::new);
+    if (roots.length == 0) {
+      return GlobalSearchScope.projectScope(project);
+    }
     return GlobalSearchScopesCore.directoriesScope(project, /* withSubDirectories= */ true, roots);
   }
 

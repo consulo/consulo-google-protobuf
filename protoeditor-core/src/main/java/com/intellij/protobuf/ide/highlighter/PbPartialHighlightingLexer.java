@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.lexer.LayeredLexer;
+import consulo.language.lexer.LayeredLexer;
 import com.intellij.protobuf.lang.lexer.ProtoLexer;
 import com.intellij.protobuf.lang.lexer.StringLexer;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;

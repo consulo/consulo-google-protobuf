@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,7 +23,8 @@ import org.jetbrains.annotations.Nullable;
  * A body that contains a start and end token and some number of elements in between. For example, a
  * message definition wrapped between '{' and '}', or an option list wrapped between '[' and ']'.
  */
-public interface ProtoBlockBody extends PsiElement {
+public interface ProtoBlockBody extends PsiElement
+{
   /** Returns the start token. For example, '{' or '['. */
   @NotNull
   PsiElement getStart();

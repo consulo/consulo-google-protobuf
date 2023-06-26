@@ -15,29 +15,32 @@
  */
 package com.intellij.protobuf.jvm;
 
-import com.google.common.collect.ImmutableList;
-import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandler;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
+import com.intellij.java.language.psi.*;
 import com.intellij.protobuf.jvm.names.NameGeneratorSelector;
 import com.intellij.protobuf.jvm.names.NameMatcher;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
 import com.intellij.protobuf.shared.gencode.ProtoFromSourceComments;
-import com.intellij.psi.*;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.dataContext.DataContext;
+import consulo.language.editor.navigation.GotoDeclarationHandler;
+import consulo.language.psi.PsiCompiledFile;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
+import consulo.util.collection.ContainerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-/** Handles goto declaration from java generated code -> .proto files. */
+/**
+ * Handles goto declaration from java generated code -> .proto files.
+ */
+@ExtensionImpl
 public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
 
   @Nullable
@@ -49,12 +52,12 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
   @Override
   @Nullable
   public PsiElement[] getGotoDeclarationTargets(
-      @Nullable PsiElement sourceElement, int i, Editor editor) {
+    @Nullable PsiElement sourceElement, int i, Editor editor) {
     if (!(sourceElement instanceof PsiIdentifier)) {
       return null;
     }
     PsiJavaCodeReferenceElement javaRef =
-        PsiTreeUtil.getParentOfType(sourceElement, PsiJavaCodeReferenceElement.class);
+      PsiTreeUtil.getParentOfType(sourceElement, PsiJavaCodeReferenceElement.class);
     if (javaRef == null) {
       return null;
     }
@@ -68,8 +71,8 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
     }
     Project project = javaRef.getProject();
     Collection<PbFile> matchedFiles =
-        PbJavaOuterClassIndex.getFilesWithOuterClass(
-            project, context.outerClass.getQualifiedName(), GlobalSearchScope.allScope(project));
+      PbJavaOuterClassIndex.getFilesWithOuterClass(
+        project, context.outerClass.getQualifiedName(), GlobalSearchScope.allScope(project));
     if (matchedFiles.isEmpty()) {
       // Try looking for the .proto file through source comments (ideally an annotation) if we
       // didn't index the .proto file so PbJavaOuterClassIndex doesn't know about it.
@@ -77,7 +80,7 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
       if (matchingFile == null) {
         return null;
       }
-      matchedFiles = ImmutableList.of(matchingFile);
+      matchedFiles = Set.of(matchingFile);
     }
     List<PsiElement> results = new ArrayList<>();
     for (PbFile file : matchedFiles) {
@@ -123,7 +126,8 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
                         generator -> generator.toNameMatcher(context));
     if (context.javaClass.isEnum()) {
       findMatchingEnumElement(file, context, nameMatchers, results, matchedTypeElements);
-    } else {
+    }
+    else {
       findMatchingClassElement(file, context, nameMatchers, results, matchedTypeElements);
     }
     if (results.isEmpty()) {
@@ -133,20 +137,21 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
   }
 
   private static void findMatchingEnumElement(
-      PbFile file,
-      PbJavaGotoDeclarationContext context,
-      List<NameMatcher> nameMatchers,
-      List<PsiElement> results,
-      List<PsiElement> matchedTypeElements) {
+    PbFile file,
+    PbJavaGotoDeclarationContext context,
+    List<NameMatcher> nameMatchers,
+    List<PsiElement> results,
+    List<PsiElement> matchedTypeElements) {
     boolean searchEnumValues = context.resolvedElement instanceof PsiEnumConstant;
     for (PbSymbol symbol : file.getLocalQualifiedSymbolMap().values()) {
       if (PbPsiUtil.isEnumElement(symbol)) {
-        PbEnumDefinition enumDefinition = (PbEnumDefinition) symbol;
+        PbEnumDefinition enumDefinition = (PbEnumDefinition)symbol;
         for (NameMatcher matcher : nameMatchers) {
           if (matcher.matchesEnum(enumDefinition)) {
             if (!searchEnumValues) {
               results.add(enumDefinition);
-            } else {
+            }
+            else {
               matchedTypeElements.add(enumDefinition);
               for (PbEnumValue enumValue : enumDefinition.getEnumValues()) {
                 if (matcher.matchesEnumValue(enumValue)) {
@@ -156,20 +161,23 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
             }
           }
         }
-      } else if (PbPsiUtil.isOneofElement(symbol)) {
-        PbOneofDefinition oneof = (PbOneofDefinition) symbol;
+      }
+      else if (PbPsiUtil.isOneofElement(symbol)) {
+        PbOneofDefinition oneof = (PbOneofDefinition)symbol;
         for (NameMatcher matcher : nameMatchers) {
           if (matcher.matchesOneofEnum(oneof)) {
             if (!searchEnumValues) {
               results.add(oneof);
-            } else {
+            }
+            else {
               matchedTypeElements.add(oneof);
               if (matcher.matchesOneofNotSetEnumValue(oneof)) {
                 results.add(oneof);
-              } else {
+              }
+              else {
                 for (PbStatement statement : oneof.getStatements()) {
                   if (statement instanceof PbField) {
-                    PbField oneofField = (PbField) statement;
+                    PbField oneofField = (PbField)statement;
                     if (matcher.matchesOneofEnumValue(oneofField)) {
                       results.add(oneofField);
                     }
@@ -184,20 +192,21 @@ public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
   }
 
   private static void findMatchingClassElement(
-      PbFile file,
-      PbJavaGotoDeclarationContext context,
-      List<NameMatcher> nameMatchers,
-      List<PsiElement> results,
-      List<PsiElement> matchedTypeElements) {
+    PbFile file,
+    PbJavaGotoDeclarationContext context,
+    List<NameMatcher> nameMatchers,
+    List<PsiElement> results,
+    List<PsiElement> matchedTypeElements) {
     boolean searchFields = context.resolvedElement instanceof PsiMember;
     for (PbSymbol symbol : file.getLocalQualifiedSymbolMap().values()) {
       if (PbPsiUtil.isMessageElement(symbol)) {
-        PbMessageType message = (PbMessageType) symbol;
+        PbMessageType message = (PbMessageType)symbol;
         for (NameMatcher matcher : nameMatchers) {
           if (matcher.matchesMessage(message)) {
             if (!searchFields) {
               results.add(message);
-            } else {
+            }
+            else {
               matchedTypeElements.add(message);
               for (PbField field : message.getSymbols(PbField.class)) {
                 if (matcher.matchesField(field)) {

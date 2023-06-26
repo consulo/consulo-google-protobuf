@@ -16,12 +16,12 @@
 package com.intellij.protobuf.ide.editing;
 
 import com.google.common.collect.ImmutableList;
-import com.intellij.codeInsight.generation.actions.CommentByLineCommentAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.LogicalPosition;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.impl.source.PostprocessReformattingAspect;
+import consulo.codeEditor.LogicalPosition;
+import consulo.ide.impl.idea.codeInsight.generation.actions.CommentByLineCommentAction;
+import consulo.codeEditor.Editor;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.language.psi.PsiDocumentManager;
+import consulo.language.codeStyle.PostprocessReformattingAspect;
 import com.intellij.testFramework.EditorTestUtil;
 import com.intellij.testFramework.EditorTestUtil.CaretAndSelectionState;
 import com.intellij.testFramework.EditorTestUtil.CaretInfo;
@@ -46,7 +46,7 @@ public class PbCommenterTest extends PbCodeInsightFixtureTestCase {
   // Test comment by line action.
   public void testCommentByLine() {
     myFixture.configureByFiles("CommenterTestCommentByLineBefore.proto.testdata");
-    CommentByLineCommentAction action = new CommentByLineCommentAction();
+    CommentByLineCommentAction action = new consulo.ide.impl.idea.codeInsight.generation.actions.CommentByLineCommentAction();
     action.actionPerformedImpl(getProject(), getEditor());
     myFixture.checkResultByFile("CommenterTestCommentByLineAfter.proto.testdata");
   }

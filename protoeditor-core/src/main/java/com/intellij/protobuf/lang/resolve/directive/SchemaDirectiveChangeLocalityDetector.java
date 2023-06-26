@@ -15,10 +15,11 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.codeInsight.daemon.ChangeLocalityDetector;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
 import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.ChangeLocalityDetector;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
  * we use comments to denote schema location, changing a comment should result in re-highlighting
  * the entire file (just as changing any non-comment, non-whitespace PSI would).
  */
+@ExtensionImpl
 public class SchemaDirectiveChangeLocalityDetector implements ChangeLocalityDetector {
   @Nullable
   @Override

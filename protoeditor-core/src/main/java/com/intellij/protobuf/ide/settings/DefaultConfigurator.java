@@ -15,11 +15,12 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.module.content.ProjectRootManager;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +33,7 @@ import java.util.Collections;
  *
  * <p>The descriptor is set to <code>google/protobuf/descriptor.proto</code>.
  */
+@ExtensionImpl(order = "default")
 public final class DefaultConfigurator implements ProjectSettingsConfigurator {
   private static final String DESCRIPTOR = "google/protobuf/descriptor.proto";
 
@@ -64,7 +66,7 @@ public final class DefaultConfigurator implements ProjectSettingsConfigurator {
     if (includedDescriptorsDirectoryUrl == null) {
       return null;
     }
-    VirtualFile descriptorsDirectory = VfsUtil.findFileByURL(includedDescriptorsDirectoryUrl);
+    VirtualFile descriptorsDirectory = VirtualFileUtil.findFileByURL(includedDescriptorsDirectoryUrl);
     if (descriptorsDirectory == null || !descriptorsDirectory.isDirectory()) {
       return null;
     }

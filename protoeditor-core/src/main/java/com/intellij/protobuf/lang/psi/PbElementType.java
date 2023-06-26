@@ -15,10 +15,11 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.tree.IElementType;
 import com.intellij.protobuf.lang.PbLanguage;
+import consulo.language.ast.IElementType;
 
-public class PbElementType extends IElementType {
+public class PbElementType extends IElementType
+{
 
   PbElementType(String debugName) {
     super(debugName, PbLanguage.INSTANCE);

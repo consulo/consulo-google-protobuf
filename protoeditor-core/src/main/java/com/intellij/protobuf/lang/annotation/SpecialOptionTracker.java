@@ -16,13 +16,13 @@
 package com.intellij.protobuf.lang.annotation;
 
 import com.google.common.collect.ImmutableMap;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.psi.util.CachedValueProvider.Result;
-import com.intellij.psi.util.CachedValuesManager;
-import com.intellij.psi.util.PsiModificationTracker;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
+import consulo.application.util.CachedValueProvider.Result;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.psi.PsiModificationTracker;
+import consulo.language.psi.util.LanguageCachedValueUtil;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -53,11 +53,9 @@ public class SpecialOptionTracker {
       // Special options only apply to fields.
       return EMPTY;
     }
-    return CachedValuesManager.getCachedValue(
+    return LanguageCachedValueUtil.getCachedValue(
         owner,
-        () ->
-            Result.create(
-                new SpecialOptionTracker(owner), PsiModificationTracker.MODIFICATION_COUNT));
+        () -> Result.create(new SpecialOptionTracker(owner), PsiModificationTracker.MODIFICATION_COUNT));
   }
 
   /** Possibly annotates the given {@link PbOptionName} if it's a duplicate. */

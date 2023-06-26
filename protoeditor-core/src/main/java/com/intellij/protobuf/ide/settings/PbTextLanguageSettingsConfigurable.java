@@ -15,23 +15,37 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.openapi.options.Configurable;
-import com.intellij.openapi.options.ConfigurableBase;
-import com.intellij.openapi.project.Project;
 import com.intellij.protobuf.ide.PbIdeBundle;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.Configurable;
+import consulo.configurable.IdeaConfigurableBase;
+import consulo.configurable.ProjectConfigurable;
+import consulo.project.Project;
+import jakarta.annotation.Nullable;
+import jakarta.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
-/** A {@link Configurable} that provides a protobuf text format language settings panel. */
+/**
+ * A {@link Configurable} that provides a protobuf text format language settings panel.
+ */
+@ExtensionImpl
 public class PbTextLanguageSettingsConfigurable
-    extends ConfigurableBase<PbTextLanguageSettingsForm, PbTextLanguageSettings> {
+  extends IdeaConfigurableBase<PbTextLanguageSettingsForm, PbTextLanguageSettings> implements ProjectConfigurable {
 
   private static final String ID = "google.prototext.language";
 
   private final Project project;
 
+  @Inject
   public PbTextLanguageSettingsConfigurable(Project project) {
     super(ID, PbIdeBundle.message("prototext.settings.project.display"), /* helpTopic= */ null);
     this.project = project;
+  }
+
+  @Nullable
+  @Override
+  public String getParentId() {
+    return PbLanguageSettingsConfigurable.ID;
   }
 
   @NotNull

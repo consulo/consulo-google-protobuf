@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.lang.Language;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.Language;
+import consulo.language.ast.IElementType;
+import consulo.language.impl.psi.LeafPsiElement;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
  * its token type. Necessary for protobuf and prototext files which share a lexer and a set of leaf
  * token types.
  */
-public class ProtoLeafElement extends LeafPsiElement {
+public class ProtoLeafElement extends LeafPsiElement
+{
 
   public ProtoLeafElement(@NotNull IElementType type, CharSequence text) {
     super(type, text);

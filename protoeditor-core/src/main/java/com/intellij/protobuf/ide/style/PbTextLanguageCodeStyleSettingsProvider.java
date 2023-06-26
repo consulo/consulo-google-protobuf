@@ -15,19 +15,23 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.application.options.IndentOptionsEditor;
-import com.intellij.application.options.SmartIndentOptionsEditor;
-import com.intellij.lang.Language;
-import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
-import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
-import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
 import com.intellij.protobuf.ide.util.ResourceUtil;
 import com.intellij.protobuf.lang.PbTextLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.codeStyle.CommonCodeStyleSettings;
+import consulo.language.codeStyle.setting.CodeStyleSettingsCustomizable;
+import consulo.language.codeStyle.setting.IndentOptionsEditor;
+import consulo.language.codeStyle.setting.LanguageCodeStyleSettingsProvider;
+import consulo.language.codeStyle.ui.setting.SmartIndentOptionsEditor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-/** {@link LanguageCodeStyleSettingsProvider} for use with prototext files. */
+/**
+ * {@link LanguageCodeStyleSettingsProvider} for use with prototext files.
+ */
+@ExtensionImpl
 public class PbTextLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 
   @NotNull
@@ -38,18 +42,20 @@ public class PbTextLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSe
 
   @Override
   public void customizeSettings(
-      @NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType settingsType) {
+    @NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType settingsType) {
     if (settingsType == SettingsType.SPACING_SETTINGS) {
       consumer.showStandardOptions(
-          "SPACE_WITHIN_BRACES",
-          "SPACE_WITHIN_BRACKETS",
-          "SPACE_BEFORE_COMMA",
-          "SPACE_AFTER_COMMA",
-          "SPACE_BEFORE_COLON",
-          "SPACE_AFTER_COLON");
-    } else if (settingsType == SettingsType.BLANK_LINES_SETTINGS) {
+        "SPACE_WITHIN_BRACES",
+        "SPACE_WITHIN_BRACKETS",
+        "SPACE_BEFORE_COMMA",
+        "SPACE_AFTER_COMMA",
+        "SPACE_BEFORE_COLON",
+        "SPACE_AFTER_COLON");
+    }
+    else if (settingsType == SettingsType.BLANK_LINES_SETTINGS) {
       consumer.showStandardOptions("KEEP_BLANK_LINES_IN_CODE");
-    } else if (settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS) {
+    }
+    else if (settingsType == SettingsType.WRAPPING_AND_BRACES_SETTINGS) {
       consumer.showStandardOptions("RIGHT_MARGIN", "KEEP_LINE_BREAKS");
     }
   }
@@ -63,14 +69,15 @@ public class PbTextLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSe
   public String getCodeSample(@NotNull SettingsType settingsType) {
     try {
       return ResourceUtil.readUrlAsString(getClass().getResource("/example.pb"));
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       return "Error loading example.";
     }
   }
 
   //@Override
   protected void customizeDefaults(
-      @NotNull CommonCodeStyleSettings commonSettings, @NotNull CommonCodeStyleSettings.IndentOptions indentOptions) {
+    @NotNull CommonCodeStyleSettings commonSettings, @NotNull CommonCodeStyleSettings.IndentOptions indentOptions) {
 
     commonSettings.SPACE_WITHIN_BRACES = true;
     commonSettings.SPACE_BEFORE_COLON = false;

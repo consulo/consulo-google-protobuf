@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.completion;
 
-import com.intellij.codeInsight.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElement;
 import com.intellij.protobuf.TestUtils;
 
 import java.util.List;

@@ -15,42 +15,51 @@
  */
 package com.intellij.protobuf.lang.resolve.directive;
 
-import com.intellij.codeInsight.AutoPopupController;
-import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.util.TextRange;
+import com.intellij.protobuf.lang.PbTextLanguage;
 import com.intellij.protobuf.lang.psi.PbTextFile;
-import com.intellij.psi.PsiComment;
-import com.intellij.util.ProcessingContext;
-import consulo.codeInsight.completion.CompletionProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.editor.AutoPopupController;
+import consulo.language.editor.completion.*;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.psi.PsiComment;
+import consulo.language.util.ProcessingContext;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import static consulo.language.pattern.PlatformPatterns.psiElement;
 
-/** A {@link CompletionContributor} that adds completions for the text format schema comments. */
+/**
+ * A {@link CompletionContributor} that adds completions for the text format schema comments.
+ */
+@ExtensionImpl
 public class SchemaDirectiveCompletionContributor extends CompletionContributor {
 
   private static final Pattern PREFIX_PATTERN = Pattern.compile("^#\\s*[^\\s]*$");
 
   public SchemaDirectiveCompletionContributor() {
     extend(
-        CompletionType.BASIC,
-        psiElement(PsiComment.class).withParent(PbTextFile.class),
-        new CommentCompletionProvider());
+      CompletionType.BASIC,
+      psiElement(PsiComment.class).withParent(PbTextFile.class),
+      new CommentCompletionProvider());
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 
   private static class CommentCompletionProvider implements CompletionProvider {
     @Override
     public void addCompletions(
-        @NotNull CompletionParameters parameters,
-        @NotNull ProcessingContext context,
-        @NotNull CompletionResultSet result) {
+      @NotNull CompletionParameters parameters,
+      @NotNull ProcessingContext context,
+      @NotNull CompletionResultSet result) {
 
       // Only contribute completions when the comment text up to the character contains either no
       // token, or the beginning of a token. For example
@@ -60,7 +69,7 @@ public class SchemaDirectiveCompletionContributor extends CompletionContributor 
       //  # foo |    <- do not contribute
       //  # foo pro| <- do not contribute
       TextRange rangeUpToCaret =
-          TextRange.create(parameters.getPosition().getTextOffset(), parameters.getOffset());
+        TextRange.create(parameters.getPosition().getTextOffset(), parameters.getOffset());
       String textUpToCaret = rangeUpToCaret.substring(parameters.getOriginalFile().getText());
       if (!PREFIX_PATTERN.matcher(textUpToCaret).matches()) {
         return;
@@ -79,11 +88,11 @@ public class SchemaDirectiveCompletionContributor extends CompletionContributor 
 
     private static LookupElement commentLookupElement(String commentPrefix) {
       return LookupElementBuilder.create(commentPrefix + ": ")
-          .withPresentableText(commentPrefix)
-          .withInsertHandler(
-              (insertionContext, item) ->
-                  AutoPopupController.getInstance(insertionContext.getProject())
-                      .scheduleAutoPopup(insertionContext.getEditor()));
+                                 .withPresentableText(commentPrefix)
+                                 .withInsertHandler(
+                                   (insertionContext, item) ->
+                                     AutoPopupController.getInstance(insertionContext.getProject())
+                                                        .scheduleAutoPopup(insertionContext.getEditor()));
     }
   }
 }

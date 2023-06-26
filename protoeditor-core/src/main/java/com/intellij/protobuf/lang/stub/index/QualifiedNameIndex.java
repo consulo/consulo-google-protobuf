@@ -15,14 +15,16 @@
  */
 package com.intellij.protobuf.lang.stub.index;
 
-import com.intellij.psi.stubs.StringStubIndexExtension;
-import com.intellij.psi.stubs.StubIndexKey;
 import com.intellij.protobuf.lang.psi.PbNamedElement;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.psi.stub.StringStubIndexExtension;
+import consulo.language.psi.stub.StubIndexKey;
 import org.jetbrains.annotations.NotNull;
 
+@ExtensionImpl
 public class QualifiedNameIndex extends StringStubIndexExtension<PbNamedElement> {
   public static final StubIndexKey<String, PbNamedElement> KEY =
-      StubIndexKey.createIndexKey("protobuf.byQualifiedName");
+    StubIndexKey.createIndexKey("protobuf.byQualifiedName");
 
   private static final QualifiedNameIndex INSTANCE = new QualifiedNameIndex();
 

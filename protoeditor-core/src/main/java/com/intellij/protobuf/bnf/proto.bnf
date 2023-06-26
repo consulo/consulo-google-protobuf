@@ -17,8 +17,9 @@
 
   parserClass="com.intellij.protobuf.lang.parser.PbParser"
   parserUtilClass="com.intellij.protobuf.lang.parser.PbParserUtil"
+  version = "3"
   parserImports=[
-    "com.intellij.lang.parser.GeneratedParserUtilBase.Parser"
+    "consulo.language.impl.parser.GeneratedParserUtilBase.Parser"
     "static com.intellij.protobuf.lang.psi.ProtoTokenTypes.*"
   ]
 

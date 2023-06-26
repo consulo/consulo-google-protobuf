@@ -15,16 +15,29 @@
  */
 package com.intellij.protobuf.lang.stub;
 
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.stubs.BinaryFileStubBuilder;
-import com.intellij.psi.stubs.Stub;
-import com.intellij.util.indexing.FileContent;
+import com.intellij.protobuf.lang.PbTextFileType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.psi.stub.BinaryFileStubBuilder;
+import consulo.language.psi.stub.FileContent;
+import consulo.language.psi.stub.Stub;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.fileType.FileType;
+import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-/** Empty stub builder to suppress errors when IntelliJ is looking for stubs. */
+/**
+ * Empty stub builder to suppress errors when IntelliJ is looking for stubs.
+ */
+@ExtensionImpl
 public class PbTextFileStubBuilder implements BinaryFileStubBuilder {
   private static final int STUB_VERSION = 0;
+
+  @Nonnull
+  @Override
+  public FileType getFileType() {
+    return PbTextFileType.INSTANCE;
+  }
 
   @Override
   public boolean acceptsFile(@NotNull VirtualFile file) {

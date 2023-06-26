@@ -15,13 +15,13 @@
  */
 package com.intellij.protobuf.lang.comments;
 
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.PsiComment;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbCommentUtil;
+import consulo.language.psi.util.QualifiedName;
 
 import java.util.Arrays;
 import java.util.List;

@@ -16,36 +16,38 @@
 package com.intellij.protobuf.lang.annotation;
 
 import com.google.common.base.Ascii;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.lang.annotation.HighlightSeverity;
-import com.intellij.psi.PsiElement;
 import com.intellij.protobuf.lang.PbLangBundle;
 import com.intellij.protobuf.lang.psi.*;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.editor.annotation.HighlightSeverity;
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
-/** Annotations specific to proto2 syntax level. */
+/**
+ * Annotations specific to proto2 syntax level.
+ */
 public class Proto2Annotator implements Annotator {
   @Override
   public void annotate(@NotNull PsiElement element, @NotNull final AnnotationHolder holder) {
     // Only operate on proto2 files.
     if (!(element instanceof PbElement)
-        || ((PbElement) element).getPbFile().getSyntaxLevel() != SyntaxLevel.PROTO2) {
+      || ((PbElement)element).getPbFile().getSyntaxLevel() != SyntaxLevel.PROTO2) {
       return;
     }
 
     element.accept(
-        new PbVisitor() {
-          @Override
-          public void visitField(@NotNull PbField field) {
-            annotateField(field, holder);
-          }
+      new PbVisitor() {
+        @Override
+        public void visitField(@NotNull PbField field) {
+          annotateField(field, holder);
+        }
 
-          @Override
-          public void visitGroupDefinition(@NotNull PbGroupDefinition group) {
-            annotateGroupDefinition(group, holder);
-          }
-        });
+        @Override
+        public void visitGroupDefinition(@NotNull PbGroupDefinition group) {
+          annotateGroupDefinition(group, holder);
+        }
+      });
   }
 
   /*
@@ -60,8 +62,8 @@ public class Proto2Annotator implements Annotator {
     }
     if (field.getDeclaredLabel() == null) {
       holder.newAnnotation(HighlightSeverity.ERROR, PbLangBundle.message("proto2.field.label.required"))
-          .range(field)
-          .create();
+            .range(field)
+            .create();
     }
   }
 
@@ -74,14 +76,14 @@ public class Proto2Annotator implements Annotator {
     String name = group.getName();
     if (name != null && nameIdentifier != null && !Ascii.isUpperCase(name.charAt(0))) {
       holder.newAnnotation(HighlightSeverity.ERROR, PbLangBundle.message("proto2.group.name.capital.letter"))
-          .range(nameIdentifier)
-          .create();
+            .range(nameIdentifier)
+            .create();
     }
     if (!(group.getStatementOwner() instanceof PbOneofDefinition)
-        && group.getDeclaredLabel() == null) {
+      && group.getDeclaredLabel() == null) {
       holder.newAnnotation(HighlightSeverity.ERROR, PbLangBundle.message("proto2.field.label.required"))
-          .range(group)
-          .create();
+            .range(group)
+            .create();
     }
   }
 }

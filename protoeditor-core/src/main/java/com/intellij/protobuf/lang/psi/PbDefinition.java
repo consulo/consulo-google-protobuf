@@ -15,8 +15,8 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.PsiComment;
 import com.intellij.protobuf.lang.psi.util.PbCommentUtil;
+import consulo.language.psi.PsiComment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

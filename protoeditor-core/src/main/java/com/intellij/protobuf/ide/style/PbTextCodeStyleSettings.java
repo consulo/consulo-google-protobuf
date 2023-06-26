@@ -15,11 +15,12 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.CustomCodeStyleSettings;
 
 /** {@link CustomCodeStyleSettings} for use with prototext files. */
-public class PbTextCodeStyleSettings extends CustomCodeStyleSettings {
+public class PbTextCodeStyleSettings extends CustomCodeStyleSettings
+{
 
   PbTextCodeStyleSettings(CodeStyleSettings settings) {
     super("PbTextCodeStyleSettings", settings);

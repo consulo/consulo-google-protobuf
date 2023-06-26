@@ -17,20 +17,20 @@ package com.intellij.protobuf.lang.resolve;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.TextRange;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.ast.ASTNode;
+import consulo.language.impl.ast.LeafElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.resolve.ResolveCache;
+import consulo.util.lang.function.Condition;
+import consulo.document.util.TextRange;
 import com.intellij.protobuf.lang.psi.*;
 import com.intellij.protobuf.lang.psi.util.PbPsiUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPolyVariantReferenceBase;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.ResolveResult;
-import com.intellij.psi.impl.source.resolve.ResolveCache;
-import com.intellij.psi.impl.source.tree.LeafElement;
-import com.intellij.psi.util.QualifiedName;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiPolyVariantReferenceBase;
+import consulo.language.psi.ResolveResult;
+import consulo.language.psi.util.QualifiedName;
+import consulo.language.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,8 +100,8 @@ public class ProtoSymbolPathReference extends PsiPolyVariantReferenceBase<PsiEle
   @NotNull private final ProtoSymbolPath symbolPath;
   @NotNull private final PbSymbolResolver resolver;
   @Nullable private final QualifiedName scope;
-  @NotNull private final Condition<PbSymbol> resolveFilter;
-  @Nullable private final Condition<PbSymbol> completionFilter;
+  @NotNull private final consulo.util.lang.function.Condition<PbSymbol> resolveFilter;
+  @Nullable private final consulo.util.lang.function.Condition<PbSymbol> completionFilter;
   @NotNull private final Function<PbSymbol, LookupElement> lookupElementFactory;
 
   public ProtoSymbolPathReference(
@@ -109,7 +109,7 @@ public class ProtoSymbolPathReference extends PsiPolyVariantReferenceBase<PsiEle
       @NotNull PbSymbolResolver resolver,
       @Nullable QualifiedName scope,
       @NotNull Condition<PbSymbol> resolveFilter,
-      @Nullable Condition<PbSymbol> completionFilter) {
+      @Nullable consulo.util.lang.function.Condition<PbSymbol> completionFilter) {
     this(element, resolver, scope, resolveFilter, completionFilter, PbSymbolLookupElement::new);
   }
 
@@ -117,7 +117,7 @@ public class ProtoSymbolPathReference extends PsiPolyVariantReferenceBase<PsiEle
       @NotNull ProtoSymbolPath element,
       @NotNull PbSymbolResolver resolver,
       @Nullable QualifiedName scope,
-      @NotNull Condition<PbSymbol> resolveFilter,
+      @NotNull consulo.util.lang.function.Condition<PbSymbol> resolveFilter,
       @Nullable Condition<PbSymbol> completionFilter,
       @NotNull Function<PbSymbol, LookupElement> lookupElementFactory) {
     this(
@@ -138,7 +138,7 @@ public class ProtoSymbolPathReference extends PsiPolyVariantReferenceBase<PsiEle
       @NotNull PbSymbolResolver resolver,
       @Nullable QualifiedName scope,
       @NotNull Condition<PbSymbol> resolveFilter,
-      @Nullable Condition<PbSymbol> completionFilter,
+      @Nullable consulo.util.lang.function.Condition<PbSymbol> completionFilter,
       @NotNull Function<PbSymbol, LookupElement> lookupElementFactory) {
     super(element);
     this.symbolPath = symbolPath;
@@ -159,7 +159,7 @@ public class ProtoSymbolPathReference extends PsiPolyVariantReferenceBase<PsiEle
   }
 
   @Override
-  public ResolveResult [] multiResolve(boolean incompleteCode) {
+  public ResolveResult[] multiResolve(boolean incompleteCode) {
     ResolveCache cache = ResolveCache.getInstance(myElement.getProject());
     return cache.resolveWithCaching(
         this,

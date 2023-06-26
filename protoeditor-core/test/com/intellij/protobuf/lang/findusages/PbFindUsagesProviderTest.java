@@ -18,11 +18,11 @@ package com.intellij.protobuf.lang.findusages;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.psi.PbSymbol;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.usageView.UsageInfo;
-import com.intellij.usages.impl.rules.UsageType;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.usage.UsageInfo;
+import consulo.usage.UsageType;
+import consulo.util.collection.ContainerUtil;
+import consulo.language.psi.PsiFile;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

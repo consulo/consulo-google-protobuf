@@ -2,8 +2,9 @@
 package com.intellij.protobuf.lang.psi;
 
 import java.util.List;
+
+import consulo.language.psi.PsiElement;
 import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
 
 public interface PbTextValueList extends ProtoBlockBody {
 

@@ -15,7 +15,7 @@
  */
 package com.intellij.protobuf.lang.psi;
 
-import com.intellij.psi.util.QualifiedName;
+import consulo.language.psi.util.QualifiedName;
 import org.jetbrains.annotations.Nullable;
 
 interface PbPackageNameBase extends PbElement {
