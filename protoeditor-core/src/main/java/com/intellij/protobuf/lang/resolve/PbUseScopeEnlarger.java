@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * (such as descriptor.proto) does not highlight other usages of the target.
  */
 @ExtensionImpl
-public class PbUseScopeEnlarger extends UseScopeEnlarger {
+public class PbUseScopeEnlarger implements UseScopeEnlarger {
 
   @Nullable
   @Override
