@@ -15,11 +15,14 @@
  */
 package com.intellij.protobuf.ide;
 
+import consulo.annotation.internal.MigratedExtensionsTo;
 import consulo.component.util.localize.AbstractBundle;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.PropertyKey;
 
+@MigratedExtensionsTo(ProtobufIdeLocalize.class)
 public final class PbIdeBundle extends AbstractBundle
 {
   private static final PbIdeBundle INSTANCE = new PbIdeBundle();

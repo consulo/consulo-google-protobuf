@@ -15,21 +15,21 @@
  */
 package com.intellij.protobuf.ide.template;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbTextLanguage;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.context.BaseTemplateContextType;
 import consulo.language.editor.template.context.TemplateActionContext;
-import consulo.language.editor.template.context.TemplateContextType;
 import consulo.language.psi.PsiUtilCore;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a Live Template context for prototext files (or text format options in .proto).
  */
 @ExtensionImpl
-public class PbTextLanguageContext extends TemplateContextType {
+public class PbTextLanguageContext extends BaseTemplateContextType {
   public PbTextLanguageContext() {
-    super("PROTOTEXT", PbIdeBundle.message("prototext.name.sentence"));
+    super("PROTOTEXT", ProtobufIdeLocalize.prototextNameSentence());
   }
 
   @Override

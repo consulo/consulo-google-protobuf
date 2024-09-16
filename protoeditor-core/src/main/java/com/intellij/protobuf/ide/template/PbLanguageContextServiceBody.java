@@ -4,6 +4,7 @@ import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.psi.PbServiceBody;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.editor.template.context.TemplateContextType;
+import google.protobuf.localize.ProtobufIdeLocalize;
 
 /**
  * {@link TemplateContextType} implementation that matches within a service.
@@ -11,6 +12,6 @@ import consulo.language.editor.template.context.TemplateContextType;
 @ExtensionImpl
 public class PbLanguageContextServiceBody extends PbLanguageContext.BlockBodyContext {
   public PbLanguageContextServiceBody() {
-    super("PROTO_SERVICE", PbIdeBundle.message("template.type.service"), PbServiceBody.class);
+    super("PROTO_SERVICE", ProtobufIdeLocalize.templateTypeService(), PbServiceBody.class);
   }
 }

@@ -15,25 +15,26 @@
  */
 package com.intellij.protobuf.ide.template;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbLanguage;
-import com.intellij.protobuf.lang.psi.*;
+import com.intellij.protobuf.lang.psi.PbBlockBody;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.context.BaseTemplateContextType;
 import consulo.language.editor.template.context.TemplateActionContext;
-import consulo.language.editor.template.context.TemplateContextType;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiUtilCore;
 import consulo.language.psi.util.PsiTreeUtil;
+import consulo.localize.LocalizeValue;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Defines a Live Template context for protobuf files types.
  */
 @ExtensionImpl
-public class PbLanguageContext extends TemplateContextType {
+public class PbLanguageContext extends BaseTemplateContextType {
 
   public PbLanguageContext() {
-    super("PROTO", PbIdeBundle.message("settings.project.display"));
+    super("PROTO", ProtobufIdeLocalize.settingsProjectDisplay());
   }
 
   @Override
@@ -45,11 +46,11 @@ public class PbLanguageContext extends TemplateContextType {
   /**
    * Base context that returns true when the closest parent block is of the given type.
    */
-  abstract static class BlockBodyContext extends TemplateContextType {
+  abstract static class BlockBodyContext extends BaseTemplateContextType {
 
     private final Class<? extends PbBlockBody> bodyClass;
 
-    BlockBodyContext(String id, String presentableName, Class<? extends PbBlockBody> bodyClass) {
+    BlockBodyContext(String id, LocalizeValue presentableName, Class<? extends PbBlockBody> bodyClass) {
       super(id, presentableName, PbLanguageContext.class);
       this.bodyClass = bodyClass;
     }

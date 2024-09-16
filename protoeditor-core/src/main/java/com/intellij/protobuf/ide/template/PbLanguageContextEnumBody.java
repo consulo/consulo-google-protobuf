@@ -1,9 +1,9 @@
 package com.intellij.protobuf.ide.template;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.psi.PbEnumBody;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.editor.template.context.TemplateContextType;
+import google.protobuf.localize.ProtobufIdeLocalize;
 
 /**
  * {@link TemplateContextType} implementation that matches within an enum.
@@ -11,6 +11,6 @@ import consulo.language.editor.template.context.TemplateContextType;
 @ExtensionImpl
 public class PbLanguageContextEnumBody extends PbLanguageContext.BlockBodyContext {
   public PbLanguageContextEnumBody() {
-    super("PROTO_ENUM", PbIdeBundle.message("template.type.enum"), PbEnumBody.class);
+    super("PROTO_ENUM", ProtobufIdeLocalize.templateTypeEnum(), PbEnumBody.class);
   }
 }
