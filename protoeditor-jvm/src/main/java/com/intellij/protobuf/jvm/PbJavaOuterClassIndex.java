@@ -36,7 +36,7 @@ import consulo.util.lang.ObjectUtil;
 import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
