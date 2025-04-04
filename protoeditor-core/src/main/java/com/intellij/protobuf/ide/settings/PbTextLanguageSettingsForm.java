@@ -17,6 +17,7 @@ package com.intellij.protobuf.ide.settings;
 
 import com.intellij.protobuf.ide.PbIdeBundle;
 import consulo.configurable.IdeaConfigurableUi;
+import consulo.disposer.Disposable;
 import consulo.project.Project;
 import consulo.ui.ex.awt.BorderLayoutPanel;
 import consulo.ui.ex.awt.JBCheckBox;
@@ -52,7 +53,7 @@ public class PbTextLanguageSettingsForm implements IdeaConfigurableUi<PbTextLang
 
   @NotNull
   @Override
-  public JComponent getComponent() {
+  public JComponent getComponent(Disposable parent) {
     return panel;
   }
 

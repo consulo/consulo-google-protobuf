@@ -20,6 +20,7 @@ import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider;
 import consulo.application.AllIcons.General;
 import consulo.configurable.IdeaConfigurableUi;
+import consulo.disposer.Disposable;
 import consulo.fileChooser.FileChooserDescriptor;
 import consulo.fileChooser.IdeaFileChooser;
 import consulo.platform.base.icon.PlatformIconGroup;
@@ -96,7 +97,7 @@ public class PbLanguageSettingsForm implements IdeaConfigurableUi<PbProjectSetti
 
   @NotNull
   @Override
-  public JComponent getComponent() {
+  public JComponent getComponent(Disposable disposable) {
     return panel;
   }
 
