@@ -1,130 +1,134 @@
-plugin.name:
-  text: Protocol Buffer
-settings.language.descriptor.path:
-  text: Descriptor Path
-settings.language.import.paths:
-  text: Import Paths
-settings.language.autoconfig:
-  text: Configure automatically
-settings.project.display:
-  text: Protocol Buffers
-prefix:
-  text: Prefix
-location:
-  text: Location
-prototext.name:
-  text: Protocol Buffer Text
-prototext.name.sentence:
-  text: Protocol buffer text
-prototext.settings.project.display:
-  text: Text Format
-prototext.settings.missing.schema:
-  text: Warn about missing schema associations
-proto.type.file:
-  text: Protocol Buffer file
-proto.type.package:
-  text: Package
-proto.type.group:
-  text: Group
-proto.type.field:
-  text: Field
-proto.type.message:
-  text: Message
-proto.type.enum:
-  text: Enum
-proto.type.enum.value:
-  text: Enum value
-proto.type.oneof:
-  text: OneOf
-proto.type.service:
-  text: Service
-proto.type.method:
-  text: Method
-proto.type.stream:
-  text: Stream
-proto.type.unknown:
-  text: Unknown type
-prototext.type.identifier:
-  text: Identifier
-prototext.type.keyword:
-  text: Keyword
-prototext.type.number:
-  text: Number
-prototext.type.string:
-  text: String
-prototext.type.enum.value:
-  text: Enum value
-prototext.type.line.comment:
-  text: Line comment
-prototext.type.operator:
-  text: Operator
-prototext.type.braces:
-  text: Braces
-prototext.type.brackets:
-  text: Brackets
-prototext.type.dot:
-  text: Dot
-prototext.type.semicolon:
-  text: Semicolon
-prototext.type.comma:
-  text: Comma
-prototext.type.valid.escape.sequence:
-  text: Valid escape sequence
-prototext.type.invalid.escape.sequence:
-  text: Invalid escape sequence
-prototext.type.comment.directive:
-  text: Comment directive
-prototext.missing.schema.message:
-  text: No schema attached; completion, validation, and other features are not available
-prototext.missing.schema.insert.annotation:
-  text: Insert annotation
-prototext.missing.schema.ignore:
-  text: Ignore
-prototext.missing.schema.settings:
-  text: Open settings
-attribute.descriptor.identifier:
-  text: Identifier
-attribute.descriptor.number:
-  text: Number
-attribute.descriptor.keyboard:
-  text: Keyword
-attribute.descriptor.string:
-  text: String
-attribute.descriptor.enum:
-  text: Enum value
-attribute.descriptor.block.comment:
-  text: Block comment
-attribute.descriptor.line.comment:
-  text: Line comment
-attribute.descriptor.operator:
-  text: Operator
-attribute.descriptor.braces:
-  text: Braces
-attribute.descriptor.brackets:
-  text: Brackets
-attribute.descriptor.parentheses:
-  text: Parentheses
-attribute.descriptor.dot:
-  text: Dot
-attribute.descriptor.semicolon:
-  text: Semicolon
-attribute.descriptor.comma:
-  text: Comma
-attribute.descriptor.valid.escape.sequence:
-  text: Valid escape sequence
-attribute.descriptor.invalid.escape.sequence:
-  text: Invalid escape sequence
-template.type.extend:
-  text: Extend
-template.type.enum:
-  text: Enum
-template.type.message:
-  text: Message
-template.type.oneof:
-  text: Oneof
-template.type.service:
-  text: Service
-action.prototext.InsertSchemaDirective.text:
-  text: Insert Schema Annotation
 action.prototext.InsertSchemaDirective.description:
-  text: Insert a reference to this file's root protobuf message, enabling completion, validation, and other features
+    text: Insert a reference to this file's root protobuf message, enabling completion, validation, and other features
+action.prototext.InsertSchemaDirective.text:
+    text: Insert Schema Annotation
+attribute.descriptor.block.comment:
+    text: Block comment
+attribute.descriptor.braces:
+    text: Braces
+attribute.descriptor.brackets:
+    text: Brackets
+attribute.descriptor.comma:
+    text: Comma
+attribute.descriptor.dot:
+    text: Dot
+attribute.descriptor.enum:
+    text: Enum value
+attribute.descriptor.identifier:
+    text: Identifier
+attribute.descriptor.invalid.escape.sequence:
+    text: Invalid escape sequence
+attribute.descriptor.keyboard:
+    text: Keyword
+attribute.descriptor.line.comment:
+    text: Line comment
+attribute.descriptor.number:
+    text: Number
+attribute.descriptor.operator:
+    text: Operator
+attribute.descriptor.parentheses:
+    text: Parentheses
+attribute.descriptor.semicolon:
+    text: Semicolon
+attribute.descriptor.string:
+    text: String
+attribute.descriptor.valid.escape.sequence:
+    text: Valid escape sequence
+location:
+    text: Location
+plugin.name:
+    text: Protocol Buffer
+prefix:
+    text: Prefix
+proto.type.enum:
+    text: Enum
+proto.type.enum.value:
+    text: Enum value
+proto.type.field:
+    text: Field
+proto.type.file:
+    text: Protocol Buffer file
+proto.type.group:
+    text: Group
+proto.type.message:
+    text: Message
+proto.type.method:
+    text: Method
+proto.type.oneof:
+    text: OneOf
+proto.type.package:
+    text: Package
+proto.type.service:
+    text: Service
+proto.type.stream:
+    text: Stream
+proto.type.unknown:
+    text: Unknown type
+protobuf.language.display.name:
+    text: Protocol Buffer
+prototext.language.display.name:
+    text: Protocol Buffer Text
+prototext.missing.schema.ignore:
+    text: Ignore
+prototext.missing.schema.insert.annotation:
+    text: Insert annotation
+prototext.missing.schema.message:
+    text: No schema attached; completion, validation, and other features are not available
+prototext.missing.schema.settings:
+    text: Open settings
+prototext.name:
+    text: Protocol Buffer Text
+prototext.name.sentence:
+    text: Protocol buffer text
+prototext.settings.missing.schema:
+    text: Warn about missing schema associations
+prototext.settings.project.display:
+    text: Text Format
+prototext.type.braces:
+    text: Braces
+prototext.type.brackets:
+    text: Brackets
+prototext.type.comma:
+    text: Comma
+prototext.type.comment.directive:
+    text: Comment directive
+prototext.type.dot:
+    text: Dot
+prototext.type.enum.value:
+    text: Enum value
+prototext.type.identifier:
+    text: Identifier
+prototext.type.invalid.escape.sequence:
+    text: Invalid escape sequence
+prototext.type.keyword:
+    text: Keyword
+prototext.type.line.comment:
+    text: Line comment
+prototext.type.number:
+    text: Number
+prototext.type.operator:
+    text: Operator
+prototext.type.semicolon:
+    text: Semicolon
+prototext.type.string:
+    text: String
+prototext.type.valid.escape.sequence:
+    text: Valid escape sequence
+settings.language.autoconfig:
+    text: Configure automatically
+settings.language.descriptor.path:
+    text: Descriptor Path
+settings.language.import.paths:
+    text: Import Paths
+settings.project.display:
+    text: Protocol Buffers
+template.type.enum:
+    text: Enum
+template.type.extend:
+    text: Extend
+template.type.message:
+    text: Message
+template.type.oneof:
+    text: Oneof
+template.type.service:
+    text: Service

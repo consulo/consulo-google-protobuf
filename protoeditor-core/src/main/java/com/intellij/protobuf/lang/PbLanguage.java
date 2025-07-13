@@ -16,6 +16,9 @@
 package com.intellij.protobuf.lang;
 
 import consulo.language.Language;
+import consulo.localize.LocalizeValue;
+import google.protobuf.localize.ProtobufIdeLocalize;
+import jakarta.annotation.Nonnull;
 
 public class PbLanguage extends Language {
 
@@ -23,5 +26,11 @@ public class PbLanguage extends Language {
 
   private PbLanguage() {
     super(ProtoBaseLanguage.INSTANCE, "protobuf");
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getDisplayName() {
+    return ProtobufIdeLocalize.protobufLanguageDisplayName();
   }
 }

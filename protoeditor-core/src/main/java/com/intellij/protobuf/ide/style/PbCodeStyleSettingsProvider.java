@@ -15,13 +15,13 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.highlighter.PbSyntaxHighlighter;
 import com.intellij.protobuf.lang.PbLanguage;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.codeEditor.EditorHighlighter;
 import consulo.colorScheme.EditorColorsScheme;
 import consulo.configurable.Configurable;
+import consulo.language.Language;
 import consulo.language.codeStyle.CodeStyleSettings;
 import consulo.language.codeStyle.CustomCodeStyleSettings;
 import consulo.language.codeStyle.setting.CodeStyleSettingsProvider;
@@ -40,16 +40,17 @@ public class PbCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     return new PbCodeStyleSettings(settings);
   }
 
+  @Nullable
   @Override
-  public String getConfigurableDisplayName() {
-    return PbIdeBundle.message("plugin.name");
+  public Language getLanguage() {
+    return PbLanguage.INSTANCE;
   }
 
   @NotNull
   @Override
   public Configurable createSettingsPage(
     @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
-    return new CodeStyleAbstractConfigurable(settings, originalSettings, PbIdeBundle.message("plugin.name")) {
+    return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName().get()) {
       @Override
       protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
         return new ProtoCodeStyleMainPanel(getCurrentSettings(), settings);

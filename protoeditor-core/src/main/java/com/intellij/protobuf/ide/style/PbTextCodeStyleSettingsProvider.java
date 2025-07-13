@@ -15,10 +15,10 @@
  */
 package com.intellij.protobuf.ide.style;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.lang.PbTextLanguage;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.configurable.Configurable;
+import consulo.language.Language;
 import consulo.language.codeStyle.CodeStyleSettings;
 import consulo.language.codeStyle.CustomCodeStyleSettings;
 import consulo.language.codeStyle.setting.CodeStyleSettingsProvider;
@@ -39,16 +39,17 @@ public class PbTextCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     return new PbTextCodeStyleSettings(settings);
   }
 
+  @Nullable
   @Override
-  public String getConfigurableDisplayName() {
-    return PbIdeBundle.message("prototext.name");
+  public Language getLanguage() {
+    return PbTextLanguage.INSTANCE;
   }
 
   @NotNull
   @Override
   public Configurable createSettingsPage(
     @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
-    return new CodeStyleAbstractConfigurable(settings, originalSettings, PbIdeBundle.message("prototext.name")) {
+    return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName().get()) {
       @Override
       protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
         return new ProtoTextCodeStyleMainPanel(getCurrentSettings(), settings);

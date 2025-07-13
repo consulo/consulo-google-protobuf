@@ -16,13 +16,24 @@
 package com.intellij.protobuf.lang;
 
 import consulo.language.Language;
+import consulo.localize.LocalizeValue;
+import google.protobuf.localize.ProtobufIdeLocalize;
+import jakarta.annotation.Nonnull;
 
-/** A {@link Language} for standalone prototext files. */
+/**
+ * A {@link Language} for standalone prototext files.
+ */
 public class PbTextLanguage extends Language {
 
   public static final PbTextLanguage INSTANCE = new PbTextLanguage();
 
   private PbTextLanguage() {
     super(ProtoBaseLanguage.INSTANCE, "prototext");
+  }
+
+  @Nonnull
+  @Override
+  public LocalizeValue getDisplayName() {
+    return ProtobufIdeLocalize.prototextLanguageDisplayName();
   }
 }
