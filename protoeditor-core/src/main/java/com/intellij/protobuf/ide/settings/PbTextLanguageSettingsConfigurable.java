@@ -21,6 +21,7 @@ import consulo.configurable.Configurable;
 import consulo.configurable.IdeaConfigurableBase;
 import consulo.configurable.ProjectConfigurable;
 import consulo.project.Project;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import jakarta.annotation.Nullable;
 import jakarta.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +39,7 @@ public class PbTextLanguageSettingsConfigurable
 
   @Inject
   public PbTextLanguageSettingsConfigurable(Project project) {
-    super(ID, PbIdeBundle.message("prototext.settings.project.display"), /* helpTopic= */ null);
+    super(ID, ProtobufIdeLocalize.prototextSettingsProjectDisplay(), /* helpTopic= */ null);
     this.project = project;
   }
 

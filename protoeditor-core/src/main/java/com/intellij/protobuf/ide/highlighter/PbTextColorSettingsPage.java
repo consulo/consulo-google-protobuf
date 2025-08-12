@@ -15,19 +15,16 @@
  */
 package com.intellij.protobuf.ide.highlighter;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import com.intellij.protobuf.ide.util.ResourceUtil;
 import consulo.annotation.component.ExtensionImpl;
-import consulo.colorScheme.TextAttributesKey;
 import consulo.colorScheme.setting.AttributesDescriptor;
-import consulo.colorScheme.setting.ColorDescriptor;
 import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
 import consulo.language.editor.highlight.SyntaxHighlighter;
+import consulo.localize.LocalizeValue;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * A {@link ColorSettingsPage} for standalone prototext files.
@@ -37,22 +34,22 @@ public class PbTextColorSettingsPage implements ColorSettingsPage {
 
   private static final AttributesDescriptor[] DESCRIPTORS =
     new AttributesDescriptor[]{
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.identifier"), PbTextSyntaxHighlighter.IDENTIFIER),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.keyword"), PbTextSyntaxHighlighter.KEYWORD),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.number"), PbTextSyntaxHighlighter.NUMBER),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.string"), PbTextSyntaxHighlighter.STRING),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.enum.value"), PbTextSyntaxHighlighter.ENUM_VALUE),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.line.comment"), PbTextSyntaxHighlighter.LINE_COMMENT),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.operator"), PbTextSyntaxHighlighter.OPERATION_SIGN),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.braces"), PbTextSyntaxHighlighter.BRACES),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.brackets"), PbTextSyntaxHighlighter.BRACKETS),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.dot"), PbTextSyntaxHighlighter.DOT),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.semicolon"), PbTextSyntaxHighlighter.SEMICOLON),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.comma"), PbTextSyntaxHighlighter.COMMA),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.valid.escape.sequence"), PbTextSyntaxHighlighter.VALID_STRING_ESCAPE),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.invalid.escape.sequence"),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeIdentifier(), PbTextSyntaxHighlighter.IDENTIFIER),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeKeyword(), PbTextSyntaxHighlighter.KEYWORD),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeNumber(), PbTextSyntaxHighlighter.NUMBER),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeString(), PbTextSyntaxHighlighter.STRING),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeEnumValue(), PbTextSyntaxHighlighter.ENUM_VALUE),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeLineComment(), PbTextSyntaxHighlighter.LINE_COMMENT),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeOperator(), PbTextSyntaxHighlighter.OPERATION_SIGN),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeBraces(), PbTextSyntaxHighlighter.BRACES),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeBrackets(), PbTextSyntaxHighlighter.BRACKETS),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeDot(), PbTextSyntaxHighlighter.DOT),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeSemicolon(), PbTextSyntaxHighlighter.SEMICOLON),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeComma(), PbTextSyntaxHighlighter.COMMA),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeValidEscapeSequence(), PbTextSyntaxHighlighter.VALID_STRING_ESCAPE),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeInvalidEscapeSequence(),
                                PbTextSyntaxHighlighter.INVALID_STRING_ESCAPE),
-      new AttributesDescriptor(PbIdeBundle.message("prototext.type.comment.directive"), PbTextSyntaxHighlighter.COMMENT_DIRECTIVE),
+      new AttributesDescriptor(ProtobufIdeLocalize.prototextTypeCommentDirective(), PbTextSyntaxHighlighter.COMMENT_DIRECTIVE),
     };
 
   @NotNull
@@ -72,12 +69,6 @@ public class PbTextColorSettingsPage implements ColorSettingsPage {
     }
   }
 
-  @Nullable
-  @Override
-  public Map<String, TextAttributesKey> getAdditionalHighlightingTagToDescriptorMap() {
-    return null;
-  }
-
   @NotNull
   @Override
   public AttributesDescriptor[] getAttributeDescriptors() {
@@ -86,13 +77,7 @@ public class PbTextColorSettingsPage implements ColorSettingsPage {
 
   @NotNull
   @Override
-  public ColorDescriptor[] getColorDescriptors() {
-    return ColorDescriptor.EMPTY_ARRAY;
-  }
-
-  @NotNull
-  @Override
-  public String getDisplayName() {
-    return PbIdeBundle.message("prototext.name");
+  public LocalizeValue getDisplayName() {
+    return ProtobufIdeLocalize.prototextName();
   }
 }

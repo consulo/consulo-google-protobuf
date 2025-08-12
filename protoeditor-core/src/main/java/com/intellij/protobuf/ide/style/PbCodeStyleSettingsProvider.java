@@ -50,7 +50,7 @@ public class PbCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
   @Override
   public Configurable createSettingsPage(
     @NotNull CodeStyleSettings settings, @NotNull CodeStyleSettings originalSettings) {
-    return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName().get()) {
+    return new CodeStyleAbstractConfigurable(settings, originalSettings, getConfigurableDisplayName()) {
       @Override
       protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
         return new ProtoCodeStyleMainPanel(getCurrentSettings(), settings);

@@ -15,13 +15,13 @@
  */
 package com.intellij.protobuf.ide.settings;
 
-import com.intellij.protobuf.ide.PbIdeBundle;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.configurable.Configurable;
 import consulo.configurable.IdeaConfigurableBase;
 import consulo.configurable.ProjectConfigurable;
 import consulo.configurable.StandardConfigurableIds;
 import consulo.project.Project;
+import google.protobuf.localize.ProtobufIdeLocalize;
 import jakarta.annotation.Nullable;
 import jakarta.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -39,7 +39,7 @@ public class PbLanguageSettingsConfigurable
 
   @Inject
   public PbLanguageSettingsConfigurable(Project project) {
-    super(ID, PbIdeBundle.message("settings.project.display"), null);
+    super(ID, ProtobufIdeLocalize.settingsProjectDisplay(), null);
     this.project = project;
   }
 
