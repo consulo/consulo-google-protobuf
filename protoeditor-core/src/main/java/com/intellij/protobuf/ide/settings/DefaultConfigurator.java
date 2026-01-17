@@ -33,7 +33,7 @@ import java.util.Collections;
  *
  * <p>The descriptor is set to <code>google/protobuf/descriptor.proto</code>.
  */
-@ExtensionImpl(order = "default")
+@ExtensionImpl(order = "last")
 public final class DefaultConfigurator implements ProjectSettingsConfigurator {
   private static final String DESCRIPTOR = "google/protobuf/descriptor.proto";
 
