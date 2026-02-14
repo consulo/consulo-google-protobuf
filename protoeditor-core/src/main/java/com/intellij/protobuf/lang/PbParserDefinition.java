@@ -18,10 +18,10 @@ package com.intellij.protobuf.lang;
 import com.intellij.protobuf.lang.lexer.ProtoLexer;
 import com.intellij.protobuf.lang.parser.PbParser;
 import com.intellij.protobuf.lang.psi.PbTextElementType;
-import com.intellij.protobuf.lang.psi.PbTextTypes;
-import com.intellij.protobuf.lang.psi.PbTypes;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 import com.intellij.protobuf.lang.psi.impl.PbFileImpl;
+import com.intellij.protobuf.lang.psi.impl.PbTextTypesFactory;
+import com.intellij.protobuf.lang.psi.impl.PbTypesFactory;
 import com.intellij.protobuf.lang.stub.type.PbFileElementType;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.Language;
@@ -105,8 +105,8 @@ public class PbParserDefinition implements ParserDefinition {
   @Override
   public PsiElement createElement(ASTNode node) {
     if (node instanceof PbTextElementType) {
-      return PbTextTypes.Factory.createElement(node);
+      return PbTextTypesFactory.createElement(node);
     }
-    return PbTypes.Factory.createElement(node);
+    return PbTypesFactory.createElement(node);
   }
 }

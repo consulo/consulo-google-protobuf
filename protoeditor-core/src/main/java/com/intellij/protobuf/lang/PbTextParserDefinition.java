@@ -15,24 +15,24 @@
  */
 package com.intellij.protobuf.lang;
 
-import consulo.annotation.component.ExtensionImpl;
-import consulo.language.Language;
-import consulo.language.ast.IFileElementType;
-import consulo.language.ast.TokenType;
-import consulo.language.lexer.Lexer;
-import consulo.language.parser.ParserDefinition;
 import com.intellij.protobuf.lang.lexer.ProtoLexer;
 import com.intellij.protobuf.lang.parser.PbTextParser;
-import com.intellij.protobuf.lang.psi.PbTextTypes;
 import com.intellij.protobuf.lang.psi.ProtoTokenTypes;
 import com.intellij.protobuf.lang.psi.impl.PbTextFileImpl;
-import consulo.language.file.FileViewProvider;
-import consulo.language.psi.PsiElement;
-import consulo.language.ast.TokenSet;
-import consulo.language.version.LanguageVersion;
+import com.intellij.protobuf.lang.psi.impl.PbTextTypesFactory;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
 import consulo.language.ast.ASTNode;
+import consulo.language.ast.IFileElementType;
+import consulo.language.ast.TokenSet;
+import consulo.language.ast.TokenType;
+import consulo.language.file.FileViewProvider;
+import consulo.language.lexer.Lexer;
+import consulo.language.parser.ParserDefinition;
 import consulo.language.parser.PsiParser;
+import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
+import consulo.language.version.LanguageVersion;
 import jakarta.annotation.Nonnull;
 import org.jetbrains.annotations.NotNull;
 
@@ -103,6 +103,6 @@ public class PbTextParserDefinition implements ParserDefinition {
   @NotNull
   @Override
   public PsiElement createElement(ASTNode node) {
-    return PbTextTypes.Factory.createElement(node);
+    return PbTextTypesFactory.createElement(node);
   }
 }

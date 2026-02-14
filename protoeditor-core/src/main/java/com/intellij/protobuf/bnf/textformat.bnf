@@ -15,7 +15,6 @@
 {
   generate=[names="long" psi="yes" tokens="no"]
 
-  version = "3"
   parserClass="com.intellij.protobuf.lang.parser.PbTextParser"
   parserUtilClass="com.intellij.protobuf.lang.parser.PbParserUtil"
   parserImports=[
