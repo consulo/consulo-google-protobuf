@@ -4,6 +4,16 @@
  */
 open module consulo.google.protobuf.api {
   requires transitive consulo.ide.api;
+  requires consulo.language.editor.api;
+  requires consulo.language.editor.refactoring.api;
+  requires consulo.language.editor.ui.api;
+  requires consulo.language.impl;
+  requires consulo.file.editor.api;
+  requires consulo.configurable.api;
+  requires consulo.ui.ex.api;
+  requires consulo.ui.ex.awt.api;
+  requires consulo.project.ui.view.api;
+  requires consulo.language.code.style.ui.api;
 
   requires transitive com.google.common;
 

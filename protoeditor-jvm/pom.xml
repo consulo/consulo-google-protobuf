@@ -19,7 +19,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>consulo</groupId>
-    <artifactId>arch.ide-api-provided</artifactId>
+    <artifactId>arch.bind.java</artifactId>
     <version>3-SNAPSHOT</version>
     <relativePath/>
   </parent>
@@ -42,6 +42,96 @@
 
   <dependencies>
     <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-ide-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-application-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-code-editor-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-datacontext-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-find-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-index-io</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-language-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-language-editor-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-logging-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-module-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-project-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-util-collection</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-util-io</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-util-lang</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>consulo</groupId>
+      <artifactId>consulo-virtual-file-system-api</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <scope>provided</scope>
@@ -49,6 +139,12 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>consulo.java</artifactId>
+      <version>${project.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>consulo.java-java.language.api</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>

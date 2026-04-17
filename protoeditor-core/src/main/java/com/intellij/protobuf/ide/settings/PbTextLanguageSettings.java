@@ -22,7 +22,7 @@ import consulo.component.persist.PersistentStateComponent;
 import consulo.project.Project;
 import consulo.component.persist.State;
 import consulo.component.persist.Storage;
-import consulo.ide.ServiceManager;
+import consulo.application.Application;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +52,7 @@ public class PbTextLanguageSettings
   }
 
   public static PbTextLanguageSettings getInstance(Project project) {
-    return ServiceManager.getService(project, PbTextLanguageSettings.class);
+    return project.getInstance(PbTextLanguageSettings.class);
   }
 
   @Nullable

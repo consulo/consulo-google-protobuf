@@ -23,7 +23,7 @@ import consulo.project.Project;
 import consulo.util.lang.StringUtil;
 import consulo.component.persist.State;
 import consulo.component.persist.Storage;
-import consulo.ide.ServiceManager;
+import consulo.application.Application;
 import consulo.util.xml.serializer.XmlSerializer;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -56,7 +56,7 @@ public class PbProjectSettings implements PersistentStateComponent<PbProjectSett
   }
 
   public static PbProjectSettings getInstance(Project project) {
-    return ServiceManager.getService(project, PbProjectSettings.class);
+    return project.getInstance(PbProjectSettings.class);
   }
 
   public static void notifyUpdated(Project project) {

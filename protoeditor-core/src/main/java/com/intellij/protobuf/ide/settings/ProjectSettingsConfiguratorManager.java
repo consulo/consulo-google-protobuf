@@ -20,7 +20,7 @@ import consulo.annotation.component.ServiceAPI;
 import consulo.annotation.component.ServiceImpl;
 import consulo.application.ApplicationManager;
 import consulo.disposer.Disposable;
-import consulo.ide.ServiceManager;
+import consulo.application.Application;
 import consulo.module.content.layer.event.ModuleRootEvent;
 import consulo.module.content.layer.event.ModuleRootListener;
 import consulo.project.Project;
@@ -54,7 +54,7 @@ public final class ProjectSettingsConfiguratorManager implements Disposable {
   }
 
   public static ProjectSettingsConfiguratorManager getInstance(Project project) {
-    return ServiceManager.getService(project, ProjectSettingsConfiguratorManager.class);
+    return project.getInstance(ProjectSettingsConfiguratorManager.class);
   }
 
   /**
