@@ -16,12 +16,11 @@
 package com.intellij.protobuf.ide.settings;
 
 import consulo.util.io.FileUtil;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtil;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.ide.settings.PbProjectSettings.ImportPathEntry;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider;
 import com.intellij.protobuf.lang.resolve.FileResolveProvider.ChildEntry;
-import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFile;import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 import java.io.File;
 import java.util.Arrays;
@@ -58,9 +57,8 @@ public class SettingsFileResolveProviderTest extends PbCodeInsightFixtureTestCas
     PbProjectSettings settings = PbProjectSettings.getInstance(getProject());
     settings.setImportPathEntries(
         Arrays.asList(
-            new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(new File(tempDir, "path1").getPath()), "com/foo"),
-            new ImportPathEntry(
-                VfsUtil.pathToUrl(new File(tempDir, "path2").getPath()), "com/foo")));
+            new ImportPathEntry(VirtualFileUtil.pathToUrl(new File(tempDir, "path1").getPath()), "com/foo"),
+            new ImportPathEntry(VirtualFileUtil.pathToUrl(new File(tempDir, "path2").getPath()), "com/foo")));
 
     FileResolveProvider resolver = new SettingsFileResolveProvider();
     VirtualFile foo = resolver.findFile("com/foo/dir/foo.proto", getProject());
@@ -69,8 +67,8 @@ public class SettingsFileResolveProviderTest extends PbCodeInsightFixtureTestCas
     assertNotNull(foo);
     assertNotNull(bar);
 
-    assertEquals("// foo in path1", consulo.ide.impl.idea.openapi.vfs.VfsUtil.loadText(foo));
-    assertEquals("// bar in path2", consulo.ide.impl.idea.openapi.vfs.VfsUtil.loadText(bar));
+    assertEquals("// foo in path1", VirtualFileUtil.loadText(foo));
+    assertEquals("// bar in path2", VirtualFileUtil.loadText(bar));
   }
 
   public void testGetChildEntries() throws Exception {
@@ -80,11 +78,11 @@ public class SettingsFileResolveProviderTest extends PbCodeInsightFixtureTestCas
     FileUtil.writeToFile(new File(tempDir, "path3/dir/bar.proto"), "// bar in path3");
 
     PbProjectSettings settings = PbProjectSettings.getInstance(getProject());
-    settings.setImportPathEntries(
-        Arrays.asList(
-            new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(new File(tempDir, "path1").getPath()), "com/foo"),
-            new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(new File(tempDir, "path2").getPath()), "com/foo"),
-            new ImportPathEntry(consulo.ide.impl.idea.openapi.vfs.VfsUtil.pathToUrl(new File(tempDir, "path3").getPath()), "")));
+    settings.setImportPathEntries(Arrays.asList(
+      new ImportPathEntry(VirtualFileUtil.pathToUrl(new File(tempDir, "path1").getPath()), "com/foo"),
+      new ImportPathEntry(VirtualFileUtil.pathToUrl(new File(tempDir, "path2").getPath()), "com/foo"),
+      new ImportPathEntry(VirtualFileUtil.pathToUrl(new File(tempDir, "path3").getPath()), "")
+    ));
 
     FileResolveProvider resolver = new SettingsFileResolveProvider();
     assertContainsElements(

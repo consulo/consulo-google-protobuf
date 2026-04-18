@@ -15,16 +15,16 @@
  */
 package com.intellij.protobuf.lang.resolve;
 
-import consulo.util.lang.StringUtil;
-import consulo.ide.impl.idea.openapi.vfs.VfsUtilCore;
-import consulo.virtualFileSystem.VirtualFile;
-import consulo.language.psi.PsiElement;
-import consulo.language.psi.PsiReference;
-import com.intellij.testFramework.VfsTestUtil;
 import com.intellij.protobuf.TestUtils;
 import com.intellij.protobuf.fixtures.PbCodeInsightFixtureTestCase;
 import com.intellij.protobuf.lang.PbFileType;
 import com.intellij.protobuf.lang.psi.PbFile;
+import com.intellij.testFramework.VfsTestUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.util.lang.StringUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import org.junit.Assert;
 
 import java.io.File;
@@ -60,7 +60,7 @@ public class PbImportReferenceTest extends PbCodeInsightFixtureTestCase {
     VirtualFile vFile = VfsTestUtil.findFileByCaseSensitivePath(getTestDataPath() + filePath);
     assertNotNull("file " + filePath + " not found", vFile);
 
-    String fileText = StringUtil.convertLineSeparators(consulo.ide.impl.idea.openapi.vfs.VfsUtilCore.loadText(vFile));
+    String fileText = StringUtil.convertLineSeparators(VirtualFileUtil.loadText(vFile));
     int offset = fileText.indexOf("<caret>");
     assertTrue(offset >= 0);
 
