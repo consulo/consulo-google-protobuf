@@ -28,7 +28,7 @@ public class PbStructureAwareNavBarModelExtension extends StructureAwareNavBarMo
     if (e instanceof PbNamedElement pbNamedElement) {
       return pbNamedElement.getName();
     }
-    return e.toString();
+    return null;
   }
 
   private String getTooltipPrefix(@NotNull PsiElement element) {
