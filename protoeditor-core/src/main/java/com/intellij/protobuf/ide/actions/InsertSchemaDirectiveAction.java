@@ -34,6 +34,7 @@ import com.intellij.protobuf.lang.resolve.directive.SchemaComment;
 import com.intellij.protobuf.lang.resolve.directive.SchemaDirective;
 import consulo.language.editor.template.TemplateManager;
 import consulo.ui.ex.action.AnActionEvent;
+import consulo.ui.ex.action.AnActionWithSyncUpdate;
 import consulo.util.lang.StringUtil;
 
 import java.util.Collection;
@@ -51,7 +52,7 @@ import static com.intellij.protobuf.ide.actions.InsertSchemaDirectiveAction.ACTI
  * block.
  */
 @ActionImpl(id = ACTION_ID, parents = @ActionParentRef(@ActionRef(id = "EditorPopupMenu")))
-public class InsertSchemaDirectiveAction extends AnAction {
+public class InsertSchemaDirectiveAction extends AnAction implements AnActionWithSyncUpdate {
 
   public static final String ACTION_ID = "prototext.InsertSchemaDirective";
 
