@@ -43,12 +43,6 @@ import java.util.*;
 @ExtensionImpl
 public class PbJavaGotoDeclarationHandler implements GotoDeclarationHandler {
 
-  @Nullable
-  @Override
-  public String getActionText(@NotNull DataContext dataContext) {
-    return null;
-  }
-
   @Override
   @Nullable
   public PsiElement[] getGotoDeclarationTargets(

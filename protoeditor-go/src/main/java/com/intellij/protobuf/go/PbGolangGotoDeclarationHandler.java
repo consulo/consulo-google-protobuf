@@ -23,6 +23,7 @@ import com.google.common.collect.ImmutableList;
 import com.intellij.protobuf.lang.psi.PbFile;
 import com.intellij.protobuf.lang.psi.PbSymbol;
 import com.intellij.protobuf.shared.gencode.ProtoFromSourceComments;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.codeEditor.Editor;
 import consulo.dataContext.DataContext;
 import consulo.language.editor.navigation.GotoDeclarationHandler;
@@ -45,12 +46,8 @@ import java.util.Set;
 /**
  * Handles goto declaration from golang generated code to .proto files.
  */
+@ExtensionImpl
 public class PbGolangGotoDeclarationHandler implements GotoDeclarationHandler {
-  @Nullable
-  @Override
-  public String getActionText(@NotNull DataContext dataContext) {
-    return null;
-  }
 
   @Nullable
   @Override

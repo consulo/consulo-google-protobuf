@@ -42,13 +42,6 @@ import static java.util.stream.Collectors.toList;
 /** Handles goto declaration from python generated code -> .proto files. */
 @ExtensionImpl
 public final class PbPythonGotoDeclarationHandler implements GotoDeclarationHandler {
-
-  @Nullable
-  @Override
-  public String getActionText(@NotNull DataContext context) {
-    return null;
-  }
-
   @Override
   @Nullable
   public PsiElement[] getGotoDeclarationTargets(
