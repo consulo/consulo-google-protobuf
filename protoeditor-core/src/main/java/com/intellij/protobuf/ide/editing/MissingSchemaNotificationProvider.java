@@ -140,7 +140,7 @@ public class MissingSchemaNotificationProvider implements EditorNotificationProv
           (e) -> {
             ShowSettingsUtil.getInstance()
                             .showSettingsDialog(file.getProject(), PbTextLanguageSettingsConfigurable.class)
-                            .doWhenDone(() -> {
+                            .whenComplete((_, _) -> {
                               EditorNotifications.getInstance(file.getProject()).updateNotifications(file.getVirtualFile());
                             });
           });
