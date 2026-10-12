@@ -15,20 +15,22 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
 import com.intellij.protobuf.lang.psi.PbStatement;
+import consulo.localize.LocalizeValue;
 import org.jetbrains.annotations.NotNull;
 
 abstract class PbStatementBase extends PbElementBase implements PbStatement {
+    PbStatementBase(ASTNode node) {
+        super(node);
+    }
 
-  PbStatementBase(ASTNode node) {
-    super(node);
-  }
-
-  @NotNull
-  @Override
-  public String getPresentableText() {
-    String name = getName();
-    return name != null ? name : getText();
-  }
+    @NotNull
+    @Override
+    @RequiredReadAction
+    public LocalizeValue getPresentableText() {
+        String name = getName();
+        return name != null ? LocalizeValue.of(name) : LocalizeValue.of(getText());
+    }
 }

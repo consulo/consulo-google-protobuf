@@ -15,9 +15,11 @@
  */
 package com.intellij.protobuf.lang.psi.impl;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.ast.ASTNode;
 import consulo.language.icon.IconDescriptorUpdaters;
 import consulo.language.psi.util.QualifiedName;
+import consulo.localize.LocalizeValue;
 import consulo.navigation.ItemPresentation;
 import com.intellij.protobuf.lang.psi.PbNamedElement;
 import com.intellij.protobuf.lang.psi.PbSymbolOwner;
@@ -28,84 +30,82 @@ import consulo.language.util.IncorrectOperationException;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 abstract class PbNamedElementBase extends PbStatementBase implements PbNamedElement {
-
-  PbNamedElementBase(ASTNode node) {
-    super(node);
-  }
-
-  @Nullable
-  @Override
-  public QualifiedName getQualifiedName() {
-    return PbPsiImplUtil.getQualifiedName(this);
-  }
-
-  @Nullable
-  @Override
-  public PbSymbolOwner getSymbolOwner() {
-    return PbPsiImplUtil.getSymbolOwner(this);
-  }
-
-  @Nullable
-  @Override
-  public String getName() {
-    PsiElement name = getNameIdentifier();
-    if (name != null) {
-      return name.getText();
+    PbNamedElementBase(ASTNode node) {
+        super(node);
     }
-    return super.getName();
-  }
 
-  @Override
-  public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
-    PsiElement identifier = getNameIdentifier();
-    if (identifier == null) {
-      throw new IncorrectOperationException();
+    @Nullable
+    @Override
+    public QualifiedName getQualifiedName() {
+        return PbPsiImplUtil.getQualifiedName(this);
     }
-    ASTNode node = identifier.getNode();
-    if (node instanceof LeafElement) {
-      ((LeafElement) node).replaceWithText(name);
-      return this;
+
+    @Override
+    public @Nullable PbSymbolOwner getSymbolOwner() {
+        return PbPsiImplUtil.getSymbolOwner(this);
     }
-    throw new IncorrectOperationException();
-  }
 
-  @Override
-  public int getTextOffset() {
-    PsiElement name = getNameIdentifier();
-    return name != null ? name.getTextOffset() : super.getTextOffset();
-  }
-
-  @Override
-  @Nullable
-  public ItemPresentation getPresentation() {
-    PbNamedElement element = this;
-    return new ItemPresentation() {
-
-      @Override
-      public String getPresentableText() {
-        return element.getPresentableText();
-      }
-
-      @Nullable
-      @Override
-      public String getLocationString() {
-        PbSymbolOwner owner = getSymbolOwner();
-        if (owner != null) {
-          QualifiedName qualifiedName = owner.getChildScope();
-          if (qualifiedName != null) {
-            return qualifiedName.toString();
-          }
+    @Override
+    @RequiredReadAction
+    public @Nullable String getName() {
+        PsiElement name = getNameIdentifier();
+        if (name != null) {
+            return name.getText();
         }
-        return null;
-      }
+        return super.getName();
+    }
 
-      @Override
-      public Image getIcon() {
-        return IconDescriptorUpdaters.getIcon(element, 0);
-      }
-    };
-  }
+    @Override
+    public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
+        PsiElement identifier = getNameIdentifier();
+        if (identifier == null) {
+            throw new IncorrectOperationException();
+        }
+        ASTNode node = identifier.getNode();
+        if (node instanceof LeafElement) {
+            ((LeafElement) node).replaceWithText(name);
+            return this;
+        }
+        throw new IncorrectOperationException();
+    }
+
+    @Override
+    @RequiredReadAction
+    public int getTextOffset() {
+        PsiElement name = getNameIdentifier();
+        return name != null ? name.getTextOffset() : super.getTextOffset();
+    }
+
+    @Override
+    public ItemPresentation getPresentation() {
+        PbNamedElement element = this;
+        return new ItemPresentation() {
+            @Override
+            @RequiredReadAction
+            public LocalizeValue getPresentableText() {
+                return element.getPresentableText();
+            }
+
+            @Override
+            public @Nullable String getLocationString() {
+                PbSymbolOwner owner = getSymbolOwner();
+                if (owner != null) {
+                    QualifiedName qualifiedName = owner.getChildScope();
+                    if (qualifiedName != null) {
+                        return qualifiedName.toString();
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            @RequiredReadAction
+            public Image getIcon() {
+                return IconDescriptorUpdaters.getIcon(element, 0);
+            }
+        };
+    }
 }

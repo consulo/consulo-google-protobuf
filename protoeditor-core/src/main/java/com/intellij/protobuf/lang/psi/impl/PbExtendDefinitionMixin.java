@@ -19,36 +19,37 @@ import com.intellij.protobuf.ide.util.PbIcons;
 import com.intellij.protobuf.lang.psi.PbExtendDefinition;
 import com.intellij.protobuf.lang.psi.PbTypeName;
 import com.intellij.protobuf.lang.stub.PbExtendDefinitionStub;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.language.psi.stub.IStubElementType;
 import consulo.language.ast.ASTNode;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-abstract class PbExtendDefinitionMixin extends PbStubbedDefinitionBase<PbExtendDefinitionStub>
-    implements PbExtendDefinition {
-
-  PbExtendDefinitionMixin(ASTNode node) {
-    super(node);
-  }
-
-  PbExtendDefinitionMixin(PbExtendDefinitionStub stub, IStubElementType nodeType) {
-    super(stub, nodeType);
-  }
-
-  @Nullable
-  //@Override
-  public Image getIcon(int flags) {
-    return PbIcons.EXTEND;
-  }
-
-  @NotNull
-  @Override
-  public String getPresentableText() {
-    PbTypeName typeName = getTypeName();
-    if (typeName != null) {
-      return "extend " + typeName.getReferenceString();
+abstract class PbExtendDefinitionMixin extends PbStubbedDefinitionBase<PbExtendDefinitionStub> implements PbExtendDefinition {
+    PbExtendDefinitionMixin(ASTNode node) {
+        super(node);
     }
-    return getText();
-  }
+
+    PbExtendDefinitionMixin(PbExtendDefinitionStub stub, IStubElementType nodeType) {
+        super(stub, nodeType);
+    }
+
+    @Nullable
+    //@Override
+    public Image getIcon(int flags) {
+        return PbIcons.EXTEND;
+    }
+
+    @NotNull
+    @Override
+    @RequiredReadAction
+    public LocalizeValue getPresentableText() {
+        PbTypeName typeName = getTypeName();
+        if (typeName != null) {
+            return LocalizeValue.localizeTODO("extend " + typeName.getReferenceString());
+        }
+        return LocalizeValue.of(getText());
+    }
 }
