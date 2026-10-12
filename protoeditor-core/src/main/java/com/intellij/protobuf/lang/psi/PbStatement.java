@@ -16,8 +16,10 @@
 package com.intellij.protobuf.lang.psi;
 
 import com.intellij.protobuf.lang.psi.util.PbPsiImplUtil;
+import consulo.annotation.access.RequiredReadAction;
+import consulo.localize.LocalizeValue;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A statement is a primary lexical entity in a proto file ending with a semicolon or a closing
@@ -26,14 +28,13 @@ import org.jetbrains.annotations.Nullable;
  * <p>{@link PbDefinition} objects are statements.
  */
 public interface PbStatement extends PbElement, PbCommentOwner {
+    default @Nullable PbStatementOwner getStatementOwner() {
+        return PbPsiImplUtil.getStatementOwner(this);
+    }
 
-  @Nullable
-  default PbStatementOwner getStatementOwner() {
-    return PbPsiImplUtil.getStatementOwner(this);
-  }
-
-  @NotNull
-  default String getPresentableText() {
-    return getText();
-  }
+    @NotNull
+    @RequiredReadAction
+    default LocalizeValue getPresentableText() {
+        return LocalizeValue.of(getText());
+    }
 }

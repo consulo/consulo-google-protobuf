@@ -16,34 +16,33 @@
 package com.intellij.protobuf.lang.findusages;
 
 import com.intellij.protobuf.lang.psi.PbSymbol;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.psi.ElementDescriptionLocation;
 import consulo.language.psi.ElementDescriptionProvider;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.util.QualifiedName;
+import consulo.localize.LocalizeValue;
 import consulo.usage.UsageViewLongNameLocation;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Provides the title for the find usages tool window.
  */
 @ExtensionImpl
 public class PbElementDescriptionProvider implements ElementDescriptionProvider {
-
-  @Nullable
-  @Override
-  public String getElementDescription(@NotNull PsiElement element, @NotNull ElementDescriptionLocation location) {
-    if (location instanceof UsageViewLongNameLocation) {
-      if (element instanceof PbSymbol) {
-        PbSymbol symbol = (PbSymbol)element;
-        QualifiedName qualifiedName = symbol.getQualifiedName();
-        if (qualifiedName != null) {
-          return qualifiedName.toString();
+    @Override
+    @RequiredReadAction
+    public LocalizeValue getElementDescription(@NotNull PsiElement element, @NotNull ElementDescriptionLocation location) {
+        if (location instanceof UsageViewLongNameLocation) {
+            if (element instanceof PbSymbol symbol) {
+                QualifiedName qualifiedName = symbol.getQualifiedName();
+                if (qualifiedName != null) {
+                    return LocalizeValue.of(qualifiedName.toString());
+                }
+                return LocalizeValue.ofNullable(symbol.getName());
+            }
         }
-        return symbol.getName();
-      }
+        return LocalizeValue.empty();
     }
-    return null;
-  }
 }
