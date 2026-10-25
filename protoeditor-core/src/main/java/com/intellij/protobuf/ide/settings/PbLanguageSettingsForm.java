@@ -22,7 +22,7 @@ import consulo.application.AllIcons.General;
 import consulo.configurable.IdeaConfigurableUi;
 import consulo.disposer.Disposable;
 import consulo.fileChooser.FileChooserDescriptor;
-import consulo.fileChooser.IdeaFileChooser;
+import consulo.fileChooser.FileChooserFactory;
 import consulo.platform.base.icon.PlatformIconGroup;
 import consulo.project.Project;
 import consulo.ui.ex.JBColor;
@@ -36,6 +36,9 @@ import consulo.util.collection.ContainerUtil;
 import consulo.util.lang.StringUtil;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.VirtualFileManager;
+import consulo.util.io.NioFiles;
+import consulo.virtualFileSystem.StandardFileSystems;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,6 +54,7 @@ import java.util.EventObject;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.nio.file.Path;
 
 /**
  * The protobuf language settings panel.
@@ -189,11 +193,15 @@ public class PbLanguageSettingsForm implements IdeaConfigurableUi<PbProjectSetti
     ToolbarDecorator decorator = ToolbarDecorator.createDecorator(importPathTable, null);
     decorator.setAddAction(
       (button) -> {
-        VirtualFile selectedFile =
-          IdeaFileChooser.chooseFile(getFileChooserDescriptor(null), project, null);
-        if (selectedFile != null) {
-          importPathModel.addRow(new ImportPath(selectedFile.getUrl()));
-        }
+        FileChooserFactory.getInstance()
+          .newBuilder(getFileChooserDescriptor(null))
+          .project(project)
+          .showSingleAsVirtualFile()
+          .whenComplete((selectedFile, error) -> {
+            if (selectedFile != null) {
+              importPathModel.addRow(new ImportPath(selectedFile.getUrl()));
+            }
+          });
       });
     decorator.setEditAction(
       (button) ->
@@ -407,16 +415,22 @@ public class PbLanguageSettingsForm implements IdeaConfigurableUi<PbProjectSetti
     private ActionListener createActionListener(final JTable table) {
       return e -> {
         String initialValue = (String)getCellEditorValue();
-        VirtualFile initialFile =
-          !StringUtil.isEmpty(initialValue)
-            ? VirtualFileManager.getInstance().findFileByUrl(initialValue)
+        // a local url is preselected without the virtual file system
+        Path initialPath =
+          !StringUtil.isEmpty(initialValue) && initialValue.startsWith(StandardFileSystems.FILE_PROTOCOL_PREFIX)
+            ? NioFiles.toPath(VirtualFileUtil.urlToPath(initialValue))
             : null;
-        IdeaFileChooser.chooseFile(
-          getFileChooserDescriptor(title),
-          project,
-          table,
-          initialFile,
-          file -> component.getChildComponent().setText(file.getUrl()));
+        FileChooserFactory.getInstance()
+          .newBuilder(getFileChooserDescriptor(title))
+          .project(project)
+          .parent(table)
+          .toSelect(initialPath)
+          .showSingleAsVirtualFile()
+          .whenComplete((file, error) -> {
+            if (file != null) {
+              component.getChildComponent().setText(file.getUrl());
+            }
+          });
       };
     }
   }
