@@ -19,11 +19,14 @@ import consulo.annotation.component.ComponentScope;
 import consulo.annotation.component.ServiceAPI;
 import consulo.annotation.component.ServiceImpl;
 import consulo.component.persist.PersistentStateComponent;
+import consulo.language.editor.DaemonCodeAnalyzer;
+import consulo.language.psi.PsiManager;
 import consulo.project.Project;
 import consulo.util.lang.StringUtil;
 import consulo.component.persist.State;
 import consulo.component.persist.Storage;
 import consulo.application.Application;
+import consulo.application.WriteAction;
 import consulo.util.xml.serializer.XmlSerializer;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -60,16 +63,11 @@ public class PbProjectSettings implements PersistentStateComponent<PbProjectSett
   }
 
   public static void notifyUpdated(Project project) {
-    // Fire off an event to invalidate caches. Currently, we trigger a "project roots changed" event
-    // which is not totally correct.
-    // TODO(volkman): is there some better way to do this?
-    //if (!project.isDisposed()) {
-    //  ApplicationManager.getApplication()
-    //      .runWriteAction(
-    //          () ->
-    //              ProjectRootManagerEx.getInstanceEx(project)
-    //                  .makeRootsChange(() -> {}, false, true));
-    //}
+    // Import paths changed: drop cached resolve results and re-highlight open files.
+    if (!project.isDisposed()) {
+      WriteAction.run(() -> PsiManager.getInstance(project).dropPsiCaches());
+      DaemonCodeAnalyzer.getInstance(project).restart();
+    }
   }
 
   @Nullable

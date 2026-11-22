@@ -18,6 +18,7 @@ package com.intellij.protobuf.ide.settings;
 import consulo.annotation.component.ComponentScope;
 import consulo.annotation.component.ServiceAPI;
 import consulo.annotation.component.ServiceImpl;
+import consulo.annotation.component.TopicImpl;
 import consulo.application.ApplicationManager;
 import consulo.disposer.Disposable;
 import consulo.application.Application;
@@ -121,10 +122,18 @@ public final class ProjectSettingsConfiguratorManager implements Disposable {
   public void dispose() {
   }
 
-  static final class ProjectRootsListener implements ModuleRootListener {
+  @TopicImpl(ComponentScope.PROJECT)
+  public static final class ProjectRootsListener implements ModuleRootListener {
+    private final Project project;
+
+    @Inject
+    public ProjectRootsListener(Project project) {
+      this.project = project;
+    }
+
     @Override
     public void rootsChanged(@NotNull ModuleRootEvent event) {
-      ProjectSettingsConfiguratorManager.getInstance((Project)event.getSource()).configureSettingsIfNecessary();
+      ProjectSettingsConfiguratorManager.getInstance(project).configureSettingsIfNecessary();
     }
   }
 

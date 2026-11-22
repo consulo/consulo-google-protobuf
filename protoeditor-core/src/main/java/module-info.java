@@ -14,6 +14,7 @@ open module consulo.google.protobuf.api {
   requires consulo.ui.ex.awt.api;
   requires consulo.project.ui.view.api;
   requires consulo.language.code.style.ui.api;
+  requires consulo.language.spellchecker.api;
 
   requires transitive com.google.common;
 

@@ -27,6 +27,8 @@ import org.jetbrains.annotations.Nullable;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * A {@link ProjectSettingsConfigurator} that generates configuration based on project source roots.
@@ -41,7 +43,12 @@ public final class DefaultConfigurator implements ProjectSettingsConfigurator {
   public @NotNull PbProjectSettings configure(Project project, PbProjectSettings settings) {
     settings.setDescriptorPath(DESCRIPTOR);
     settings.getImportPathEntries().clear();
-    VirtualFile[] roots = ProjectRootManager.getInstance(project).getContentSourceRoots();
+    ProjectRootManager rootManager = ProjectRootManager.getInstance(project);
+    // Source roots first, then content roots, so modules without source folders still resolve
+    // imports relative to their root.
+    Set<VirtualFile> roots = new LinkedHashSet<>();
+    Collections.addAll(roots, rootManager.getContentSourceRoots());
+    Collections.addAll(roots, rootManager.getContentRoots());
     for (VirtualFile root : roots) {
       settings.getImportPathEntries().add(new ImportPathEntry(root.getUrl(), ""));
     }
@@ -62,11 +69,21 @@ public final class DefaultConfigurator implements ProjectSettingsConfigurator {
 
   @Nullable
   static ImportPathEntry getBuiltInIncludeEntry() {
-    URL includedDescriptorsDirectoryUrl = DefaultConfigurator.class.getClassLoader().getResource("include");
-    if (includedDescriptorsDirectoryUrl == null) {
+    // Directory resources are not visible through a plugin module class loader, so locate
+    // a known file inside the include root and walk up to it.
+    URL descriptorUrl = DefaultConfigurator.class.getClassLoader().getResource("include/" + DESCRIPTOR);
+    if (descriptorUrl == null) {
       return null;
     }
-    VirtualFile descriptorsDirectory = VirtualFileUtil.findFileByURL(includedDescriptorsDirectoryUrl);
+    VirtualFile descriptorFile = VirtualFileUtil.findFileByURL(descriptorUrl);
+    if (descriptorFile == null) {
+      return null;
+    }
+    // include/google/protobuf/descriptor.proto -> include
+    VirtualFile descriptorsDirectory = descriptorFile.getParent();
+    for (int i = 0; i < 2 && descriptorsDirectory != null; i++) {
+      descriptorsDirectory = descriptorsDirectory.getParent();
+    }
     if (descriptorsDirectory == null || !descriptorsDirectory.isDirectory()) {
       return null;
     }

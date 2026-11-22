@@ -47,5 +47,6 @@
 		<module>protoeditor-python</module>
 		<module>protoeditor-go</module>
 		<module>plugin</module>
+		<module>protoeditor-it</module>
 	</modules>
 </project>
